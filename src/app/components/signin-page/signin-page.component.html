@@ -14,7 +14,10 @@
       <input class="form-control" [(ngModel)]="userSignIn.steamId" placeholder="steam id"><br/>
       <p>Date of birth</p>
       <input class="form-control" type="date" [(ngModel)]="userSignIn.dateOfBirth"><br/>
-      <button type="button" class="btn btn-line">Register</button>
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-line" (click)="signIn()">Register</button>
+      <a class="nav-link text-light" aria-upper="page" routerLink="/login" href="">or Login</a>
     </div>
   </div>
 </div>

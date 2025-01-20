@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { UserDTOLoginReq } from "../../models/UserDTOLoginReq"
 import { RequestClientService} from '../../services/request-client.service';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
   imports: [
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './login-page.component.html',
   standalone: true,
