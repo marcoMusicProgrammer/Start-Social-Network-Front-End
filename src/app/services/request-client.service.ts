@@ -20,5 +20,9 @@ export class RequestClientService {
     return this.http.post<UserDTOLoginReq>("/api/authentication/login",toInsert);
   }
 
+  signInUser(toInsert: UserDTOReq): Observable<UserDTOReq> {
+    return this.http.post<UserDTOReq>("/api/authentication/signin", toInsert);
+  }
+
 
 }
