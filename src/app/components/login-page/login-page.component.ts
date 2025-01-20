@@ -20,7 +20,7 @@ export class LoginPageComponent {
   constructor(private serv: RequestClientService) {
   }
 
-  insert(){
+  login(){
     this.serv.loginUser(this.userLogin).subscribe(
       (resp) => {
         console.log(resp);
