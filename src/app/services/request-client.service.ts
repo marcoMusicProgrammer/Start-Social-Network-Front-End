@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserDTOReq} from '../models/UserDTOReq';
 import {Observable} from 'rxjs';
 import {UserDTOLoginReq} from '../models/UserDTOLoginReq';
@@ -16,12 +16,12 @@ export class RequestClientService {
     return this.http.get<UserDTOResp[]>("/api/users")
   }
 
-  loginUser(toInsert: UserDTOLoginReq): Observable<UserDTOLoginReq> {
-    return this.http.post<UserDTOLoginReq>("/api/authentication/login",toInsert);
-  }
+  // loginUser(toInsert: UserDTOLoginReq): Observable<String> {
+  //   return this.http.post<String>("/api/authentication/login",toInsert);
+  // }
 
-  signInUser(toInsert: UserDTOReq): Observable<UserDTOReq> {
-    return this.http.post<UserDTOReq>("/api/authentication/register", toInsert);
+  signInUser(toInsert: UserDTOReq): Observable<String> {
+    return this.http.post<String>("/api/authentication/register", toInsert,);
   }
 
 

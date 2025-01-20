@@ -3,6 +3,8 @@ import { UserDTOLoginReq } from "../../models/UserDTOLoginReq"
 import { RequestClientService} from '../../services/request-client.service';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {CredentialServiceService} from "../../services/credential-service.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-login-page',
@@ -16,16 +18,11 @@ import {FormsModule} from '@angular/forms';
 })
 export class LoginPageComponent {
 
-  userLogin: UserDTOLoginReq= {username:"",password:""}
+  constructor(private servizioCredenziali:CredentialServiceService,private http:HttpClient) {}
 
-  constructor(private serv: RequestClientService) {
-  }
+  userLogin: UserDTOLoginReq= {username: '', password: ''};
 
-  login(){
-    this.serv.loginUser(this.userLogin).subscribe(
-      (resp) => {
-        console.log(resp);
-      }
-    );
+  login() {
+    this.servizioCredenziali.login(this.userLogin);
   }
 }
