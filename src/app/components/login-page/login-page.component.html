@@ -1,11 +1,28 @@
-<div class="container mt-4 bg-black">
+<div class="container mt-4 bg-dark">
   <h3>LOGO</h3>
 
-  <div class="card">
-
-    <div class="card-body d-flex">
-      <input [(ngModel)]="userLogin.username">
-      <input class="input" type="password" [(ngModel)]="userLogin.password">
+  <div class="container card bg-transparent border-1 border-line">
+    <div class="card-body d-flex bg-transparent">
+      <div class="input-group" id="inputGroup-sizing-sm mb-3">
+        <p>Username:</p>
+        <input
+          type              ="text"
+          class             ="form-control bg-line"
+          aria-label        ="Sizing example input"
+          aria-describedby  ="inputGroup-sizing-sm"
+          [(ngModel)]       ="userLogin.username">
+      </div>
+      <div class="input-group">
+        <p>Password</p>
+        <input
+          class         ="form-control bg-line"
+          type          ="password"
+          aria-label    ="Sizing example input"
+          [(ngModel)]   ="userLogin.password">
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-outline-line" (click)="login()">Login</button>
+      </div>
     </div>
   </div>
 </div>
