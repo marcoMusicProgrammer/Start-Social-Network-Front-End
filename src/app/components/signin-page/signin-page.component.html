@@ -1,0 +1,20 @@
+<div class="container mt-4 bg-dark">
+  <h3>LOGO</h3>
+
+  <div class="container card bg-transparent border-1 border-line">
+
+    <div class="card-body text-light bg-transparent">
+      <p>Username</p>
+      <input class="form-control" [(ngModel)]="userSignIn.username" placeholder="username"><br/>
+      <p>Password</p>
+      <input class="form-control" type="password" [(ngModel)]="userSignIn.password" placeholder="password"><br/>
+      <p>Email</p>
+      <input class="form-control" type="email" [(ngModel)]="userSignIn.email" placeholder="email"><br/>
+      <p>Steam ID</p>
+      <input class="form-control" [(ngModel)]="userSignIn.steamId" placeholder="steam id"><br/>
+      <p>Date of birth</p>
+      <input class="form-control" type="date" [(ngModel)]="userSignIn.dateOfBirth"><br/>
+      <button type="button" class="btn btn-line">Register</button>
+    </div>
+  </div>
+</div>
