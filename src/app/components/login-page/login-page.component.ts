@@ -34,7 +34,7 @@ export class LoginPageComponent {
           this.serv.token = response.token;
           console.log(this.serv.token);
           this.errorMessage = '';
-          this.router.navigate(['/user-profile-page']);
+          this.router.navigate(['/user-profile-page']).then(r => console.log("ciao"));
         },
         error: (err: ErrorResponse) => {
           console.log(err);
