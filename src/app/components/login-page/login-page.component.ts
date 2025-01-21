@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserDTOLoginReq } from "../../models/UserDTOLoginReq"
 import { RequestClientService} from '../../services/request-client.service';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CredentialService} from "../../services/./credential.service";
 import {HttpClient} from "@angular/common/http";
@@ -22,28 +22,24 @@ import {NgIf} from '@angular/common';
 })
 export class LoginPageComponent {
 
-  constructor(private serv:CredentialService, private http:HttpClient) { }
+  constructor(private serv:CredentialService, private http:HttpClient, private router: Router) { }
 
   userLogin: UserDTOLoginReq  = {username: '', password: ''};
-
   loginResponse: LoginResponse = {token:''};
   errorMessage= '';
-  // login() {
-  //   this.servizioCredenziali.login(this.userLogin);
-  // }
 
   login(){
     this.serv.loginUser(this.userLogin).subscribe({
-      next: (response: LoginResponse) => {
-        console.log("ciao");
-        this.serv.token = response.token;
-        console.log(this.serv.token);
-        this.errorMessage = '';
-      },
-      error: (err: ErrorResponse) => {
-        console.log(err);
-        this.errorMessage = err.message;
-      }
+        next: (response: LoginResponse) => {
+          this.serv.token = response.token;
+          console.log(this.serv.token);
+          this.errorMessage = '';
+          this.router.navigate(['/user-profile-page']);
+        },
+        error: (err: ErrorResponse) => {
+          console.log(err);
+          this.errorMessage = err.message;
+        }
       }
     )
   }
