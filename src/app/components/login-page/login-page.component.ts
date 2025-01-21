@@ -24,7 +24,7 @@ export class LoginPageComponent {
 
   constructor(private serv:CredentialServiceService,private http:HttpClient) { }
 
-  userLogin: UserDTOLoginReq= {username: '', password: ''};
+  userLogin: UserDTOLoginReq  = {username: '', password: ''};
 
   loginResponse: LoginResponse = {token:''};
   errorMessage= '';
