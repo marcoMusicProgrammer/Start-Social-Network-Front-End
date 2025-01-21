@@ -4,6 +4,7 @@ import {SigninPageComponent} from './components/signin-page/signin-page.componen
 import {LoginPageComponent} from './components/login-page/login-page.component';
 
 export const routes: Routes = [
+  { path: '', component: LoginPageComponent,pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'signin', component: SigninPageComponent },
 ];
