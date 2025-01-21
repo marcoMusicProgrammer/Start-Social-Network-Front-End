@@ -3,7 +3,7 @@ import { UserDTOLoginReq } from "../../models/UserDTOLoginReq"
 import { RequestClientService} from '../../services/request-client.service';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {CredentialServiceService} from "../../services/credential-service.service";
+import {CredentialService} from "../../services/./credential.service";
 import {HttpClient} from "@angular/common/http";
 import {LoginResponse} from '../../models/LoginResponse';
 import {ErrorResponse} from '../../models/ErrorResponse';
@@ -22,7 +22,7 @@ import {NgIf} from '@angular/common';
 })
 export class LoginPageComponent {
 
-  constructor(private serv:CredentialServiceService,private http:HttpClient) { }
+  constructor(private serv:CredentialService, private http:HttpClient) { }
 
   userLogin: UserDTOLoginReq  = {username: '', password: ''};
 

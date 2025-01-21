@@ -3,7 +3,7 @@ import {UserDTOReq} from '../../models/UserDTOReq';
 import {RequestClientService} from '../../services/request-client.service';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
-import {CredentialServiceService} from '../../services/credential-service.service';
+import {CredentialService} from '../../services/./credential.service';
 import {HttpClient} from '@angular/common/http';
 import {LoginResponse} from '../../models/LoginResponse';
 import {ErrorResponse} from '../../models/ErrorResponse';
@@ -26,7 +26,7 @@ export class SigninPageComponent {
   errorMessage= '';
   success = '';
 
-  constructor(private serv:CredentialServiceService,private http:HttpClient) {}
+  constructor(private serv:CredentialService, private http:HttpClient) {}
 
   // register(){
   //   this.servizioCredenziali.register(this.userSignIn);

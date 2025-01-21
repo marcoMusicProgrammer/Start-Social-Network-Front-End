@@ -11,7 +11,7 @@ import {SignInResponse} from '../models/SignInResponse';
 @Injectable({
   providedIn: 'root'
 })
-export class CredentialServiceService {
+export class CredentialService {
 
   constructor(private http: HttpClient) {}
   token: string | null = null;
