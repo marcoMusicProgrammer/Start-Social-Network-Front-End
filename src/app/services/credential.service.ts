@@ -30,30 +30,7 @@ export class CredentialService {
     );
   }
 
-  // login(credenziali :any):void
-  // {
-  //   this.http.post("/api/authentication/login", credenziali,{responseType: "text"}).subscribe(
-  //     resp=>
-  //     {
-  //       this.token = resp;
-  //       console.log(this.token);
-  //     },
-  //     err => {
-  //       this.errorResponse = err;
-  //       console.log(err)
-  //     }
-  //   )
-  // }
-
-  // register(user:any ):void
-  // {
-  //   this.http.post("/api/authentication/register", user,{responseType: "text"}).subscribe(
-  //     resp=>
-  //     {
-  //       console.log(resp)
-  //     }
-  //   )
-  // }
+  
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorResponse: ErrorResponse;

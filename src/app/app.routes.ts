@@ -8,5 +8,5 @@ export const routes: Routes = [
   { path: '', component: LoginPageComponent,pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'signin', component: SigninPageComponent },
-  { path: 'user-profile-page', component: UserProfilePageComponent },
+  { path: 'user-profile/:id', component: UserProfilePageComponent },
 ];

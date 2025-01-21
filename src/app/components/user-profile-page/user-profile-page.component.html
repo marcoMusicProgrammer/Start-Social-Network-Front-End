@@ -1,11 +1,23 @@
-<div class="container mt-4 bg-dark">
-  <div class="container card bg-transparent border-1 border-line d-flex flex-row">
-    <div class="text-center">
-      <img src="" class="img-fluid" alt="prova">
+<div class="container-fluid d-flex flex-column align-items-stretch align-self-stretch p-0 " style="min-height: 100vh">
+  <div class="row mb-4 bg-dark text-light text-center" >
+    <div class="col border-1 border-line ">
+      <div class="container mt-4 bg-dark">
+        <div class="container card bg-transparent border-1 border-line text-light">
+          Header Profile
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="circle">
-        <img src="../src/images/DSC02723.jpg" alt="Immagine con cerchio"/>
+  </div>
+  <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
+    <div class="col border-1 border-line ">
+      <div class="container d-flex flex-column align-self-stretch align-items-stretch mt-4 bg-dark" style="height: 60vh" >
+        <div class="container card d-flex bg-transparent border-1 border-line text-light" style="height: 50vh" >
+          Container Post
+          <app-user-post></app-user-post>
+          <app-user-post></app-user-post>
+          <app-user-post></app-user-post>
+          <app-user-post></app-user-post>
+        </div>
       </div>
     </div>
   </div>
