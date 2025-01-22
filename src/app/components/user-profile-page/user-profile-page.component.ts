@@ -19,15 +19,15 @@ export class UserProfilePageComponent {
 
   constructor(private serv: RequestClientService) {}
 
-  getAllPosts(): void {
-    this.serv.getAllUsersPost().subscribe({
-      next: (response: Post[]) => {
-        this.allPosts = response;
-
-      },
-      error: (err: ErrorResponse) => {
-        this.errorMessage = err.message;
-      }
-    }
-  }
+  // getAllPosts(): void {
+  //   this.serv.getAllUsersPost().subscribe({
+  //     next: (response: Post[]) => {
+  //       this.allPosts = response;
+  //
+  //     },
+  //     error: (err: ErrorResponse) => {
+  //       this.errorMessage = err.message;
+  //     }
+  //   }
+  // }
 }

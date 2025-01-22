@@ -25,6 +25,8 @@ export class RequestClientService {
   }
 
 
+
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorResponse: ErrorResponse;
 
