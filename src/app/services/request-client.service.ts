@@ -4,7 +4,7 @@ import {UserDTOReq} from '../models/UserDTOReq';
 import {catchError, Observable, throwError} from 'rxjs';
 import {UserDTOLoginReq} from '../models/UserDTOLoginReq';
 import {UserDTOResp} from '../models/UserDTOResp';
-import {Post} from '../models/Post';
+import {PostDTOResp} from '../models/PostDTOResp';
 import {ErrorResponse} from '../models/ErrorResponse';
 
 @Injectable({
@@ -18,8 +18,8 @@ export class RequestClientService {
     return this.http.get<UserDTOResp[]>("/api/users")
   }
 
-  getAllUsersPost(): Observable<Post[]> {
-    return this.http.get<Post[]>("/api/posts").pipe(
+  getAllUsersPost(): Observable<PostDTOResp[]> {
+    return this.http.get<PostDTOResp[]>("/api/posts").pipe(
       catchError(this.handleError)
     )
   }

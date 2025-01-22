@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {RequestClientService} from '../../services/request-client.service';
-import {Post} from '../../models/Post';
+import {PostDTOResp} from '../../models/PostDTOResp';
 import {Observable} from 'rxjs';
 import {ErrorResponse} from '../../models/ErrorResponse';
 
@@ -15,13 +15,13 @@ import {ErrorResponse} from '../../models/ErrorResponse';
 })
 export class UserProfilePageComponent {
   errorMessage= '';
-  allPosts:Post[] = [];
+  allPosts:PostDTOResp[] = [];
 
   constructor(private serv: RequestClientService) {}
 
   // getAllPosts(): void {
   //   this.serv.getAllUsersPost().subscribe({
-  //     next: (response: Post[]) => {
+  //     next: (response: PostDTOResp[]) => {
   //       this.allPosts = response;
   //
   //     },
