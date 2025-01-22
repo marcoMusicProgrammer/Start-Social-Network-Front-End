@@ -5,11 +5,11 @@ import {PostDTOResp} from '../../models/PostDTOResp';
   selector: 'app-user-post',
   imports: [],
   templateUrl: './user-post.component.html',
+  standalone: true,
   styleUrl: './user-post.component.css'
 })
 export class UserPostComponent {
 
   @Input() post!: PostDTOResp;
-
 
 }

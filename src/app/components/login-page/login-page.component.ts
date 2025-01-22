@@ -36,7 +36,7 @@ export class LoginPageComponent {
           this.tokenSplitted = this.serv.token.split("-")
           this.errorMessage = '';
 
-          this.router.navigate(['/user-profile',this.tokenSplitted[1]]).then(r => console.log("ciao"));
+          this.router.navigate(['/user-profile',this.tokenSplitted[1]]).then(r => console.log("login effettuato"));
         },
         error: (err: ErrorResponse) => {
           console.log(err);
