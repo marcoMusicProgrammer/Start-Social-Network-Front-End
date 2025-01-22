@@ -3,7 +3,13 @@
     <div class="col border-1 border-line ">
       <div class="container mt-4 bg-dark">
         <div class="container card bg-transparent border-1 border-line text-light">
-          Header Profile
+          <p><strong>SteamID:</strong>{{userProfile?.steamId }}</p>
+          <p><strong>followersCount:</strong>{{userProfile?.followersCount }}</p>
+          <p><strong>FollowingCount:</strong>{{userProfile?.followingCount }}</p>
+          <p><strong>Name:</strong>{{userProfile?.profileName }}</p>
+          <p><strong>SteamName:</strong>{{userProfile?.steamName }}</p>
+          <p><strong>IMG url:</strong>{{userProfile?.imageBytesArray}}</p>
+          <button class="btn btn-line" (click)="openModal()">Change Profile Image</button>
         </div>
       </div>
     </div>
@@ -32,5 +38,30 @@
           </div>
         </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Change Profile Image</h2>
+    <input type="file" (change)="fileChangeEvent($event)" />
+
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 3"
+      [resizeToWidth]="500"
+
+    format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded($event)"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+
+    <img [src]="croppedImage" class="preview-image" />
+    <button class="btn btn-line" (click)="saveCroppedImage()">Save</button>
+    <button class="btn btn-danger" (click)="closeModal()">Cancel</button>
   </div>
 </div>

@@ -7,6 +7,8 @@ import {UserDTOResp} from '../models/UserDTOResp';
 import {PostDTOResp} from '../models/PostDTOResp';
 import {ErrorResponse} from '../models/ErrorResponse';
 import {PostDTOReq} from '../models/PostDTOReq';
+import {ProfileDTOResp} from '../models/ProfileDTOResp';
+import {ProfileDTOReq} from '../models/ProfileDTOReq';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +18,30 @@ export class RequestClientService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<UserDTOResp[]> {
-    return this.http.get<UserDTOResp[]>("/api/users")
+    return this.http.get<UserDTOResp[]>("/api/profiles/all")
   }
+
+  getProfile(): Observable<ProfileDTOResp> {
+    return this.http.get<ProfileDTOResp>("/api/profiles").pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  saveProfile(toInsert: ProfileDTOReq): Observable<ProfileDTOResp> {
+    return this.http.post<ProfileDTOResp>("/api/profiles/save", toInsert).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  saveImage(toInsert: FormData): Observable<string> {
+    return this.http.post<string>("/api/profiles/saveBackdropImage", toInsert).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  // getProfileImages(): Observable<> {
+  //
+  // }
 
   getAllUsersPost(): Observable<PostDTOResp[]> {
     return this.http.get<PostDTOResp[]>("/api/posts").pipe(
