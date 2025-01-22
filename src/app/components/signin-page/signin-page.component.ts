@@ -28,10 +28,6 @@ export class SigninPageComponent {
 
   constructor(private serv:CredentialService, private http:HttpClient) {}
 
-  // register(){
-  //   this.servizioCredenziali.register(this.userSignIn);
-  // }
-
   signIn(){
     this.serv.signInUser(this.userSignIn).subscribe({
         next: (response: SignInResponse) => {

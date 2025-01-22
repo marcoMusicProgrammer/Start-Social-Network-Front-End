@@ -6,6 +6,7 @@ import {UserDTOLoginReq} from '../models/UserDTOLoginReq';
 import {UserDTOResp} from '../models/UserDTOResp';
 import {PostDTOResp} from '../models/PostDTOResp';
 import {ErrorResponse} from '../models/ErrorResponse';
+import {PostDTOReq} from '../models/PostDTOReq';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +25,11 @@ export class RequestClientService {
     )
   }
 
-
-
+  newPost(toInsert: PostDTOReq): Observable<PostDTOReq> {
+    return this.http.post<PostDTOReq>("/api/posts", toInsert).pipe(
+      catchError(this.handleError)
+    )
+  }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorResponse: ErrorResponse;
