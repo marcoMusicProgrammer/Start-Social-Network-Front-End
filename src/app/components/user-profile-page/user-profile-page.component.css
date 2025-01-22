@@ -1,0 +1,22 @@
+.container {
+  height: 40vh;
+}
+
+/*.card {*/
+/*  flex: 1; // Consente al contenuto della card di adattarsi allo spazio*/
+/*}*/
+
+/*.circle {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  height: 100%;*/
+/*  border-radius: 50%;*/
+/*  overflow: hidden;*/
+/*}*/
+
+/*.circle img {*/
+/*  max-width: 100%;*/
+/*  max-height: 100%;*/
+/*  object-fit: cover;*/
+/*}*/

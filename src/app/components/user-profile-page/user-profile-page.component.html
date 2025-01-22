@@ -1,7 +1,36 @@
-<div class="container-fluid w-100" style="padding: 0">
-  <img src="https://picsum.photos/1072/708" class="img-fluid" alt="prova">
+<div class="container-fluid d-flex flex-column align-items-stretch align-self-stretch p-0 " style="min-height: 100vh">
+  <div class="row mb-4 bg-dark text-light text-center" >
+    <div class="col border-1 border-line ">
+      <div class="container mt-4 bg-dark">
+        <div class="container card bg-transparent border-1 border-line text-light">
+          Header Profile
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
+    <div class="col border-1 border-line ">
+        <div class="container d-flex flex-column bg-transparent border-1 border-line text-light" >
+          Container PostDTOResp
+          <div class="container text-light card bg-transparent border-1 border-line d-flex flex-column">
+            <div class="card-body">
+              <p>New Post</p>
+              <input
+                class="input-group bg-transparent text-light border-1 border-line"
+                type="text"
+                placeholder="Write Something..."
+                [(ngModel)]="newPost.content">
+            </div>
+            <div class="card-footer ">
+              <button class="btn btn-line" (click)="makeAPost()">Post</button>
+            </div>
+          </div>
+          <div *ngFor="let p of allPosts">
+            <app-user-post
+            [post] = "p"
+            ></app-user-post>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>
-<div class="container-fluid w-100">
-
-</div>
-

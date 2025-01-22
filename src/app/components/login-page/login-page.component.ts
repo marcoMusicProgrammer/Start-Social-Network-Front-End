@@ -27,14 +27,16 @@ export class LoginPageComponent {
   userLogin: UserDTOLoginReq  = {username: '', password: ''};
   loginResponse: LoginResponse = {token:''};
   errorMessage= '';
+  tokenSplitted: string[] = [];
 
   login(){
     this.serv.loginUser(this.userLogin).subscribe({
         next: (response: LoginResponse) => {
           this.serv.token = response.token;
-          console.log(this.serv.token);
+          this.tokenSplitted = this.serv.token.split("-")
           this.errorMessage = '';
-          this.router.navigate(['/user-profile-page']);
+
+          this.router.navigate(['/user-profile',this.tokenSplitted[1]]).then(r => console.log("login effettuato"));
         },
         error: (err: ErrorResponse) => {
           console.log(err);

@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {UserDTOReq} from '../models/UserDTOReq';
-import {Observable} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {UserDTOLoginReq} from '../models/UserDTOLoginReq';
 import {UserDTOResp} from '../models/UserDTOResp';
+import {PostDTOResp} from '../models/PostDTOResp';
+import {ErrorResponse} from '../models/ErrorResponse';
+import {PostDTOReq} from '../models/PostDTOReq';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +19,34 @@ export class RequestClientService {
     return this.http.get<UserDTOResp[]>("/api/users")
   }
 
-  // loginUser(toInsert: UserDTOLoginReq): Observable<String> {
-  //   return this.http.post<String>("/api/authentication/login",toInsert);
-  // }
-
-  signInUser(toInsert: UserDTOReq): Observable<String> {
-    return this.http.post<String>("/api/authentication/register", toInsert,);
+  getAllUsersPost(): Observable<PostDTOResp[]> {
+    return this.http.get<PostDTOResp[]>("/api/posts").pipe(
+      catchError(this.handleError)
+    )
   }
 
+  newPost(toInsert: PostDTOReq): Observable<PostDTOReq> {
+    return this.http.post<PostDTOReq>("/api/posts", toInsert).pipe(
+      catchError(this.handleError)
+    )
+  }
 
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorResponse: ErrorResponse;
+
+    if (error.error instanceof Object) {
+      // Errore JSON strutturato ricevuto dal backend
+      errorResponse = error.error as ErrorResponse;
+    } else {
+      // Errore generico o non strutturato
+      errorResponse = {
+        status: error.status,
+        message: error.message || 'Errore sconosciuto',
+        timestamp: Date.now()
+      };
+    }
+
+    console.error('Errore ricevuto:', errorResponse);
+    return throwError(() => errorResponse);
+  }
 }

@@ -2,9 +2,13 @@ import { Routes } from '@angular/router';
 import {AppComponent} from './app.component';
 import {SigninPageComponent} from './components/signin-page/signin-page.component';
 import {LoginPageComponent} from './components/login-page/login-page.component';
+import {UserProfilePageComponent} from './components/user-profile-page/user-profile-page.component';
+import {authenticationGuard} from './guard/authentication.guard';
 
 export const routes: Routes = [
   { path: '', component: LoginPageComponent,pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'signin', component: SigninPageComponent },
+  { path: 'user-profile/:id', component: UserProfilePageComponent,canActivate: [authenticationGuard]},
+
 ];
