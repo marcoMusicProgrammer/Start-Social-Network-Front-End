@@ -34,6 +34,14 @@
   text-align: left;
 }
 
+.favouritegame {
+  transform: translate(15%, -200%);
+}
+
+.lastplayed {
+  transform: translate(40%, -230%);
+}
+
 /*.container {*/
 /*  height: 40vh;*/
 /*}*/
