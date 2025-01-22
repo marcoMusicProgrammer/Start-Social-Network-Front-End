@@ -1,6 +1,42 @@
-.container {
-  height: 40vh;
+.cover-image {
+  height: 30vh;
+  object-fit: cover;
+  width: 100%;
 }
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #1AB922;
+  position: absolute;
+  bottom: -75px;
+  left: 10%;
+  transform: translateX(-10%);
+}
+.profile-container {
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.user_name {
+  transform: translate(33%, -190%); /*x, y*/
+  text-align: left;
+  /*font-size: 40px;*/
+}
+
+.steam_name {
+  transform: translate(33%, -270%);
+  text-align: left;
+}
+
+.followers_following {
+  transform: translate(10%, -110%);
+  text-align: left;
+}
+
+/*.container {*/
+/*  height: 40vh;*/
+/*}*/
 
 /*.card {*/
 /*  flex: 1; // Consente al contenuto della card di adattarsi allo spazio*/
