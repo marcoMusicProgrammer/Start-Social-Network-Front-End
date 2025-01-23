@@ -1,0 +1,9 @@
+/* Nascondi barre di scorrimento visibili */
+.col-5 {
+  scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
+  -ms-overflow-style: none; /* Nasconde la scrollbar su Internet Explorer */
+}
+
+.col-5::-webkit-scrollbar {
+  display: none; /* Nasconde la scrollbar su Chrome, Edge e Safari */
+}
