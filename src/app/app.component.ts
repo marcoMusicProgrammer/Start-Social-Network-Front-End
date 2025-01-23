@@ -6,10 +6,11 @@ import {UserProfilePageComponent} from './components/user-profile-page/user-prof
 import {RecommendedGamesComponent} from './components/recommended-games/recommended-games.component';
 import {HttpClient} from '@angular/common/http';
 import {NgIf} from '@angular/common';
+import {LeftNavbarComponent} from './components/left-navbar/left-navbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf],
+  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, LeftNavbarComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'

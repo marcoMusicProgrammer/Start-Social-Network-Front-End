@@ -1,12 +1,17 @@
 <div class="container mt-4 bg-dark" style="min-height: 100px">
   <div class="container text-light card bg-transparent border-1 border-line d-flex flex-column" style="min-height: 20vh">
-    <div class="card-header row justify-content-start">
-      <img src="https://picsum.photos/536/354" class="col-1 profile-image">
-      <p class="col-4">{{post.profileId}}</p>
+    <!-- Card Header -->
+    <div class="card-header d-flex align-items-center">
+      <img
+        src="https://picsum.photos/536/354"
+        style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid #1AB922;">
+      <p class="ms-3 mb-0">{{user.profileName}}</p>
     </div>
+    <!-- Card Body -->
     <div class="card-body bg-transparent text-light text-start">
       <p>{{post.content}}</p>
     </div>
+    <!-- Card Footer -->
     <div class="card-footer text-end">
       <p>{{post.publicationDate}}</p>
     </div>
