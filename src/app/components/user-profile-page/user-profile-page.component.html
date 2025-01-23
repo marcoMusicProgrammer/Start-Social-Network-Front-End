@@ -8,10 +8,10 @@
           <img src="https://picsum.photos/536/354" alt="Profilo" class="profile-image">
         </div>
       <div class="container-fluid" style="height: 30vh"> <!-- meta' inferiore header-->
-        <div class="row justify-content-center">
+        <div *ngIf="userProfile" class="row justify-content-center">
           <p class="h2 user_name">{{ userProfile.profileName }}</p>
         </div>
-        <div class="row justify-content-center">
+        <div *ngIf="userProfile" class="row justify-content-center">
           <p class="h5 steam_name">Steam: {{userProfile.steamName}}</p>
         </div>
         <div class="firstrow row justify-content-between">
@@ -54,6 +54,7 @@
             <div *ngFor="let p of allPosts$ | async">
               <app-user-post
                 [post] = "p"
+                [user] = "userProfile"
               ></app-user-post>
             </div>
           </div>
