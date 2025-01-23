@@ -39,8 +39,16 @@ export class RequestClientService {
     )
   }
 
-  // getProfileImages(): Observable<> {
-  //
+  getProfileImages(toInsert: string): Observable<Blob> {
+    return this.http
+      .get(`/api/profiles/fileSystem/${toInsert}`,{responseType:'blob'})
+      .pipe(catchError(this.handleError));
+  }
+
+  // getProfileImages(toInsert: number): Observable<Blob> {
+  //   return this.http.get("/api/profiles/fileSystem/"+toInsert,).pipe(
+  //     catchError(this.handleError)
+  //   )
   // }
 
   getAllUsersPost(): Observable<PostDTOResp[]> {

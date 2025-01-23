@@ -9,5 +9,7 @@ export interface ProfileDTOResp {
   steamName: string;
   playstationName: string;
   xboxName: string;
-  imageBytesArray: string
+  profileImgId: string;
+  profileBackdropImgId: string;
+  lastPlayedGameImgUrl: string;
 }

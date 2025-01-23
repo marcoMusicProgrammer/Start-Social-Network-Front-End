@@ -7,7 +7,7 @@ import {ErrorResponse} from '../../models/ErrorResponse';
 import {PostDTOReq} from '../../models/PostDTOReq';
 import {SignInResponse} from '../../models/SignInResponse';
 import {FormsModule} from '@angular/forms';
-import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {CredentialService} from '../../services/credential.service';
 import {UserDTOResp} from '../../models/UserDTOResp';
 import {ProfileDTOResp} from '../../models/ProfileDTOResp';
@@ -23,7 +23,8 @@ import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image
     NgForOf,
     ImageCropperComponent,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
+    NgOptimizedImage
   ],
   templateUrl: './user-profile-page.component.html',
   standalone: true,
@@ -37,7 +38,10 @@ export class UserProfilePageComponent {
   userProfile!: ProfileDTOResp;
   imageChangedEvent: Event | null = null;
   croppedImage: SafeUrl  = '';
+  croppedImageBlob: Blob | null = null; // Blob to store the cropped image
   isModalOpen = false; // Stato della modale
+  backdropImage: string = '';
+  profileImageUrl = new BehaviorSubject <SafeUrl>({}); // Store the sanitized image URL
   resizedToWidth="500"
 
   /**
@@ -67,11 +71,24 @@ export class UserProfilePageComponent {
     this.serv.getProfile().subscribe({
       next: (response: ProfileDTOResp) => {
         this.userProfile = response
+        console.log(this.userProfile)
+
+        if(this.userProfile.profileBackdropImgId) {
+
+          this.serv.getProfileImages(this.userProfile.profileBackdropImgId).subscribe({
+            next: (response: Blob)=> {
+              this.backdropImage = URL.createObjectURL(response);
+              const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
+              this.profileImageUrl.next(updateToSafeUrl);
+            }
+          })
+        }
       },
       error: (err: ErrorResponse) => {
         this.errorMessage = err.message;
       }
     })
+
   }
 
   openModal(): void {
@@ -85,13 +102,13 @@ export class UserProfilePageComponent {
   fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
   }
+
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = URL.createObjectURL(event.blob!); // Temporary URL
+    this.croppedImageBlob = event.blob!;
     console.log('Cropped Image URL:', this.croppedImage);
-    this.uploadCroppedImage(event.blob!);
-
-    // event.blob can be used to upload the cropped image
   }
+
   imageLoaded(event: any): void {
     console.log('Image loaded');
   }
@@ -105,16 +122,14 @@ export class UserProfilePageComponent {
   }
 
   saveCroppedImage(): void {
-    if (this.croppedImage) {
-      console.log('Cropped image:', this.croppedImage);
-      // Puoi inviare l'immagine al backend tramite un servizio
-      // if (this.croppedImage instanceof Blob) {
-      //   console.log("passa da qua 1")
-      //   this.uploadCroppedImage(this.croppedImage);
-      // }
+    if (this.croppedImageBlob) {
+      console.log('Saving cropped image:', this.croppedImageBlob);
+      this.uploadCroppedImage(this.croppedImageBlob);
 
+      this.backdropImage = URL.createObjectURL(this.croppedImageBlob);
+      const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
+      this.profileImageUrl.next(updateToSafeUrl);
       this.closeModal();
-
     }
   }
 
@@ -128,21 +143,6 @@ export class UserProfilePageComponent {
     });
   }
 
-  // makeAPost() {
-  //   this.serv.newPost(this.newPost).subscribe({
-  //     next: (response: PostDTOResp) => {
-  //       // Add the new post to the beginning of the list dynamically
-  //       const updatedPosts = [response, ...this.allPosts$.value];
-  //       this.allPosts$.next(updatedPosts);
-  //
-  //       // Optionally, reset the `newPost` object
-  //       this.newPost = { content: '', image: '', profileId: 0, nLike: 0 };
-  //     },
-  //     error: (err: ErrorResponse) => {
-  //       this.errorMessage = err.message;
-  //     }
-  //   });
-  // }
 
   /**
    * Make a post request to create a Post

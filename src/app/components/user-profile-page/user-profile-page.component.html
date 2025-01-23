@@ -8,8 +8,17 @@
           <p><strong>FollowingCount:</strong>{{userProfile?.followingCount }}</p>
           <p><strong>Name:</strong>{{userProfile?.profileName }}</p>
           <p><strong>SteamName:</strong>{{userProfile?.steamName }}</p>
-          <p><strong>IMG url:</strong>{{userProfile?.imageBytesArray}}</p>
+          <p><strong>BackdropImg:</strong>{{userProfile?.profileBackdropImgId }}</p>
           <button class="btn btn-line" (click)="openModal()">Change Profile Image</button>
+
+          <div>
+            <img [src]="userProfile.lastPlayedGameImgUrl" alt="">
+          </div>
+
+          <div *ngIf="profileImageUrl | async as imageUrl">
+            <img [src]="imageUrl" alt="Profile Backdrop" />
+          </div>
+
         </div>
       </div>
     </div>
