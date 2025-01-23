@@ -19,28 +19,24 @@
 }
 
 .user_name {
-  transform: translate(33%, -190%); /*x, y*/
+  transform: translate(33%, -200%); /*x, y*/
   text-align: left;
   /*font-size: 40px;*/
 }
 
 .steam_name {
-  transform: translate(33%, -270%);
+  transform: translate(33%, -280%);
   text-align: left;
 }
 
-.followers_following {
-  transform: translate(10%, -110%);
-  text-align: left;
+.firstrow {
+  transform: translateY(-100%);
 }
 
-.favouritegame {
-  transform: translate(15%, -200%);
+.secondrow {
+  transform: translateY(-80%);
 }
 
-.lastplayed {
-  transform: translate(40%, -230%);
-}
 
 /*.container {*/
 /*  height: 40vh;*/
