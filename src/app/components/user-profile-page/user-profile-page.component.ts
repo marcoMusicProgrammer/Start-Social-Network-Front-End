@@ -13,6 +13,7 @@ import {UserDTOResp} from '../../models/UserDTOResp';
 import {ProfileDTOResp} from '../../models/ProfileDTOResp';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import {PostType} from '../../models/PostType';
 
 
 @Component({
@@ -35,7 +36,23 @@ export class UserProfilePageComponent {
   errorMessage= '';
   newPost:PostDTOReq = {content:'',image:'',profileId:0,nLike:0}
   allPosts$ = new BehaviorSubject <PostDTOResp[]>([]);
-  userProfile!: ProfileDTOResp;
+  userProfile: ProfileDTOResp =
+    {
+      id:0,
+      steamId:0,
+      followersCount:0,
+      followingCount:0,
+      favoriteVideogameAppId:0,
+      lastPlayedVideogameAppId:0,
+      profileName:'',
+      steamName:'',
+      playstationName:'',
+      xboxName:'',
+      profileImgId:'',
+      profileBackdropImgId:'',
+      lastPlayedGameImgUrl:''
+    };
+
   imageChangedEvent: Event | null = null;
   croppedImage: SafeUrl  = '';
   croppedImageBlob: Blob | null = null; // Blob to store the cropped image

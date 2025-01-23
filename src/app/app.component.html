@@ -7,7 +7,7 @@
       <router-outlet></router-outlet>
     </div>
     <div class="col d-flex flex-column">
-      <app-recommended-games></app-recommended-games>
+      <app-recommended-games *ngIf="inLogin()"></app-recommended-games>
     </div>
   </div>
 </div>
