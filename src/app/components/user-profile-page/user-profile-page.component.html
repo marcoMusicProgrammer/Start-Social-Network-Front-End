@@ -1,51 +1,63 @@
 <div class="container-fluid d-flex flex-column align-items-stretch align-self-stretch p-0 " style="min-height: 100vh">
-  <div class="row mb-4 bg-dark text-light text-center" >
-    <div class="col border-1 border-line ">
-      <div class="container mt-4 bg-dark">
-        <div class="container card bg-transparent border-1 border-line text-light">
-          <p><strong>SteamID:</strong>{{userProfile?.steamId }}</p>
-          <p><strong>followersCount:</strong>{{userProfile?.followersCount }}</p>
-          <p><strong>FollowingCount:</strong>{{userProfile?.followingCount }}</p>
-          <p><strong>Name:</strong>{{userProfile?.profileName }}</p>
-          <p><strong>SteamName:</strong>{{userProfile?.steamName }}</p>
-          <p><strong>BackdropImg:</strong>{{userProfile?.profileBackdropImgId }}</p>
-          <button class="btn btn-line" (click)="openModal()">Change Profile Image</button>
-
-          <div>
-            <img [src]="userProfile.lastPlayedGameImgUrl" alt="">
-          </div>
-
-          <div *ngIf="profileImageUrl | async as imageUrl">
-            <img [src]="imageUrl" alt="Profile Backdrop" />
-          </div>
-
+    <div class="container-fluid w-100 border-bottom border-2 border-line" style="padding: 0; height: 68vh"> <!--header-->
+      <div class="container-fluid w-100" style="padding: 0">
+        <!-- Copertina -->
+        <div class="profile-container">
+          <img src="https://picsum.photos/1072/300" alt="Copertina" class="cover-image">
+          <!-- Immagine profilo -->
+          <img src="https://picsum.photos/536/354" alt="Profilo" class="profile-image">
+        </div>
+      <div class="container-fluid" style="height: 30vh"> <!-- meta' inferiore header-->
+        <div class="row justify-content-center">
+          <p class="h2 user_name">nome utente</p>
+        </div>
+        <div class="row justify-content-center">
+          <p class="h5 steam_name">Steam: nome steam</p>
+        </div>
+        <div class="firstrow row justify-content-between">
+          <p class="col-4">Followers: n followers</p>
+          <p class="col-4 text-end">Gioco preferito</p>
+          <p class="col-4">Ultimo gioco <br/> giocato</p>
+        </div>
+        <div class="secondrow row justify-content-between">
+          <p class="col-4">Following: n following</p>
+          <img
+            src="https://picsum.photos/300/450"
+            class="firstpic col-4 container-fluid"
+            style="width: 13%; aspect-ratio: 5 / 6; object-fit: cover; position: relative; left: 30px;"
+          >
+          <img
+            src="https://picsum.photos/300/450"
+            class="secondpic col-4 container-fluid"
+            style="width: 13%; aspect-ratio: 5 / 6; object-fit: cover;"
+          >
         </div>
       </div>
     </div>
-  </div>
-  <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
-    <div class="col border-1 border-line ">
-        <div class="container d-flex flex-column bg-transparent border-1 border-line text-light" >
-          Container PostDTOResp
-          <div class="container text-light card bg-transparent border-1 border-line d-flex flex-column">
-            <div class="card-body">
-              <p>New Post</p>
-              <input
-                class="input-group bg-transparent text-light border-1 border-line"
-                type="text"
-                placeholder="Write Something..."
-                [(ngModel)]="newPost.content">
+    <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
+      <div class="col border-1 border-line ">
+          <div class="container d-flex flex-column bg-transparent border-1 border-line text-light" >
+            Container PostDTOResp
+            <div class="container text-light card bg-transparent border-1 border-line d-flex flex-column">
+              <div class="card-body">
+                <p>New Post</p>
+                <input
+                  class="input-group bg-transparent text-light border-1 border-line"
+                  type="text"
+                  placeholder="Write Something..."
+                  [(ngModel)]="newPost.content">
+              </div>
+              <div class="card-footer ">
+                <button class="btn btn-line" (click)="makeAPost()">Post</button>
+              </div>
             </div>
-            <div class="card-footer ">
-              <button class="btn btn-line" (click)="makeAPost()">Post</button>
+            <div *ngFor="let p of allPosts$ | async">
+              <app-user-post
+                [post] = "p"
+              ></app-user-post>
             </div>
           </div>
-          <div *ngFor="let p of allPosts$ | async">
-            <app-user-post
-            [post] = "p"
-            ></app-user-post>
-          </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>
