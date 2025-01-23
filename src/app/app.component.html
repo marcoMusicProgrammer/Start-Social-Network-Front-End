@@ -1,19 +1,18 @@
+<nav   [class.hidden]="isHidden"
+       (mouseenter)="onMouseEnter()"
+       (mouseleave)="onMouseLeave()"
+       *ngIf="inLogin()" class="navbar-expand-lg bg-line-darker header " id="header">
+  <div class="d-flex justify-content-center">
+    <app-header></app-header>
+  </div>
+</nav>
 <div class="container-fluid d-flex" style="min-height: 100vh;">
   <div class="row w-100 bg-dark text-light text-center" style="min-height: 100vh;">
 
     <!-- Colonna sinistra: Menu fisso -->
     <div class="col d-flex flex-column justify-content-around align-items-end border-end border-line border-2"
          style="position: sticky; top: 0; height: 100vh;">
-      <span class="h1">LOGO</span>
-      <h4>Home</h4>
-      <h4>Profilo</h4>
-      <h4>Attività</h4>
-      <h4>Videogames</h4>
-      <h4>Wishlist</h4>
-      <h4>Recensioni</h4>
-      <h4>Amici</h4>
-      <h4>Search</h4>
-      <button type="button" class="btn btn-outline-danger w-25" *ngIf="inLogin()">Logout</button>
+      <app-left-navbar *ngIf="inLogin()"></app-left-navbar>
     </div>
 
     <!-- Colonna centrale: Scrollabile -->

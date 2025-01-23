@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {LoginPageComponent} from './components/login-page/login-page.component';
 import {SigninPageComponent} from './components/signin-page/signin-page.component';
@@ -7,10 +7,12 @@ import {RecommendedGamesComponent} from './components/recommended-games/recommen
 import {HttpClient} from '@angular/common/http';
 import {NgIf} from '@angular/common';
 import {filter} from 'rxjs';
+import {LeftNavbarComponent} from './components/left-navbar/left-navbar.component';
+import {HeaderComponent} from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf],
+  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, LeftNavbarComponent, HeaderComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
@@ -19,10 +21,7 @@ export class AppComponent implements OnInit {
   title = 'VsnFrontend';
   routerLinks = ''
 
-  constructor(private router: Router) {
-      this.routerLinks = this.router.url;
-      console.log(this.routerLinks);
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     // Sottoscriviti agli eventi di navigazione del router
@@ -33,15 +32,46 @@ export class AppComponent implements OnInit {
         this.routerLinks = event.urlAfterRedirects; // Aggiorna l'URL corrente
         console.log('Navigazione terminata, URL corrente:', this.routerLinks);
       });
+
+
   }
 
 // .subscribe((event: NavigationEnd) => {
 //   this.routerLinks = event.urlAfterRedirects; // Aggiorna l'URL corrente
 //   console.log('Navigazione terminata, URL corrente:', this.routerLinks);
 // });
+  isHidden = false; // Whether the header is hidden
+  lastScrollY = 0; // Tracks last scroll position
+
+  // Show header when mouse enters
+  onMouseEnter(): void {
+    this.isHidden = false;
+  }
+
+  // Hide header when mouse leaves
+  onMouseLeave(): void {
+    this.isHidden = true;
+  }
+
+  // Add scroll event listener to handle hide/show on scroll
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > this.lastScrollY) {
+      // If scrolling down, hide the header
+      this.isHidden = true;
+    } else {
+      // If scrolling up, show the header
+      this.isHidden = false;
+    }
+    // Update the last scroll position
+    this.lastScrollY = currentScrollY;
+  }
+
 
   inLogin()
   {
-    return this.routerLinks !== '/'
+    return !(this.routerLinks == '/' || this.routerLinks == '/login' || this.routerLinks == '/signin');
   }
 }

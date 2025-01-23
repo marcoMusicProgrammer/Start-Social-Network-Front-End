@@ -7,3 +7,36 @@
 .col-5::-webkit-scrollbar {
   display: none; /* Nasconde la scrollbar su Chrome, Edge e Safari */
 }
+
+/* Default style for the header */
+/* Default style for the header */
+/* Default style for the header */
+/* Default style for the header */
+.header {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, height 0.5s ease-in-out; /* Smooth transitions */
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Normal position */
+  height: auto; /* Full height when visible */
+}
+
+/* Hidden state: Move up, fade out, and reduce height to 0 */
+.header.hidden {
+  opacity: 0; /* Fully transparent */
+  transform: translateY(-100%); /* Move up completely */
+  height: 0; /* Remove height to prevent white space */
+  overflow: hidden; /* Prevent child content from showing */
+}
+
+/* Ensure full visibility on hover */
+.header:hover {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+}
+
+/* Disable pointer events when the header is hidden */
+.header.hidden {
+  pointer-events: none; /* Prevent clicks when hidden */
+}
+
+

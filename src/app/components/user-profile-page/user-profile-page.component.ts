@@ -54,12 +54,11 @@ export class UserProfilePageComponent {
     };
 
   imageChangedEvent: Event | null = null;
-  croppedImage: SafeUrl  = '';
-  croppedImageBlob: Blob | null = null; // Blob to store the cropped image
-  isModalOpen = false; // Stato della modale
+  croppedImage: SafeUrl = '';
+  croppedImageBlob: Blob | null = null;
+  isModalOpen = false;
   backdropImage: string = '';
-  profileImageUrl = new BehaviorSubject <SafeUrl>({}); // Store the sanitized image URL
-  resizedToWidth="500"
+  profileImageUrl = new BehaviorSubject <SafeUrl>({});
 
   /**
    * When teh component is made load both the service and gets all the post and user information
@@ -74,7 +73,19 @@ export class UserProfilePageComponent {
 
     this.serv.getAllUsersPost().subscribe({
       next: (response: PostDTOResp[]) => {
-        const updatedPost = [...this.allPosts$.value, ...response]; // Spread `response` array
+        let newPost: PostDTOResp[] = [];
+
+        for (let post of response) {
+          // Parse publicationDate into a Date object
+          const publicationDate = new Date(post.publicationDate);
+          // Update the publicationDate with the time elapsed
+          post.publicationDate = this.convertsTime(publicationDate);
+          // Add post to the new list
+          newPost.push(post);
+        }
+
+        // Update allPosts$ with the new list
+        const updatedPost = [...this.allPosts$.value, ...newPost];
         this.allPosts$.next(updatedPost);
         console.log(this.allPosts$.value);
       },
@@ -83,16 +94,29 @@ export class UserProfilePageComponent {
       }
     });
 
+
     /**
-     * Get all profile information and manage an error
+     * Get all profile information
      */
     this.serv.getProfile().subscribe({
       next: (response: ProfileDTOResp) => {
         this.userProfile = response
-        console.log(this.userProfile)
+
+        /**
+         * Verifies if the user's profile backdrop image ID exists.
+         * If present, makes an API request to fetch the backdrop image as a Blob.
+         *
+         * - Converts the Blob response to an object URL and bypasses security to create a trusted URL.
+         * - Updates the observable `profileImageUrl` with the sanitized URL.
+         *
+         * Preconditions:
+         * - `this.userProfile.profileBackdropImgId` must not be null or undefined.
+         *
+         * API Response:
+         * - Success: Blob representing the profile backdrop image.
+         */
 
         if(this.userProfile.profileBackdropImgId) {
-
           this.serv.getProfileImages(this.userProfile.profileBackdropImgId).subscribe({
             next: (response: Blob)=> {
               this.backdropImage = URL.createObjectURL(response);
@@ -106,7 +130,6 @@ export class UserProfilePageComponent {
         this.errorMessage = err.message;
       }
     })
-
   }
 
   openModal(): void {
@@ -139,6 +162,13 @@ export class UserProfilePageComponent {
     console.error('Load image failed');
   }
 
+  /**
+   * Function from the cropped library
+   *
+   * Verifies id the croppedImageBlob exists.
+   * If present, uploadCroppedImage converts the image and upload it in the server.
+   * Creates an url and then pass it to the profileImageUrl
+   */
   saveCroppedImage(): void {
     if (this.croppedImageBlob) {
       console.log('Saving cropped image:', this.croppedImageBlob);
@@ -151,9 +181,14 @@ export class UserProfilePageComponent {
     }
   }
 
+  /**
+   * Converts the blob image to a formData.
+   * Make a post request sending the data
+   * @param blob
+   */
   uploadCroppedImage(blob: Blob): void {
     const formData = new FormData();
-    formData.append('imgBackdrop', blob, 'profile-image.png');
+    formData.append('imgBackdrop', blob, 'backdrop-image.png');
 
     this.serv.saveImage(formData).subscribe({
       next: response => console.log('Image uploaded successfully:', response),
@@ -162,19 +197,44 @@ export class UserProfilePageComponent {
   }
 
 
+  convertsTime(publicationDate:Date){
+    const now = Date.now(); // Current time in milliseconds
+    const timeDifference = now - publicationDate.getTime(); // Difference in milliseconds
+
+    // Convert timeDifference into human-readable units
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    let timeElapsed: string;
+
+    if (days > 0) {
+      return timeElapsed = `${days} day${days > 1 ? 's' : ''} ago`;
+    } else if (hours > 0) {
+      return timeElapsed = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (minutes > 0) {
+      return timeElapsed = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else {
+      return timeElapsed = `${seconds} second${seconds > 1 ? 's' : ''} ago`;
+    }
+  }
+
   /**
-   * Make a post request to create a Post
+   * Do a post request to create a Post
    */
   makeAPost() {
     this.serv.newPost(this.newPost).subscribe({
       next: (response: PostDTOResp) => {
+        const date = new Date(response.publicationDate)
+
+        response.publicationDate = this.convertsTime(date)
+
         const updatedPosts = [response, ...this.allPosts$.value];
         this.allPosts$.next(updatedPosts);
 
         // Optionally, reset the `newPost` object
         this.newPost = { content: '', image: '', profileId: 0, nLike: 0 };
-
-        // this.newPost = response;
       },
       error: (err: ErrorResponse) => {
         this.errorMessage = err.message;
