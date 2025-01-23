@@ -15,4 +15,5 @@ import {LeftNavbarComponent} from './components/left-navbar/left-navbar.componen
 })
 export class AppComponent {
   title = 'VsnFrontend';
+
 }

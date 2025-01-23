@@ -7,6 +7,8 @@ import {UserDTOResp} from '../models/UserDTOResp';
 import {PostDTOResp} from '../models/PostDTOResp';
 import {ErrorResponse} from '../models/ErrorResponse';
 import {PostDTOReq} from '../models/PostDTOReq';
+import {ProfileDTOResp} from '../models/ProfileDTOResp';
+import {ProfileDTOReq} from '../models/ProfileDTOReq';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +18,38 @@ export class RequestClientService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<UserDTOResp[]> {
-    return this.http.get<UserDTOResp[]>("/api/users")
+    return this.http.get<UserDTOResp[]>("/api/profiles/all")
   }
+
+  getProfile(): Observable<ProfileDTOResp> {
+    return this.http.get<ProfileDTOResp>("/api/profiles").pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  saveProfile(toInsert: ProfileDTOReq): Observable<ProfileDTOResp> {
+    return this.http.post<ProfileDTOResp>("/api/profiles/save", toInsert).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  saveImage(toInsert: FormData): Observable<string> {
+    return this.http.post<string>("/api/profiles/saveBackdropImage", toInsert).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getProfileImages(toInsert: string): Observable<Blob> {
+    return this.http
+      .get(`/api/profiles/fileSystem/${toInsert}`,{responseType:'blob'})
+      .pipe(catchError(this.handleError));
+  }
+
+  // getProfileImages(toInsert: number): Observable<Blob> {
+  //   return this.http.get("/api/profiles/fileSystem/"+toInsert,).pipe(
+  //     catchError(this.handleError)
+  //   )
+  // }
 
   getAllUsersPost(): Observable<PostDTOResp[]> {
     return this.http.get<PostDTOResp[]>("/api/posts").pipe(
@@ -25,8 +57,8 @@ export class RequestClientService {
     )
   }
 
-  newPost(toInsert: PostDTOReq): Observable<PostDTOReq> {
-    return this.http.post<PostDTOReq>("/api/posts", toInsert).pipe(
+  newPost(toInsert: PostDTOReq): Observable<PostDTOResp> {
+    return this.http.post<PostDTOResp>("/api/posts", toInsert).pipe(
       catchError(this.handleError)
     )
   }
