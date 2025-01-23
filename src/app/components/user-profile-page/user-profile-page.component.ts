@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, output} from '@angular/core';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {RequestClientService} from '../../services/request-client.service';
 import {PostDTOResp} from '../../models/PostDTOResp';
@@ -82,6 +82,7 @@ export class UserProfilePageComponent {
         this.errorMessage = err.message;
       }
     });
+
     /**
      * Get all profile information and manage an error
      */
