@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {RequestClientService} from '../../services/request-client.service';
 import {PostDTOResp} from '../../models/PostDTOResp';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {ErrorResponse} from '../../models/ErrorResponse';
 import {PostDTOReq} from '../../models/PostDTOReq';
 import {SignInResponse} from '../../models/SignInResponse';
 import {FormsModule} from '@angular/forms';
-import {NgForOf, NgIf} from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {CredentialService} from '../../services/credential.service';
 import {UserDTOResp} from '../../models/UserDTOResp';
 import {ProfileDTOResp} from '../../models/ProfileDTOResp';
@@ -22,7 +22,8 @@ import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image
     FormsModule,
     NgForOf,
     ImageCropperComponent,
-    NgIf
+    NgIf,
+    AsyncPipe
   ],
   templateUrl: './user-profile-page.component.html',
   standalone: true,
@@ -32,7 +33,7 @@ export class UserProfilePageComponent {
 
   errorMessage= '';
   newPost:PostDTOReq = {content:'',image:'',profileId:0,nLike:0}
-  allPosts:PostDTOResp[] = [];
+  allPosts$ = new BehaviorSubject <PostDTOResp[]>([]);
   userProfile!: ProfileDTOResp;
   imageChangedEvent: Event | null = null;
   croppedImage: SafeUrl  = '';
@@ -50,14 +51,16 @@ export class UserProfilePageComponent {
     private servCred: CredentialService,
     private sanitizer: DomSanitizer) {
 
-      this.serv.getAllUsersPost().subscribe({
-        next: (response: PostDTOResp[]) => {
-          this.allPosts = response;
-        },
-        error: (err: ErrorResponse) => {
-          this.errorMessage = err.message;
-        }
-      });
+    this.serv.getAllUsersPost().subscribe({
+      next: (response: PostDTOResp[]) => {
+        const updatedPost = [...this.allPosts$.value, ...response]; // Spread `response` array
+        this.allPosts$.next(updatedPost);
+        console.log(this.allPosts$.value);
+      },
+      error: (err: ErrorResponse) => {
+        this.errorMessage = err.message;
+      }
+    });
     /**
      * Get all profile information and manage an error
      */
@@ -125,14 +128,38 @@ export class UserProfilePageComponent {
     });
   }
 
+  // makeAPost() {
+  //   this.serv.newPost(this.newPost).subscribe({
+  //     next: (response: PostDTOResp) => {
+  //       // Add the new post to the beginning of the list dynamically
+  //       const updatedPosts = [response, ...this.allPosts$.value];
+  //       this.allPosts$.next(updatedPosts);
+  //
+  //       // Optionally, reset the `newPost` object
+  //       this.newPost = { content: '', image: '', profileId: 0, nLike: 0 };
+  //     },
+  //     error: (err: ErrorResponse) => {
+  //       this.errorMessage = err.message;
+  //     }
+  //   });
+  // }
 
   /**
    * Make a post request to create a Post
    */
   makeAPost() {
     this.serv.newPost(this.newPost).subscribe({
-      next: (response: PostDTOReq) => {
-        this.newPost = response;
+      next: (response: PostDTOResp) => {
+        const updatedPosts = [response, ...this.allPosts$.value];
+        this.allPosts$.next(updatedPosts);
+
+        // Optionally, reset the `newPost` object
+        this.newPost = { content: '', image: '', profileId: 0, nLike: 0 };
+
+        // this.newPost = response;
+      },
+      error: (err: ErrorResponse) => {
+        this.errorMessage = err.message;
       }
     })
   }

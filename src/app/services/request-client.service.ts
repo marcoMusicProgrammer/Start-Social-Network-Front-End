@@ -49,8 +49,8 @@ export class RequestClientService {
     )
   }
 
-  newPost(toInsert: PostDTOReq): Observable<PostDTOReq> {
-    return this.http.post<PostDTOReq>("/api/posts", toInsert).pipe(
+  newPost(toInsert: PostDTOReq): Observable<PostDTOResp> {
+    return this.http.post<PostDTOResp>("/api/posts", toInsert).pipe(
       catchError(this.handleError)
     )
   }

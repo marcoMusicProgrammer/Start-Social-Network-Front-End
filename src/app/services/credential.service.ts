@@ -30,8 +30,6 @@ export class CredentialService {
     );
   }
 
-  
-
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorResponse: ErrorResponse;
 

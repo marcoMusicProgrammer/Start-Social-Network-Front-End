@@ -31,7 +31,7 @@
               <button class="btn btn-line" (click)="makeAPost()">Post</button>
             </div>
           </div>
-          <div *ngFor="let p of allPosts">
+          <div *ngFor="let p of allPosts$ | async">
             <app-user-post
             [post] = "p"
             ></app-user-post>
