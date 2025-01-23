@@ -14,4 +14,5 @@ import {RecommendedGamesComponent} from './components/recommended-games/recommen
 })
 export class AppComponent {
   title = 'VsnFrontend';
+
 }

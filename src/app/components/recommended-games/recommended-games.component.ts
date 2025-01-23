@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, input} from '@angular/core';
+import {PostDTOResp} from '../../models/PostDTOResp';
 
 @Component({
   selector: 'app-recommended-games',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './recommended-games.component.css'
 })
 export class RecommendedGamesComponent {
-
+  // @input() isLogin!:boolean;
 }
