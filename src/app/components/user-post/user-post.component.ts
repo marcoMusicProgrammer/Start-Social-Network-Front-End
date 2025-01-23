@@ -19,5 +19,4 @@ export class UserPostComponent {
   constructor(private router: Router, private serv: RequestClientService) {
     console.log(this.user)
   }
-
 }
