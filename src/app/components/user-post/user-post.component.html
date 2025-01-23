@@ -1,12 +1,14 @@
 <div class="container mt-4 bg-dark" style="min-height: 100px">
-  <div class="container text-light card bg-transparent border-1 border-line d-flex flex-row" style="min-height: 20vh">
-    <div class="card-header">
-      <p>{{post.profileId}}</p>
-      <p>{{post.content}}</p>
-      <p>{{post.publicationDate}}</p>
+  <div class="container text-light card bg-transparent border-1 border-line d-flex flex-column" style="min-height: 20vh">
+    <div class="card-header row justify-content-start">
+      <img src="https://picsum.photos/536/354" class="col-1 profile-image">
+      <p class="col-4">{{post.profileId}}</p>
     </div>
-    <div class="card-body bg-transparent text-light">
-
+    <div class="card-body bg-transparent text-light text-start">
+      <p>{{post.content}}</p>
+    </div>
+    <div class="card-footer text-end">
+      <p>{{post.publicationDate}}</p>
     </div>
   </div>
 </div>
