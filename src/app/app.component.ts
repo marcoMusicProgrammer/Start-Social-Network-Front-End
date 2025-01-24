@@ -9,10 +9,11 @@ import {NgIf} from '@angular/common';
 import {filter} from 'rxjs';
 import {VideogamePageComponent} from './components/videogame-page/videogame-page.component';
 import {VideogameDetailComponent} from './components/videogame-detail/videogame-detail.component';
+import {LeftNavbarComponent} from './components/left-navbar/left-navbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, VideogamePageComponent, VideogameDetailComponent],
+  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, VideogamePageComponent, VideogameDetailComponent, LeftNavbarComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
