@@ -8,10 +8,11 @@ import {HttpClient} from '@angular/common/http';
 import {NgIf} from '@angular/common';
 import {filter} from 'rxjs';
 import {VideogamePageComponent} from './components/videogame-page/videogame-page.component';
+import {VideogameDetailComponent} from './components/videogame-detail/videogame-detail.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, VideogamePageComponent],
+  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, VideogamePageComponent, VideogameDetailComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
