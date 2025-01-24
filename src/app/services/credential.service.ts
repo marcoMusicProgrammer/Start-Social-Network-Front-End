@@ -22,7 +22,7 @@ export class CredentialService {
   get token(): string | null {
     // Retrieve the token from localStorage if not already in memory
     if (!this._token) {
-      this._token = sessionStorage.getItem('authToken');
+      this._token = localStorage.getItem('authToken');
     }
     return this._token;
   }

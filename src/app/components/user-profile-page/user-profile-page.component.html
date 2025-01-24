@@ -3,7 +3,7 @@
     <div class="container-fluid w-100" style="padding: 0">
         <!-- Copertina -->
       <div class="profile-container">
-        <img [src]="backdropImage" alt="Copertina" class="cover-image">
+        <img (click)="openModal()" [src]="backdropImage" alt="Copertina" class="cover-image">
           <!-- Immagine profilo -->
         <img src="https://picsum.photos/536/354" alt="Profilo" class="profile-image">
       </div>

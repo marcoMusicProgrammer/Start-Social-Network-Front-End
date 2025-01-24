@@ -4,11 +4,9 @@ import {inject} from '@angular/core';
 
 export const tokenAdderInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const credentialService: CredentialService = inject(CredentialService);
-
-  if(credentialService.token)
+  if(localStorage.getItem('authToken'))
   {
-    let modifiedRequest = req.clone({setHeaders:{token: credentialService.token}});
+    let modifiedRequest = req.clone({setHeaders:{token: localStorage.getItem('authToken')!}});
     return next(modifiedRequest);
   }
 

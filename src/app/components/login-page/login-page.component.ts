@@ -33,7 +33,6 @@ export class LoginPageComponent {
     this.serv.loginUser(this.userLogin).subscribe({
         next: (response: LoginResponse) => {
           this.serv.token = response.token;
-          console.log('Token salvato nel servizio:', this.serv.token);
           this.tokenSplitted = this.serv.token.split("-")
           this.errorMessage = '';
           this.router.navigate(['/user-profile',this.tokenSplitted[1]]).then(r => console.log("login effettuato"));

@@ -76,15 +76,11 @@ export class UserProfilePageComponent {
         console.log(response);
 
         for (let post of response) {
-          // Parse publicationDate into a Date object
           const publicationDate = new Date(post.publicationDate);
-          // Update the publicationDate with the time elapsed
           post.publicationDate = this.convertsTime(publicationDate);
-          // Add post to the new list
           newPost.push(post);
         }
 
-        // Update allPosts$ with the new list
         const updatedPost = [...this.allPosts$.value, ...newPost];
         this.allPosts$.next(updatedPost);
       },
@@ -93,13 +89,13 @@ export class UserProfilePageComponent {
       }
     });
 
-
     /**
      * Get all profile information
      */
     this.serv.getProfile().subscribe({
       next: (response: ProfileDTOResp) => {
         this.userProfile = response
+        console.log(this.userProfile)
 
         /**
          * Verifies if the user's profile backdrop image ID exists.
@@ -130,50 +126,6 @@ export class UserProfilePageComponent {
       }
     })
   }
-  //
-  // ngOnInit(): void {
-  //   // Recupera i dati utente e i post
-  //   this.loadUserProfile();
-  //   this.loadUserPosts();
-  // }
-  //
-  // private loadUserProfile() {
-  //   this.serv.getProfile().subscribe({
-  //     next: (response: ProfileDTOResp) => {
-  //       this.userProfile = response;
-  //       console.log(response);
-  //       // Logica per backdrop image
-  //       if (this.userProfile.profileBackdropImgId) {
-  //         this.serv.getProfileImages(this.userProfile.profileBackdropImgId).subscribe({
-  //           next: (response: Blob) => {
-  //             this.backdropImage = URL.createObjectURL(response);
-  //             const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
-  //             this.profileImageUrl.next(updateToSafeUrl);
-  //           },
-  //         });
-  //       }
-  //     },
-  //     error: (err: ErrorResponse) => {
-  //       this.errorMessage = err.message;
-  //     },
-  //   });
-  // }
-  //
-  // private loadUserPosts() {
-  //   this.serv.getAllUsersPost().subscribe({
-  //     next: (response: PostDTOResp[]) => {
-  //       let newPost: PostDTOResp[] = response.map(post => {
-  //         const publicationDate = new Date(post.publicationDate);
-  //         post.publicationDate = this.convertsTime(publicationDate);
-  //         return post;
-  //       });
-  //       this.allPosts$.next(newPost);
-  //     },
-  //     error: (err: ErrorResponse) => {
-  //       this.errorMessage = err.message;
-  //     },
-  //   });
-  // }
 
   openModal(): void {
     this.isModalOpen = true;
@@ -238,7 +190,6 @@ export class UserProfilePageComponent {
     });
   }
 
-
   convertsTime(publicationDate:Date){
     const now = Date.now(); // Current time in milliseconds
     const timeDifference = now - publicationDate.getTime(); // Difference in milliseconds
@@ -252,13 +203,13 @@ export class UserProfilePageComponent {
     let timeElapsed: string;
 
     if (days > 0) {
-      return timeElapsed = `${days} day${days > 1 ? 's' : ''} ago`;
+      return `${days} day${days > 1 ? 's' : ''} ago`;
     } else if (hours > 0) {
-      return timeElapsed = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
     } else if (minutes > 0) {
-      return timeElapsed = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
     } else {
-      return timeElapsed = `${seconds} second${seconds > 1 ? 's' : ''} ago`;
+      return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
     }
   }
 
@@ -270,11 +221,9 @@ export class UserProfilePageComponent {
       next: (response: PostDTOResp) => {
         const date = new Date(response.publicationDate)
         response.publicationDate = this.convertsTime(date)
-
         const updatedPosts = [response, ...this.allPosts$.value];
         this.allPosts$.next(updatedPosts);
 
-        // Optionally, reset the `newPost` object
         this.newPost = { content: '', image: '', profileId: 0, nLike: 0 };
       },
       error: (err: ErrorResponse) => {
