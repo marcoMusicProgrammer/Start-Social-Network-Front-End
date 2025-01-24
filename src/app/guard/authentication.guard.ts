@@ -6,12 +6,13 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
 
   let credentialService: CredentialService = inject(CredentialService);
   let router: Router = inject(Router);
-  let token: string | null = credentialService.token;
-
+  let token: string | null = localStorage.getItem('authToken');
 
   let id = route.paramMap.get("id")
 
   if(token == null || id == null) {
+    console.log(credentialService.token);
+    console.log(id)
     router.navigate(['/login']);
     return false;
   } else {

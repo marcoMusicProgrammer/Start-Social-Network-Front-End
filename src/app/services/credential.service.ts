@@ -13,10 +13,29 @@ import {SignInResponse} from '../models/SignInResponse';
 })
 export class CredentialService {
 
+  private _token: string | null = null;
+
   constructor(private http: HttpClient) {}
-  token: string | null = null;
   errorResponse: ErrorResponse | null = null;
   message: string | null = null;
+
+  get token(): string | null {
+    // Retrieve the token from localStorage if not already in memory
+    if (!this._token) {
+      this._token = sessionStorage.getItem('authToken');
+    }
+    return this._token;
+  }
+
+  set token(value: string | null) {
+    this._token = value;
+    if (value) {
+      localStorage.setItem('authToken', value); // Save the token to localStorage
+      console.log('Token salvato in localStorage:', localStorage.getItem('authToken'));
+    } else {
+      localStorage.removeItem('authToken'); // Remove the token from localStorage
+    }
+  }
 
   loginUser(toInsert: UserDTOLoginReq): Observable<LoginResponse> {
     return this.http.post<LoginResponse>("/api/authentication/login",toInsert, {responseType: "json"}).pipe(

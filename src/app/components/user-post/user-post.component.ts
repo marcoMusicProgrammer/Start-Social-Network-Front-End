@@ -17,6 +17,5 @@ export class UserPostComponent {
   @Input() user!: ProfileDTOResp;
 
   constructor(private router: Router, private serv: RequestClientService) {
-    console.log(this.user)
   }
 }

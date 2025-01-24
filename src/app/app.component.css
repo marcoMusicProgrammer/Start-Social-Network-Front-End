@@ -9,9 +9,7 @@
 }
 
 /* Default style for the header */
-/* Default style for the header */
-/* Default style for the header */
-/* Default style for the header */
+
 .header {
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out, height 0.5s ease-in-out; /* Smooth transitions */
   opacity: 1; /* Fully visible */

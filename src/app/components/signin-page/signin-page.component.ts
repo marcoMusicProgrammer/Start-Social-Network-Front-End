@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {UserDTOReq} from '../../models/UserDTOReq';
 import {RequestClientService} from '../../services/request-client.service';
 import {FormsModule} from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {CredentialService} from '../../services/./credential.service';
 import {HttpClient} from '@angular/common/http';
 import {LoginResponse} from '../../models/LoginResponse';
@@ -26,7 +26,10 @@ export class SigninPageComponent {
   errorMessage= '';
   success = '';
 
-  constructor(private serv:CredentialService, private http:HttpClient) {}
+  constructor(
+    private serv:CredentialService,
+    private http:HttpClient,
+    private router:Router) {}
 
   signIn(){
     this.serv.signInUser(this.userSignIn).subscribe({
@@ -34,6 +37,7 @@ export class SigninPageComponent {
           this.success = response.message;
           this.errorMessage = ' ';
           this.userSignIn = {username:"",password:"",email:"",steamId:"",dateOfBirth:new Date()}
+          this.router.navigate(['/login']);
         },
         error: (err: ErrorResponse) => {
           console.log(err);

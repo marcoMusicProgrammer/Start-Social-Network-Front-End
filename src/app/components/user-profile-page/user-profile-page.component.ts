@@ -1,4 +1,4 @@
-import {Component, EventEmitter, output} from '@angular/core';
+import {Component, EventEmitter, Output, output} from '@angular/core';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {RequestClientService} from '../../services/request-client.service';
 import {PostDTOResp} from '../../models/PostDTOResp';
@@ -71,65 +71,109 @@ export class UserProfilePageComponent {
     private servCred: CredentialService,
     private sanitizer: DomSanitizer) {
 
-    this.serv.getAllUsersPost().subscribe({
-      next: (response: PostDTOResp[]) => {
-        let newPost: PostDTOResp[] = [];
+    // this.serv.getAllUsersPost().subscribe({
+    //   next: (response: PostDTOResp[]) => {
+    //     let newPost: PostDTOResp[] = [];
+    //
+    //     for (let post of response) {
+    //       // Parse publicationDate into a Date object
+    //       const publicationDate = new Date(post.publicationDate);
+    //       // Update the publicationDate with the time elapsed
+    //       post.publicationDate = this.convertsTime(publicationDate);
+    //       // Add post to the new list
+    //       newPost.push(post);
+    //     }
+    //
+    //     // Update allPosts$ with the new list
+    //     const updatedPost = [...this.allPosts$.value, ...newPost];
+    //     this.allPosts$.next(updatedPost);
+    //     console.log(this.allPosts$.value);
+    //   },
+    //   error: (err: ErrorResponse) => {
+    //     this.errorMessage = err.message;
+    //   }
+    // });
+    //
+    //
+    // /**
+    //  * Get all profile information
+    //  */
+    // this.serv.getProfile().subscribe({
+    //   next: (response: ProfileDTOResp) => {
+    //     this.userProfile = response
+    //
+    //     /**
+    //      * Verifies if the user's profile backdrop image ID exists.
+    //      * If present, makes an API request to fetch the backdrop image as a Blob.
+    //      *
+    //      * - Converts the Blob response to an object URL and bypasses security to create a trusted URL.
+    //      * - Updates the observable `profileImageUrl` with the sanitized URL.
+    //      *
+    //      * Preconditions:
+    //      * - `this.userProfile.profileBackdropImgId` must not be null or undefined.
+    //      *
+    //      * API Response:
+    //      * - Success: Blob representing the profile backdrop image.
+    //      */
+    //
+    //     if(this.userProfile.profileBackdropImgId) {
+    //       this.serv.getProfileImages(this.userProfile.profileBackdropImgId).subscribe({
+    //         next: (response: Blob)=> {
+    //           this.backdropImage = URL.createObjectURL(response);
+    //           const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
+    //           this.profileImageUrl.next(updateToSafeUrl);
+    //         }
+    //       })
+    //     }
+    //   },
+    //   error: (err: ErrorResponse) => {
+    //     this.errorMessage = err.message;
+    //   }
+    // })
+  }
 
-        for (let post of response) {
-          // Parse publicationDate into a Date object
-          const publicationDate = new Date(post.publicationDate);
-          // Update the publicationDate with the time elapsed
-          post.publicationDate = this.convertsTime(publicationDate);
-          // Add post to the new list
-          newPost.push(post);
-        }
+  ngOnInit(): void {
+    // Recupera i dati utente e i post
+    this.loadUserProfile();
+    this.loadUserPosts();
+  }
 
-        // Update allPosts$ with the new list
-        const updatedPost = [...this.allPosts$.value, ...newPost];
-        this.allPosts$.next(updatedPost);
-        console.log(this.allPosts$.value);
-      },
-      error: (err: ErrorResponse) => {
-        this.errorMessage = err.message;
-      }
-    });
-
-
-    /**
-     * Get all profile information
-     */
+  private loadUserProfile() {
     this.serv.getProfile().subscribe({
       next: (response: ProfileDTOResp) => {
-        this.userProfile = response
-
-        /**
-         * Verifies if the user's profile backdrop image ID exists.
-         * If present, makes an API request to fetch the backdrop image as a Blob.
-         *
-         * - Converts the Blob response to an object URL and bypasses security to create a trusted URL.
-         * - Updates the observable `profileImageUrl` with the sanitized URL.
-         *
-         * Preconditions:
-         * - `this.userProfile.profileBackdropImgId` must not be null or undefined.
-         *
-         * API Response:
-         * - Success: Blob representing the profile backdrop image.
-         */
-
-        if(this.userProfile.profileBackdropImgId) {
+        this.userProfile = response;
+        console.log(response);
+        // Logica per backdrop image
+        if (this.userProfile.profileBackdropImgId) {
           this.serv.getProfileImages(this.userProfile.profileBackdropImgId).subscribe({
-            next: (response: Blob)=> {
+            next: (response: Blob) => {
               this.backdropImage = URL.createObjectURL(response);
               const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
               this.profileImageUrl.next(updateToSafeUrl);
-            }
-          })
+            },
+          });
         }
       },
       error: (err: ErrorResponse) => {
         this.errorMessage = err.message;
-      }
-    })
+      },
+    });
+  }
+
+  private loadUserPosts() {
+    this.serv.getAllUsersPost().subscribe({
+      next: (response: PostDTOResp[]) => {
+        let newPost: PostDTOResp[] = response.map(post => {
+          const publicationDate = new Date(post.publicationDate);
+          post.publicationDate = this.convertsTime(publicationDate);
+          return post;
+        });
+        this.allPosts$.next(newPost);
+      },
+      error: (err: ErrorResponse) => {
+        this.errorMessage = err.message;
+      },
+    });
   }
 
   openModal(): void {
