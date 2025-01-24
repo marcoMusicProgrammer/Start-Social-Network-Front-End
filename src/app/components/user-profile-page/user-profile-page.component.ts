@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, output} from '@angular/core';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {RequestClientService} from '../../services/request-client.service';
 import {PostDTOResp} from '../../models/PostDTOResp';
@@ -14,6 +14,7 @@ import {ProfileDTOResp} from '../../models/ProfileDTOResp';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import {PostType} from '../../models/PostType';
+import {Event} from '@angular/router';
 
 
 @Component({
@@ -31,7 +32,7 @@ import {PostType} from '../../models/PostType';
   standalone: true,
   styleUrl: './user-profile-page.component.css'
 })
-export class UserProfilePageComponent {
+export class UserProfilePageComponent implements OnInit {
 
   errorMessage= '';
   newPost:PostDTOReq = {content:'',image:'',profileId:0,nLike:0}
@@ -217,7 +218,6 @@ export class UserProfilePageComponent {
     if (this.croppedImageBlob) {
       console.log('Saving cropped image:', this.croppedImageBlob);
       this.uploadCroppedImage(this.croppedImageBlob);
-
       this.backdropImage = URL.createObjectURL(this.croppedImageBlob);
       const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
       this.profileImageUrl.next(updateToSafeUrl);
@@ -285,4 +285,5 @@ export class UserProfilePageComponent {
       }
     })
   }
+
 }
