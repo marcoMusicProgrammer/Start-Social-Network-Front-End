@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {LoginPageComponent} from './components/login-page/login-page.component';
 import {SigninPageComponent} from './components/signin-page/signin-page.component';
@@ -32,41 +32,6 @@ export class AppComponent implements OnInit {
         this.routerLinks = event.urlAfterRedirects; // Aggiorna l'URL corrente
         console.log('Navigazione terminata, URL corrente:', this.routerLinks);
       });
-
-
-  }
-
-// .subscribe((event: NavigationEnd) => {
-//   this.routerLinks = event.urlAfterRedirects; // Aggiorna l'URL corrente
-//   console.log('Navigazione terminata, URL corrente:', this.routerLinks);
-// });
-  isHidden = false; // Whether the header is hidden
-  lastScrollY = 0; // Tracks last scroll position
-
-  // Show header when mouse enters
-  onMouseEnter(): void {
-    this.isHidden = false;
-  }
-
-  // Hide header when mouse leaves
-  onMouseLeave(): void {
-    this.isHidden = true;
-  }
-
-  // Add scroll event listener to handle hide/show on scroll
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > this.lastScrollY) {
-      // If scrolling down, hide the header
-      this.isHidden = true;
-    } else {
-      // If scrolling up, show the header
-      this.isHidden = false;
-    }
-    // Update the last scroll position
-    this.lastScrollY = currentScrollY;
   }
 
 
@@ -74,4 +39,40 @@ export class AppComponent implements OnInit {
   {
     return !(this.routerLinks == '/' || this.routerLinks == '/login' || this.routerLinks == '/signin');
   }
+
+
+
+// .subscribe((event: NavigationEnd) => {
+//   this.routerLinks = event.urlAfterRedirects; // Aggiorna l'URL corrente
+//   console.log('Navigazione terminata, URL corrente:', this.routerLinks);
+// });
+//   isHidden = false; // Whether the header is hidden
+//   lastScrollY = 0; // Tracks last scroll position
+//
+//   // Show header when mouse enters
+//   onMouseEnter(): void {
+//     this.isHidden = false;
+//   }
+//
+//   // Hide header when mouse leaves
+//   onMouseLeave(): void {
+//     this.isHidden = true;
+//   }
+
+  // Add scroll event listener to handle hide/show on scroll
+  // @HostListener('window:scroll', [])
+  // onWindowScroll(): void {
+  //   const currentScrollY = window.scrollY;
+  //
+  //   if (currentScrollY > this.lastScrollY) {
+  //     // If scrolling down, hide the header
+  //     this.isHidden = true;
+  //   } else {
+  //     // If scrolling up, show the header
+  //     this.isHidden = false;
+  //   }
+  //   // Update the last scroll position
+  //   this.lastScrollY = currentScrollY;
+  // }
+
 }

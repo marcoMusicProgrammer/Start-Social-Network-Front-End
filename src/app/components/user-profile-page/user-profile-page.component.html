@@ -53,6 +53,7 @@
           </div>
           <div *ngFor="let p of allPosts$ | async">
             <app-user-post
+              (delete)="deletePost($event)"
               [post] = "p"
               [user] = "userProfile"
             ></app-user-post>

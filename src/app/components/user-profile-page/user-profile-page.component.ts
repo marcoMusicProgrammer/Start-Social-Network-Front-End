@@ -52,6 +52,7 @@ export class UserProfilePageComponent {
       lastPlayedGameImgUrl:''
     };
 
+  successMessage: string = ''
   imageChangedEvent: Event | null = null;
   croppedImage: SafeUrl = '';
   croppedImageBlob: Blob | null = null;
@@ -188,6 +189,23 @@ export class UserProfilePageComponent {
       next: response => console.log('Image uploaded successfully:', response),
       error: error => console.error('Failed to upload image:', error),
     });
+  }
+
+  deletePost(id:number)
+  {
+    const posts = this.allPosts$.value
+    let postWithoutToDelete = posts.filter(p => id != p.id)
+    const updatedPostArray = [...postWithoutToDelete]
+    this.allPosts$.next(updatedPostArray)
+    this.serv.deleteUserPost(id).subscribe({
+      next: (response:string) => {
+        this.successMessage = response
+        console.log(this.successMessage)
+      },
+      error: err => {
+        this.errorMessage = err;
+      }
+    })
   }
 
   convertsTime(publicationDate:Date){

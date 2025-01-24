@@ -63,6 +63,12 @@ export class RequestClientService {
     )
   }
 
+  deleteUserPost(toInsert: number): Observable<string> {
+    return this.http.delete<string>(`/api/posts/${toInsert}`).pipe(
+        catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorResponse: ErrorResponse;
 

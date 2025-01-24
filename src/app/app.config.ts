@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { tokenAdderInterceptor } from './services/token-adder.interceptor'
 
@@ -9,5 +9,7 @@ export const appConfig: ApplicationConfig = {
     providers: [provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([tokenAdderInterceptor])),
+      importProvidersFrom(
+      )
   ]
 };
