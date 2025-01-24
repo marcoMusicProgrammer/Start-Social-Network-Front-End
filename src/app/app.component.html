@@ -4,7 +4,9 @@
     <!-- Colonna sinistra: Menu fisso -->
     <div class="col d-flex flex-column justify-content-start align-items-end border-end border-line border-2 pb-5"
          style="position: sticky; top: 0; height: 100vh;">
-      <app-left-navbar *ngIf="inLogin()"></app-left-navbar>
+      <app-left-navbar *ngIf="inLogin()"
+                       [user] = "userProfile"
+      ></app-left-navbar>
     </div>
 
     <!-- Colonna centrale: Scrollabile -->

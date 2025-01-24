@@ -10,10 +10,13 @@ import {filter} from 'rxjs';
 import {VideogamePageComponent} from './components/videogame-page/videogame-page.component';
 import {VideogameDetailComponent} from './components/videogame-detail/videogame-detail.component';
 import {LeftNavbarComponent} from './components/left-navbar/left-navbar.component';
+import {UserPostComponent} from './components/user-post/user-post.component';
+import {ProfileDTOResp} from './models/ProfileDTOResp';
+import {RequestClientService} from './services/request-client.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, VideogamePageComponent, VideogameDetailComponent, LeftNavbarComponent],
+  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, VideogamePageComponent, VideogameDetailComponent, LeftNavbarComponent, UserPostComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
@@ -21,8 +24,30 @@ import {LeftNavbarComponent} from './components/left-navbar/left-navbar.componen
 export class AppComponent implements OnInit {
   title = 'VsnFrontend';
   routerLinks = ''
+  userProfile: ProfileDTOResp =
+    {
+      id:0,
+      steamId:0,
+      followersCount:0,
+      followingCount:0,
+      favoriteVideogameAppId:0,
+      lastPlayedVideogameAppId:0,
+      profileName:'',
+      steamName:'',
+      playstationName:'',
+      xboxName:'',
+      profileImgId:'',
+      profileBackdropImgId:'',
+      lastPlayedGameImgUrl:''
+    };
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private serv: RequestClientService) {
+    this.serv.getProfile().subscribe({
+      next: (response: ProfileDTOResp) => {
+        this.userProfile = response
+      }
+    })
+  }
 
   ngOnInit(): void {
     // Sottoscriviti agli eventi di navigazione del router
@@ -35,45 +60,9 @@ export class AppComponent implements OnInit {
       });
   }
 
-
   inLogin()
   {
     return !(this.routerLinks == '/' || this.routerLinks == '/login' || this.routerLinks == '/signin');
   }
-
-
-
-// .subscribe((event: NavigationEnd) => {
-//   this.routerLinks = event.urlAfterRedirects; // Aggiorna l'URL corrente
-//   console.log('Navigazione terminata, URL corrente:', this.routerLinks);
-// });
-//   isHidden = false; // Whether the header is hidden
-//   lastScrollY = 0; // Tracks last scroll position
-//
-//   // Show header when mouse enters
-//   onMouseEnter(): void {
-//     this.isHidden = false;
-//   }
-//
-//   // Hide header when mouse leaves
-//   onMouseLeave(): void {
-//     this.isHidden = true;
-//   }
-
-  // Add scroll event listener to handle hide/show on scroll
-  // @HostListener('window:scroll', [])
-  // onWindowScroll(): void {
-  //   const currentScrollY = window.scrollY;
-  //
-  //   if (currentScrollY > this.lastScrollY) {
-  //     // If scrolling down, hide the header
-  //     this.isHidden = true;
-  //   } else {
-  //     // If scrolling up, show the header
-  //     this.isHidden = false;
-  //   }
-  //   // Update the last scroll position
-  //   this.lastScrollY = currentScrollY;
-  // }
 
 }

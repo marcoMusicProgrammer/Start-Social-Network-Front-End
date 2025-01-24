@@ -1,17 +1,23 @@
-import {Component, Output} from '@angular/core';
+import {Component, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {UserProfilePageComponent} from "../user-profile-page/user-profile-page.component";
+import {ProfileDTOResp} from "../../models/ProfileDTOResp";
 
 @Component({
   selector: 'app-left-navbar',
-  imports: [
-    NgIf
-  ],
+    imports: [
+        NgIf,
+        RouterLink
+    ],
   templateUrl: './left-navbar.component.html',
   standalone: true,
   styleUrl: './left-navbar.component.css'
 })
 export class LeftNavbarComponent {
+
+  @Input() user!: ProfileDTOResp;
+
   constructor(private router: Router ) {
   }
 
