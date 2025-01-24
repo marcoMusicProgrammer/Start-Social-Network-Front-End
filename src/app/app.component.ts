@@ -7,10 +7,11 @@ import {RecommendedGamesComponent} from './components/recommended-games/recommen
 import {HttpClient} from '@angular/common/http';
 import {NgIf} from '@angular/common';
 import {filter} from 'rxjs';
+import {VideogamePageComponent} from './components/videogame-page/videogame-page.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf],
+  imports: [RouterOutlet, LoginPageComponent, SigninPageComponent, UserProfilePageComponent, RecommendedGamesComponent, NgIf, VideogamePageComponent],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
