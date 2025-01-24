@@ -11,10 +11,16 @@ $theme-colors: (
   "danger":     $danger,
   "light":      $light,
   "dark":       #1E1E1E,
+  "darker": #151515,
   "line":       #1AB922,
   "line-darker": #0e7313,
   "topolona":   #B91A91
 );
+
+$box-shadow:                  0 1rem 4rem #1AB922;
+$box-shadow-sm:               0 0rem 2rem rgb(26, 185, 34, .2);
+$box-shadow-lg:               0 1rem 3rem #1AB922;
+$box-shadow-inset:            inset 0 1px 2px #1AB922;
 
 $grid-breakpoints: (
   xs: 0,
@@ -33,5 +39,11 @@ $container-max-widths: (
   xl: 1140px,
   xxl: 1320px,
 );
+
+:root {
+  // Loop through the map and create CSS custom properties
+ --app-darker-color: #151515,
+
+}
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
