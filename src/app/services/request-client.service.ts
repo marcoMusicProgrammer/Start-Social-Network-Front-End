@@ -20,6 +20,8 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
+
+
   updateVideogame(toUpdate:VideogameResp): Observable<LoginResponse> {
     return this.http.put<LoginResponse>("/api/videogames",toUpdate);
   }
@@ -44,6 +46,7 @@ export class RequestClientService {
     return this.http.get<ProfileDTOResp>("/api/profiles").pipe(
       catchError(this.handleError)
     )
+
   }
 
   saveProfile(toInsert: ProfileDTOReq): Observable<ProfileDTOResp> {
@@ -51,7 +54,6 @@ export class RequestClientService {
       catchError(this.handleError)
     )
   }
-
 
   saveBackdropImage(toInsert: FormData): Observable<string> {
     return this.http.post<string>("/api/profiles/saveBackdropImage", toInsert).pipe(
@@ -74,7 +76,7 @@ export class RequestClientService {
 
   getProfileImage(toInsert: string): Observable<Blob> {
     return this.http
-      .get('/api/profiles/fileSystem/profileImage/${toInsert}',{responseType:"blob"})
+      .get(`/api/profiles/fileSystem/${toInsert}`,{responseType:"blob"})
       .pipe(catchError(this.handleError));
   }
 

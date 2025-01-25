@@ -24,29 +24,9 @@ import {RequestClientService} from './services/request-client.service';
 export class AppComponent implements OnInit {
   title = 'VsnFrontend';
   routerLinks = ''
-  userProfile: ProfileDTOResp =
-    {
-      id:0,
-      steamId:0,
-      followersCount:0,
-      followingCount:0,
-      favoriteVideogameAppId:0,
-      lastPlayedVideogameAppId:0,
-      profileName:'',
-      steamName:'',
-      playstationName:'',
-      xboxName:'',
-      profileImgId:'',
-      profileBackdropImgId:'',
-      lastPlayedGameImgUrl:''
-    };
 
-  constructor(private router: Router, private serv: RequestClientService) {
-    this.serv.getProfile().subscribe({
-      next: (response: ProfileDTOResp) => {
-        this.userProfile = response
-      }
-    })
+
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
