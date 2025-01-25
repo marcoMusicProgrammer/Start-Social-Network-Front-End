@@ -47,7 +47,6 @@ export class RequestClientService {
     )
   }
 
-
   saveBackdropImage(toInsert: FormData): Observable<string> {
     return this.http.post<string>("/api/profiles/saveBackdropImage", toInsert).pipe(
       catchError(this.handleError)
@@ -69,7 +68,7 @@ export class RequestClientService {
 
   getProfileImage(toInsert: string): Observable<Blob> {
     return this.http
-      .get('/api/profiles/fileSystem/profileImage/${toInsert}',{responseType:"blob"})
+      .get(`/api/profiles/fileSystem/${toInsert}`,{responseType:"blob"})
       .pipe(catchError(this.handleError));
   }
 

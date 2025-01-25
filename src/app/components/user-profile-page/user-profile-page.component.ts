@@ -14,6 +14,7 @@ import {ProfileDTOResp} from '../../models/ProfileDTOResp';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import {PostType} from '../../models/PostType';
+import {VideogameResp} from '../../models/VideogameResp';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -74,6 +75,7 @@ export class UserProfilePageComponent {
   profileImageUrl = new BehaviorSubject<SafeUrl>(null!);
 
   imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
+  preferredVideogames: VideogameResp[] = []
 
   /**
    * When the component is made load both the service and gets all the post and user information
@@ -89,7 +91,6 @@ export class UserProfilePageComponent {
     this.serv.getAllUsersPost().subscribe({
       next: (response: PostDTOResp[]) => {
         let newPost: PostDTOResp[] = [];
-        console.log(response);
 
         for (let post of response) {
           const publicationDate = new Date(post.publicationDate);
@@ -141,7 +142,7 @@ export class UserProfilePageComponent {
         }
 
         if(this.userProfile.profileImgId) {
-          this.serv.getBackdropProfileImage(this.userProfile.profileImgId).subscribe({
+          this.serv.getProfileImage(this.userProfile.profileImgId).subscribe({
             next: (response: Blob)=> {
               this.profileImage = URL.createObjectURL(response);
               const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileImage);
@@ -159,8 +160,10 @@ export class UserProfilePageComponent {
      */
     this.serv.getPreferredVideogames().subscribe(
       response => {
+        this.preferredVideogames = response;
         const randomIndex = Math.floor(Math.random() * response.length);
         this.imgVideogamePreferred=response[randomIndex].iconImgUrl;
+        console.log(response)
       }
     )
   }
@@ -195,9 +198,9 @@ export class UserProfilePageComponent {
   }
 
   profileImageCropped(event: ImageCroppedEvent) {
-    this.backdropCroppedImage = URL.createObjectURL(event.blob!); // Temporary URL
-    this.backdropCroppedImageBlob = event.blob!;
-    console.log('Cropped Image URL:', this.backdropCroppedImage);
+    this.profileCroppedImage = URL.createObjectURL(event.blob!); // Temporary URL
+    this.profileCroppedImageBlob = event.blob!;
+    console.log('Cropped Image URL:', this.profileCroppedImage);
   }
 
   backdropImageLoaded(event: any): void {

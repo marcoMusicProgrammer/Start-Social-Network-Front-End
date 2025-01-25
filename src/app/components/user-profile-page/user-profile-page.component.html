@@ -22,12 +22,12 @@
         <div class="secondrow row justify-content-between">
           <p class="col-4">Following: n following</p>
           <img
-            ngSrc="{{imgVideogamePreferred}}"
+            [src]="imgVideogamePreferred"
             class="firstpic col-4 container-fluid"
             style="width: 13%; aspect-ratio: 5/6; height: auto; position: relative;"
             fill>
           <img
-            ngSrc="{{userProfile.lastPlayedGameImgUrl}}"
+            [src]="userProfile.lastPlayedGameImgUrl"
             class="secondpic col-4 container-fluid"
             style="width: 13%; aspect-ratio: 5/6; height: auto; position: relative;"
             fill>
