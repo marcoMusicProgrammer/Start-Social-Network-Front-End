@@ -24,6 +24,7 @@ import {PostType} from '../../models/PostType';
     ImageCropperComponent,
     NgIf,
     AsyncPipe,
+    NgOptimizedImage,
   ],
   templateUrl: './user-profile-page.component.html',
   standalone: true,
@@ -72,8 +73,10 @@ export class UserProfilePageComponent {
   profileBackdropImageUrl = new BehaviorSubject <SafeUrl>(null!);
   profileImageUrl = new BehaviorSubject<SafeUrl>(null!);
 
+  imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
+
   /**
-   * When teh component is made load both the service and gets all the post and user information
+   * When the component is made load both the service and gets all the post and user information
    * @param serv
    * @param servCred
    * @param sanitizer
@@ -150,7 +153,16 @@ export class UserProfilePageComponent {
       error: (err: ErrorResponse) => {
         this.errorMessage = err.message;
       }
-    })
+    });
+    /**
+     * Select random preferred game
+     */
+    this.serv.getPreferredVideogames().subscribe(
+      response => {
+        const randomIndex = Math.floor(Math.random() * response.length);
+        this.imgVideogamePreferred=response[randomIndex].iconImgUrl;
+      }
+    )
   }
 
   openBackdropModal(): void {

@@ -19,8 +19,12 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
-  updateVideogame(toInsert:VideogameResp): Observable<LoginResponse> {
-    return this.http.put<LoginResponse>("/api/videogames",toInsert);
+  updateVideogame(toUpdate:VideogameResp): Observable<LoginResponse> {
+    return this.http.put<LoginResponse>("/api/videogames",toUpdate);
+  }
+
+  getPreferredVideogames():Observable<VideogameResp[]> {
+    return this.http.get<VideogameResp[]>("/api/videogames/preferred");
   }
 
   getAllVideogames(): Observable<VideogameResp[]> {
