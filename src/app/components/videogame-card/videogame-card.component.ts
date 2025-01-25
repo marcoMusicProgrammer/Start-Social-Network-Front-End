@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {NgIf} from '@angular/common';
+import {VideogameResp} from '../../models/VideogameResp';
 
 @Component({
   selector: 'app-videogame-card',
-  imports: [],
+  imports: [
+    NgIf
+  ],
   templateUrl: './videogame-card.component.html',
   standalone: true,
   styleUrl: './videogame-card.component.css'
@@ -25,4 +29,16 @@ export class VideogameCardComponent {
   //   this.rating = value;
   // }
 
+  @Input() videogame!: VideogameResp;
+  @Output() newFavorite:EventEmitter<number> = new EventEmitter<number>();
+  @Output() removeFavorite:EventEmitter<number> = new EventEmitter<number>();
+
+
+  addToFavorites() {
+    this.newFavorite.emit(this.videogame.appId);
+  }
+
+  removeFromFavorites() {
+    this.removeFavorite.emit(this.videogame.appId);
+  }
 }

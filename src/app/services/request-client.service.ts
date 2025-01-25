@@ -9,6 +9,8 @@ import {ErrorResponse} from '../models/ErrorResponse';
 import {PostDTOReq} from '../models/PostDTOReq';
 import {ProfileDTOResp} from '../models/ProfileDTOResp';
 import {ProfileDTOReq} from '../models/ProfileDTOReq';
+import {VideogameResp} from '../models/VideogameResp';
+import {LoginResponse} from '../models/LoginResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +19,16 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
+  updateVideogame(toInsert:VideogameResp): Observable<LoginResponse> {
+    return this.http.put<LoginResponse>("/api/videogames",toInsert);
+  }
+
+  getAllVideogames(): Observable<VideogameResp[]> {
+    return this.http.get<VideogameResp[]>("/api/videogames");
+  }
+
   getAllUsers(): Observable<UserDTOResp[]> {
-    return this.http.get<UserDTOResp[]>("/api/profiles/all")
+    return this.http.get<UserDTOResp[]>("/api/profiles/all");
   }
 
   getProfile(): Observable<ProfileDTOResp> {
