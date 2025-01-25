@@ -1,8 +1,9 @@
-import {Component, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {UserProfilePageComponent} from "../user-profile-page/user-profile-page.component";
 import {ProfileDTOResp} from "../../models/ProfileDTOResp";
+import {RequestClientService} from '../../services/request-client.service';
 
 @Component({
   selector: 'app-left-navbar',
@@ -16,10 +17,31 @@ import {ProfileDTOResp} from "../../models/ProfileDTOResp";
 })
 export class LeftNavbarComponent {
 
-  @Input() user!: ProfileDTOResp;
+  @Output() delete = new EventEmitter<void>();
 
-  constructor(private router: Router ) {
+  constructor(private router: Router, serv:RequestClientService) {
+  serv.getProfile().subscribe(profile => {
+    this.userProfile = profile;
+  })
   }
+
+  userProfile: ProfileDTOResp =
+    {
+      id:0,
+      steamId:0,
+      followersCount:0,
+      followingCount:0,
+      favoriteVideogameAppId:0,
+      lastPlayedVideogameAppId:0,
+      profileName:'',
+      steamName:'',
+      playstationName:'',
+      xboxName:'',
+      profileImgId:'',
+      profileBackdropImgId:'',
+      lastPlayedGameImgUrl:''
+    };
+
 
   logout()
   {

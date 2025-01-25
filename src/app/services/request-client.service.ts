@@ -19,6 +19,8 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
+
+
   updateVideogame(toUpdate:VideogameResp): Observable<LoginResponse> {
     return this.http.put<LoginResponse>("/api/videogames",toUpdate);
   }
@@ -39,6 +41,7 @@ export class RequestClientService {
     return this.http.get<ProfileDTOResp>("/api/profiles").pipe(
       catchError(this.handleError)
     )
+
   }
 
   saveProfile(toInsert: ProfileDTOReq): Observable<ProfileDTOResp> {
