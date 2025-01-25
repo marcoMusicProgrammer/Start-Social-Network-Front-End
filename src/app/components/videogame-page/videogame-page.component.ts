@@ -22,6 +22,7 @@ export class VideogamePageComponent {
     this.serv.getAllVideogames().subscribe(
       response => {
         this.videogames = response;
+        console.log(response)
       }
     )
   }

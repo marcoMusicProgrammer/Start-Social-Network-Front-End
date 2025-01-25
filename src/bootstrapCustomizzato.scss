@@ -1,5 +1,6 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
+@import url('https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 $dropdown-item-padding-y:           $spacer * 2.5;
 $theme-colors: (
@@ -11,14 +12,14 @@ $theme-colors: (
   "danger":     $danger,
   "light":      $light,
   "dark":       #1E1E1E,
-  "darker": #151515,
+  "darker":     #151515,
   "line":       #1AB922,
   "line-darker": #0e7313,
   "topolona":   #B91A91
 );
 
 $box-shadow:                  0 1rem 4rem #1AB922;
-$box-shadow-sm:               0 0rem 1rem rgba(255, 255, 255, .01);
+$box-shadow-sm:               0 .1rem 3rem rgba(28, 206, 39, 0.1);
 $box-shadow-lg:               0 1rem 3rem #1AB922;
 $box-shadow-inset:            inset 0 1px 2px #1AB922;
 
