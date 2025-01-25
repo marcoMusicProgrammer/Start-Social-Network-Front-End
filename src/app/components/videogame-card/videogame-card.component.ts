@@ -1,11 +1,13 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {VideogameResp} from '../../models/VideogameResp';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-videogame-card',
   imports: [
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './videogame-card.component.html',
   standalone: true,
