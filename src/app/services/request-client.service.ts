@@ -33,23 +33,31 @@ export class RequestClientService {
     )
   }
 
-  saveImage(toInsert: FormData): Observable<string> {
+
+  saveBackdropImage(toInsert: FormData): Observable<string> {
     return this.http.post<string>("/api/profiles/saveBackdropImage", toInsert).pipe(
       catchError(this.handleError)
     )
   }
 
-  getProfileImages(toInsert: string): Observable<Blob> {
+  //TODO Dire al backend di preparare API
+  saveProfileImage(toInsert: FormData): Observable<string> {
+    return this.http.post<string>("/api/profiles/saveProfileImage", toInsert).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getBackdropProfileImage(toInsert: string): Observable<Blob> {
     return this.http
       .get(`/api/profiles/fileSystem/${toInsert}`,{responseType:'blob'})
       .pipe(catchError(this.handleError));
   }
 
-  // getProfileImages(toInsert: number): Observable<Blob> {
-  //   return this.http.get("/api/profiles/fileSystem/"+toInsert,).pipe(
-  //     catchError(this.handleError)
-  //   )
-  // }
+  getProfileImage(toInsert: string): Observable<Blob> {
+    return this.http
+      .get('/api/profiles/fileSystem/profileImage/${toInsert}',{responseType:"blob"})
+      .pipe(catchError(this.handleError));
+  }
 
   getAllUsersPost(): Observable<PostDTOResp[]> {
     return this.http.get<PostDTOResp[]>("/api/posts").pipe(

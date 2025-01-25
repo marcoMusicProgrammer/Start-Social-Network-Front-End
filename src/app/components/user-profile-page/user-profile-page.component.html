@@ -3,9 +3,9 @@
     <div class="container-fluid w-100" style="padding: 0">
         <!-- Copertina -->
       <div class="profile-container">
-        <img (click)="openModal()" [src]="backdropImage" alt="Copertina" class="cover-image">
+        <img (click)="openBackdropModal()" [src]="backdropImage" alt="Copertina" class="cover-image">
           <!-- Immagine profilo -->
-        <img src="https://picsum.photos/536/354" alt="Profilo" class="profile-image">
+        <img (click)="openProfiledModal()" [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
       </div>
       <div class="container-fluid" style="height: 30vh"> <!-- meta' inferiore header-->
         <div *ngIf="userProfile" class="row justify-content-center">
@@ -63,27 +63,52 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div *ngIf="isModalOpen" class="modal-overlay">
+<!--Backdrop Modal -->
+<div *ngIf="isBackdropModalOpen" class="modal-overlay">
   <div class="modal-content">
     <h2>Change Profile Image</h2>
-    <input type="file" (change)="fileChangeEvent($event)" />
+    <input type="file" (change)="backdropFileChangeEvent($event)" />
 
     <image-cropper
-      [imageChangedEvent]="imageChangedEvent"
+      [imageChangedEvent]="backdropImageChangedEvent"
       [maintainAspectRatio]="true"
       [aspectRatio]="4 / 3"
       [resizeToWidth]="500"
 
     format="png"
-      (imageCropped)="imageCropped($event)"
-      (imageLoaded)="imageLoaded($event)"
-      (cropperReady)="cropperReady()"
-      (loadImageFailed)="loadImageFailed()"
+      (imageCropped)="backdropImageCropped($event)"
+      (imageLoaded)="backdropImageLoaded($event)"
+      (cropperReady)="backdropCropperReady()"
+      (loadImageFailed)="backdropLoadImageFailed()"
     ></image-cropper>
 
-    <img [src]="croppedImage" class="preview-image" />
-    <button class="btn btn-line" (click)="saveCroppedImage()">Save</button>
-    <button class="btn btn-danger" (click)="closeModal()">Cancel</button>
+    <img [src]="backdropCroppedImage" class="preview-image" />
+    <button class="btn btn-line" (click)="saveBackdropCroppedImage()">Save</button>
+    <button class="btn btn-danger" (click)="closeBackdropModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- Profile IMG Modal -->
+<div *ngIf="isProfileModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Change Profile Image</h2>
+    <input type="file" (change)="profileFileChangeEvent($event)"/>
+
+    <image-cropper
+      [imageChangedEvent]="profileImageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 3"
+      [resizeToWidth]="500"
+
+      format="png"
+      (imageCropped)="profileImageCropped($event)"
+      (imageLoaded)="profileImageLoaded($event)"
+      (cropperReady)="profileCropperReady()"
+      (loadImageFailed)="profileLoadImageFailed()"
+    ></image-cropper>
+
+    <img [src]="profileCroppedImage" class="preview-image"/>
+    <button class="btn btn-line" (click)="saveProfileCroppedImage()">Save</button>
+    <button class="btn btn-danger" (click)="closeProfileModal()">Cancel</button>
   </div>
 </div>

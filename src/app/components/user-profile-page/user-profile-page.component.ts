@@ -33,6 +33,7 @@ import {PostType} from '../../models/PostType';
 export class UserProfilePageComponent {
 
   errorMessage= '';
+  successMessage: string = ''
   newPost:PostDTOReq = {content:'',image:'',profileId:0,nLike:0}
   allPosts$ = new BehaviorSubject <PostDTOResp[]>([]);
   userProfile: ProfileDTOResp =
@@ -52,13 +53,24 @@ export class UserProfilePageComponent {
       lastPlayedGameImgUrl:''
     };
 
-  successMessage: string = ''
-  imageChangedEvent: Event | null = null;
-  croppedImage: SafeUrl = '';
-  croppedImageBlob: Blob | null = null;
-  isModalOpen = false;
+  //Events for the cropper
+  backdropImageChangedEvent: Event | null = null;
+  backdropCroppedImage: SafeUrl = '';
+  backdropCroppedImageBlob: Blob | null = null;
+
+  profileImageChangedEvent: Event | null = null;
+  profileCroppedImage: SafeUrl = '';
+  profileCroppedImageBlob: Blob | null = null;
+
+
+  isBackdropModalOpen = false;
+  isProfileModalOpen = false;
+
+  // Variables for save image urls
   backdropImage: string = '';
-  profileImageUrl = new BehaviorSubject <SafeUrl>(null!);
+  profileImage: string = '';
+  profileBackdropImageUrl = new BehaviorSubject <SafeUrl>(null!);
+  profileImageUrl = new BehaviorSubject<SafeUrl>(null!);
 
   /**
    * When teh component is made load both the service and gets all the post and user information
@@ -113,11 +125,24 @@ export class UserProfilePageComponent {
          */
 
         if(this.userProfile.profileBackdropImgId) {
-          this.serv.getProfileImages(this.userProfile.profileBackdropImgId).subscribe({
+          this.serv.getBackdropProfileImage(this.userProfile.profileBackdropImgId).subscribe({
             next: (response: Blob)=> {
               this.backdropImage = URL.createObjectURL(response);
               const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
-              this.profileImageUrl.next(updateToSafeUrl);
+              this.profileBackdropImageUrl.next(updateToSafeUrl);
+            },
+            error: (err: ErrorResponse) => {
+              this.errorMessage = err.message;
+            }
+          })
+        }
+
+        if(this.userProfile.profileImgId) {
+          this.serv.getBackdropProfileImage(this.userProfile.profileImgId).subscribe({
+            next: (response: Blob)=> {
+              this.profileImage = URL.createObjectURL(response);
+              const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileImage);
+              this.profileImageUrl.next(updateToSafeUrl)
             }
           })
         }
@@ -128,33 +153,59 @@ export class UserProfilePageComponent {
     })
   }
 
-  openModal(): void {
-    this.isModalOpen = true;
+  openBackdropModal(): void {
+    this.isBackdropModalOpen = true;
+  }
+  openProfiledModal(): void {
+    this.isProfileModalOpen = true;
   }
 
-  closeModal(): void {
-    this.isModalOpen = false;
+  closeBackdropModal(): void {
+    this.isBackdropModalOpen = false;
   }
 
-  fileChangeEvent(event: Event): void {
-    this.imageChangedEvent = event;
+  closeProfileModal(): void {
+    this.isProfileModalOpen = false;
   }
 
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = URL.createObjectURL(event.blob!); // Temporary URL
-    this.croppedImageBlob = event.blob!;
-    console.log('Cropped Image URL:', this.croppedImage);
+  backdropFileChangeEvent(event: Event): void {
+    this.backdropImageChangedEvent = event;
   }
 
-  imageLoaded(event: any): void {
+  profileFileChangeEvent(event: Event): void {
+    this.profileImageChangedEvent = event;
+  }
+
+  backdropImageCropped(event: ImageCroppedEvent) {
+    this.backdropCroppedImage = URL.createObjectURL(event.blob!); // Temporary URL
+    this.backdropCroppedImageBlob = event.blob!;
+    console.log('Cropped Image URL:', this.backdropCroppedImage);
+  }
+
+  profileImageCropped(event: ImageCroppedEvent) {
+    this.backdropCroppedImage = URL.createObjectURL(event.blob!); // Temporary URL
+    this.backdropCroppedImageBlob = event.blob!;
+    console.log('Cropped Image URL:', this.backdropCroppedImage);
+  }
+
+  backdropImageLoaded(event: any): void {
+    console.log('Image loaded');
+  }
+  profileImageLoaded(event: any): void {
     console.log('Image loaded');
   }
 
-  cropperReady(): void {
+  backdropCropperReady(): void {
+    console.log('Cropper ready');
+  }
+  profileCropperReady(): void {
     console.log('Cropper ready');
   }
 
-  loadImageFailed(): void {
+  backdropLoadImageFailed(): void {
+    console.error('Load image failed');
+  }
+  profileLoadImageFailed(): void {
     console.error('Load image failed');
   }
 
@@ -165,14 +216,25 @@ export class UserProfilePageComponent {
    * If present, uploadCroppedImage converts the image and upload it in the server.
    * Creates an url and then pass it to the profileImageUrl
    */
-  saveCroppedImage(): void {
-    if (this.croppedImageBlob) {
-      console.log('Saving cropped image:', this.croppedImageBlob);
-      this.uploadCroppedImage(this.croppedImageBlob);
-      this.backdropImage = URL.createObjectURL(this.croppedImageBlob);
+  saveBackdropCroppedImage(): void {
+    if (this.backdropCroppedImageBlob) {
+      console.log('Saving cropped image:', this.backdropCroppedImageBlob);
+      this.uploadBackdropCroppedImage(this.backdropCroppedImageBlob);
+      this.backdropImage = URL.createObjectURL(this.backdropCroppedImageBlob);
       const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
+      this.profileBackdropImageUrl.next(updateToSafeUrl);
+      this.closeBackdropModal();
+    }
+  }
+
+  saveProfileCroppedImage(): void {
+    if (this.profileCroppedImageBlob) {
+      console.log('Saving cropped image:', this.profileCroppedImageBlob);
+      this.uploadProfileCroppedImage(this.profileCroppedImageBlob);
+      this.profileImage = URL.createObjectURL(this.profileCroppedImageBlob);
+      const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileImage);
       this.profileImageUrl.next(updateToSafeUrl);
-      this.closeModal();
+      this.closeProfileModal();
     }
   }
 
@@ -181,13 +243,23 @@ export class UserProfilePageComponent {
    * Make a post request sending the data
    * @param blob
    */
-  uploadCroppedImage(blob: Blob): void {
+  uploadBackdropCroppedImage(blob: Blob): void {
     const formData = new FormData();
     formData.append('imgBackdrop', blob, 'backdrop-image.png');
 
-    this.serv.saveImage(formData).subscribe({
+    this.serv.saveBackdropImage(formData).subscribe({
       next: response => console.log('Image uploaded successfully:', response),
       error: error => console.error('Failed to upload image:', error),
+    });
+  }
+
+  uploadProfileCroppedImage(blob: Blob): void {
+    const formData = new FormData();
+    formData.append('imgProfile', blob, 'profile-image.png');
+
+    this.serv.saveProfileImage(formData).subscribe({
+      next: response => console.log('Profile Image uploaded successfully:', response),
+      error: error => console.error('Failed to upload profile image:', error),
     });
   }
 
