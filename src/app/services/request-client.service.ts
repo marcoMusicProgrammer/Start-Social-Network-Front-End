@@ -20,7 +20,11 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
-
+  getOtherUsersPost(): Observable<PostDTOResp[]> {
+    return this.http.get<PostDTOResp[]>("/api/posts/activity").pipe(
+      catchError(this.handleError)
+    )
+  }
 
   updateVideogame(toUpdate:VideogameResp): Observable<LoginResponse> {
     return this.http.put<LoginResponse>("/api/videogames",toUpdate);
@@ -46,7 +50,10 @@ export class RequestClientService {
     return this.http.get<ProfileDTOResp>("/api/profiles").pipe(
       catchError(this.handleError)
     )
+  }
 
+  getProfileId(toInsert: number): Observable<ProfileDTOResp> {
+    return this.http.get<ProfileDTOResp>("/api/profiles/" + toInsert);
   }
 
   saveProfile(toInsert: ProfileDTOReq): Observable<ProfileDTOResp> {

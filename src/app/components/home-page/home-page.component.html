@@ -1,0 +1,6 @@
+<div *ngFor="let p of allOthersUserPosts$ | async">
+  <app-other-users-posts
+    [post]="p"
+  >
+  </app-other-users-posts>
+</div>

@@ -6,13 +6,14 @@ import {UserProfilePageComponent} from './components/user-profile-page/user-prof
 import {authenticationGuard} from './guard/authentication.guard';
 import {VideogamePageComponent} from './components/videogame-page/videogame-page.component';
 import {VideogameCardComponent} from './components/videogame-card/videogame-card.component';
+import {HomePageComponent} from './components/home-page/home-page.component';
 
 export const routes: Routes = [
   { path: '', component: LoginPageComponent,pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'signin', component: SigninPageComponent },
   { path: 'uservideogame', component: VideogamePageComponent},
-  // { path: 'signin', component: SigninPageComponent },
+  { path: 'home', component: HomePageComponent },
   // { path: 'signin', component: SigninPageComponent },
   { path: 'videogame-detail/:appId', component: VideogameCardComponent },
   { path: 'user-profile/:id', component: UserProfilePageComponent,canActivate: [authenticationGuard]},
