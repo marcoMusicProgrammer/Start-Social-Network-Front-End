@@ -43,4 +43,6 @@ export class VideogameCardComponent {
   removeFromFavorites() {
     this.removeFavorite.emit(this.videogame.appId);
   }
+
+
 }
