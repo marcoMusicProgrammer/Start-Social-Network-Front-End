@@ -11,6 +11,7 @@ import {ProfileDTOResp} from '../models/ProfileDTOResp';
 import {ProfileDTOReq} from '../models/ProfileDTOReq';
 import {VideogameResp} from '../models/VideogameResp';
 import {LoginResponse} from '../models/LoginResponse';
+import {VideogameDetailDTO} from '../models/VideogameDetailDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,10 @@ export class RequestClientService {
 
   getPreferredVideogames():Observable<VideogameResp[]> {
     return this.http.get<VideogameResp[]>("/api/videogames/preferred");
+  }
+
+  getVideogameDetail(appId:number):Observable<VideogameDetailDTO> {
+    return this.http.get<VideogameDetailDTO>(`/api/videogames/${appId}`);
   }
 
   getAllVideogames(): Observable<VideogameResp[]> {
