@@ -3,11 +3,11 @@
     <!-- Card Header -->
     <div class="card-header d-flex justify-content-between align-items-center">
       <div>
-        <p class="h4 mb-1 text-light">{{videogame.videogameName}}</p>
+        <p class="h4 mb-1 text-light">{{videogame?.videogameName}}</p>
       </div>
       <div>
         <img
-          src="{{videogame.iconImgUrl}}"
+          src="{{videogame?.iconImgUrl}}"
           class="img-thumbnail"
           style="width: 150px; height: 150px;">
       </div>
@@ -15,10 +15,10 @@
     <!-- Card Footer -->
     <div class="card-footer d-flex justify-content-between align-items-center px-4">
       <div>
-        <a [routerLink]="['/videogame-detail',videogame.appId]">Go to detail</a>
+        <a [routerLink]="['/videogame-detail',videogame?.appId]">Go to detail</a>
       </div>
       <!-- Icona cuore -->
-      <div *ngIf="!videogame.preferred" (click)="addToFavorites()" title="Add to favorites">
+      <div *ngIf="!videogame?.preferred" (click)="addToFavorites()" title="Add to favorites">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -33,7 +33,7 @@
           />
         </svg>
       </div>
-      <div *ngIf="videogame.preferred" (click)="removeFromFavorites()" title="Remove to favorites">
+      <div *ngIf="videogame?.preferred" (click)="removeFromFavorites()" title="Remove to favorites">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24" height="24" fill="white"
