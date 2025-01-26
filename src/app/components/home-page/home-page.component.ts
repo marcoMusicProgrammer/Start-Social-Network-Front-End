@@ -23,11 +23,13 @@ export class HomePageComponent {
 
   allOthersUserPosts$ = new BehaviorSubject<PostDTOResp[]>([])
 
-  constructor(private _router: Router, serv: RequestClientService) {
+  constructor(private _router: Router, serv: RequestClientService, private router: Router) {
     serv.getOtherUsersPost().subscribe((posts: PostDTOResp[]) => {
       console.log(posts);
       const updatedPost = [...this.allOthersUserPosts$.value,...posts];
       this.allOthersUserPosts$.next(updatedPost)
+
+      const title = document.getElementById("title")
     })
   }
 }
