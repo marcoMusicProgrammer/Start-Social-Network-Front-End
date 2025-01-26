@@ -22,14 +22,14 @@ export class VideogameDetailComponent {
 
   videogame!: VideogameDetailDTO;
   appId!: number;
-  constructor(private route: ActivatedRoute, private serv: RequestClientService) {}
 
-  ngOnInit(): void {
-    this.appId = Number(this.route.snapshot.paramMap.get('appId'));
-    this.serv.getVideogameDetail(this.appId).subscribe(videogame => {
-      this.videogame = videogame;
-      console.log(videogame);
-    })
+  constructor(private route: ActivatedRoute, private serv: RequestClientService) {
+    this.route.params.subscribe(params => {this.appId = +params['appId'];
+      this.serv.getVideogameDetail(this.appId).subscribe(videogame => {
+        this.videogame = videogame;
+        console.log(videogame);
+      })
+    });
   }
 
   decodeHtml(html: string): string {

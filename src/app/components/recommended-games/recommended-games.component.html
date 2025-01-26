@@ -1,47 +1,34 @@
 <div class="container card bg-transparent border-1 border-line" style="width: 70%; margin-top: 20px">
   <div class="card-body text-light bg-transparent">
     <div class="row text-start">
-      <p>Potrebbero piacerti...</p>
+      <p>You could also like...</p>
 
-      <!-- Prima riga -->
-      <div class="d-flex align-items-center">
-        <img
-          src="https://picsum.photos/536/354"
-          alt="thumbnail"
-          style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid white;">
-        <p class="col ms-3 mb-0">Nome videogioco</p>
-      </div>
-      <br/>
-      <br/>
 
-      <!-- Seconda riga -->
-      <div class="d-flex align-items-center">
-        <img
-          src="https://picsum.photos/536/354"
-          alt="thumbnail"
-          style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid white;">
-        <p class="col ms-3 mb-0">Nome videogioco</p>
-      </div>
-      <br/>
-      <br/>
-
-      <!-- Terza riga -->
-      <div class="d-flex align-items-center">
-        <img
-          src="https://picsum.photos/536/354"
-          alt="thumbnail"
-          style="width: 35px; height: 35px; border-radius: 50%; border: 1px solid white;">
-        <p class="col ms-3 mb-0">Nome videogioco</p>
+      <div *ngFor="let recommendation of recommendations">
+        <div class="d-flex align-items-center">
+          <img
+            src="{{recommendation?.iconImgUrl}}"
+            alt="thumbnail"
+            style="">
+        </div>
+        <p class="col ms-3 mb-0">{{recommendation?.videogameName}}</p>
+        <p class="col ms-3 mb-0">{{recommendation?.developers}}</p>
+        <a type="button" class="btn btn-outline-line py-1 px-2 w-auto mt-3"
+           [routerLink]="['/videogame-detail',recommendation?.appId]"
+        >details</a>
       </div>
       <br/>
       <br/>
 
       <!-- Bottone -->
       <div class="d-flex justify-content-end mt-auto">
-        <button type="button" class="btn btn-outline-line">Altro</button>
+        <button type="button" class="btn btn-outline-line"
+        (click)="showOthersRecommendations()"
+        >Others</button>
       </div>
       <br/>
       <br/>
+
     </div>
   </div>
 </div>
