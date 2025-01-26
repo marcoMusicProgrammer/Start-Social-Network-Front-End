@@ -41,11 +41,43 @@ $container-max-widths: (
   xxl: 1320px,
 );
 
+$table-cell-padding-y:        .5rem;
+$table-cell-padding-x:        .5rem;
+$table-cell-padding-y-sm:     .25rem;
+$table-cell-padding-x-sm:     .25rem;
 
-:root {
-  // Loop through the map and create CSS custom properties
- --app-darker-color: #151515,
+$table-cell-vertical-align:   top;
 
-}
+$table-color:                 var(--#{$prefix}emphasis-color);
+$table-bg:                    transparent;
+$table-accent-bg:             transparent;
+
+$table-th-font-weight:        null;
+
+$table-striped-color:         $table-color;
+$table-striped-bg-factor:     .05;
+$table-striped-bg:            rgba(var(--#{$prefix}emphasis-color-rgb), $table-striped-bg-factor);
+
+$table-active-color:          $table-color;
+$table-active-bg-factor:      .1;
+$table-active-bg:             rgba(var(--#{$prefix}emphasis-color-rgb), $table-active-bg-factor);
+
+$table-hover-color:           $table-color;
+$table-hover-bg-factor:       .075;
+$table-hover-bg:              rgba(var(--#{$prefix}emphasis-color-rgb), $table-hover-bg-factor);
+
+$table-border-factor:         .2;
+$table-border-width:          var(--#{$prefix}border-width);
+$table-border-color:          var(--#{$prefix}border-color);
+
+$table-striped-order:         odd;
+$table-striped-columns-order: even;
+
+$table-group-separator-color: currentcolor;
+
+$table-caption-color:         var(--#{$prefix}secondary-color);
+
+$table-bg-scale:              -80%;
+
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';

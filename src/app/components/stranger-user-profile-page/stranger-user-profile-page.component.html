@@ -1,45 +1,98 @@
-<div class="container-fluid d-flex flex-column align-items-stretch align-self-stretch p-0 " style="min-height: 100vh">
-  <div class="container-fluid w-100 border-bottom border-1 border-line" style="padding: 0; height: 68vh"> <!--header-->
-    <div class="container-fluid w-100" style="padding: 0">
-      <!-- Copertina -->
-      <div class="profile-container">
-        <img [src]="backdropImage" alt="Copertina" class="cover-image">
-        <!-- Immagine profilo -->
-        <img [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
-      </div>
-      <div class="container-fluid" style="height: 30vh"> <!-- meta' inferiore header-->
-        <div *ngIf="userProfile" class="row justify-content-center">
-          <p class="h2 user_name">{{ userProfile.profileName }}</p>
+<div class="container-fluid d-flex flex-column align-items-stretch align-self-stretch p-0 ">
+    <!--header-->
+    <div class="container-fluid w-10 border-bottom border-1 border-line" style="padding: 0;">
+        <!-- Copertina -->
+        <div class="profile-container">
+            <img [src]="backdropImage" alt="Copertina" class="cover-image">
+            <!-- Immagine profilo -->
+            <img [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
         </div>
-        <div *ngIf="userProfile" class="row justify-content-center">
-          <p class="h5 steam_name">Steam: {{userProfile.steamName}}</p>
-        </div>
-        <div class="firstrow row justify-content-between">
-          <p class="col-4">Followers: n followers</p>
-          <p class="col-4">Gioco preferito</p>
-          <p class="col-4">Ultimo gioco <br/> giocato</p>
-        </div>
-        <div class="secondrow row justify-content-between">
-          <p class="col-4">Following: n following</p>
-          <img
-            [src]="imgVideogamePreferred"
-            class="firstpic col-4 container-fluid"
-            style="width: 13%; aspect-ratio: 5/6; height: auto; position: relative;"
-            fill>
-          <img
-            [src]="userProfile.lastPlayedGameImgUrl"
-            class="secondpic col-4 container-fluid"
-            style="width: 13%; aspect-ratio: 5/6; height: auto; position: relative;"
-            fill>
-            <button
-                    class="follow-button"
-                    [class.following]="isFollowing"
-                    (click)="toggleFollow()">
-                {{ isFollowing ? 'Unfollow' : 'Follow' }}
-            </button>
 
+        <div class="container-fluid d-flex flex-row-reverse flex-basis mb-4 text-light ml"> <!-- meta' inferiore header-->
+            <table id="table1" class="table mt-5">
+                <thead>
+                <tr>
+                    <th scope="col" class="text-right text-light">Preferred Game</th>
+                    <th scope="col" class="text-right text-light">Recently played</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-right ">
+                        <img
+                            [src]="imgVideogamePreferred"
+                            class="firstpic img-fluid w-75 img-thumbnail me-4"
+                            alt="Preferred Game Image"
+                            style="width: 13%; aspect-ratio: 6/6; height: auto;">
+                    </td>
+                    <td class="text-right">
+                        <img
+                            [src]="userProfile.lastPlayedGameImgUrl"
+                            class="secondpic img-fluid w-75 img-thumbnail me-4"
+                            alt="Last Played Game Image"
+                            style="width: 13%; aspect-ratio: 6/6; height: auto;">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table id="custom-margin-left" class="table ms-5 ps-5 ">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col" class="align-middle"></th> <!-- Fourth column header -->
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="h3"></td>
+                    <td class="h3"></td>
+                    <td class="h3"></td>
+                    <td class="h1 text-center align-middle text-right text-line bold"> <!-- Fourth column aligned right -->
+                        {{ userProfile.profileName }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="h3"></td>
+                    <td class="h3"></td>
+                    <td class="h5"></td>
+                    <td class="h6 text-right text-light"> <!-- Fourth column aligned right -->
+                        Steam: <span class="text-topolona">{{ userProfile.steamName }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="h3"></td>
+                    <td class="h3"></td>
+                    <td class="h5"></td>
+                    <td class="h6 text-right text-light"> <!-- Fourth column aligned right -->
+                        Xbox: {{ userProfile.xboxName }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="h3"></td>
+                    <td class="h3"></td>
+                    <td class="h5"></td>
+                    <td class="h6 text-right text-light"> <!-- Fourth column aligned right -->
+                        Playstation: {{ userProfile.playstationName }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button
+                            class="follow-button btn btn-outline-topolona"
+                            [class.following]="isFollowing"
+                            (click)="toggleFollow()">
+                            {{ isFollowing ? 'Unfollow' : 'Follow' }}
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-      </div>
     </div>
     <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
       <div class="col border-1 border-line ">
@@ -55,4 +108,4 @@
       </div>
     </div>
   </div>
-</div>
+
