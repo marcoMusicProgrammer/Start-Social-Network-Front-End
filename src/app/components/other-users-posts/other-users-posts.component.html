@@ -4,12 +4,14 @@
     <div class="card-header d-flex align-items-center">
 
       <img id="post-user-image"
-           src="https://picsum.photos/536/354"
+           [src]="profileImage"
            style="width: 35px; height: 35px; border-radius: 50%;">
 
-      <p class="ms-3 mb-0 border-3 border-darker">
-        {{userProfile.profileName!}}
-      </p>
+      <a id="username" href="">
+        <p class="ms-3 mb-0 border-3 border-darker">
+          {{userProfile.profileName!}}
+        </p>
+      </a>
 
     </div>
     <!-- Card Body -->
