@@ -3,9 +3,9 @@
     <div class="container-fluid w-10 border-bottom border-1 border-line" style="padding: 0;">
         <!-- Copertina -->
         <div class="profile-container">
-            <img (click)="openBackdropModal()" [src]="backdropImage" alt="Copertina" class="cover-image">
-              <!-- Immagine profilo -->
-            <img (click)="openProfiledModal()" [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
+            <img [src]="backdropImage" alt="Copertina" class="cover-image">
+            <!-- Immagine profilo -->
+            <img [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
         </div>
 
         <div class="container-fluid d-flex flex-row-reverse flex-basis mb-4 text-light ml"> <!-- meta' inferiore header-->
@@ -58,7 +58,7 @@
                     <td class="h3"></td>
                     <td class="h5"></td>
                     <td class="h6 text-right text-light"> <!-- Fourth column aligned right -->
-                        Steam: {{ userProfile.steamName }}
+                        Steam: <span class="text-topolona">{{ userProfile.steamName }}</span>
                     </td>
                 </tr>
                 <tr>
@@ -77,85 +77,35 @@
                         Playstation: {{ userProfile.playstationName }}
                     </td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button
+                            class="follow-button btn btn-outline-topolona"
+                            [class.following]="isFollowing"
+                            (click)="toggleFollow()">
+                            {{ isFollowing ? 'Unfollow' : 'Follow' }}
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row my-5 d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center ">
-        <div class="col border-1 border-line ">
-            <div class="container d-flex flex-column bg-transparent border-line text-light" >
-                <div class="container text-light card bg-transparent border-2 border-line d-flex flex-column">
-                    <div class="card-body">
-                        <p>New Post</p>
-                        <input
-                            class="input-group bg-transparent text-light border-1 border-line"
-                            type="text"
-                            placeholder="Write Something..."
-                            [(ngModel)]="newPost.content">
-                    </div>
-                    <div class="card-footer ">
-                        <button class="btn btn-line" (click)="makeAPost()">Post</button>
-                    </div>
-                </div>
-                <div *ngFor="let p of allPosts$ | async">
-                    <app-user-post
-                    (delete)="deletePost($event)"
-                    [post] = "p"
-                    [user] = "userProfile"
-                    [profileImg]="profileImage"
-                    ></app-user-post>
-                </div>
-            </div>
+    <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
+      <div class="col border-1 border-line ">
+        <div class="container d-flex flex-column bg-transparent border-line text-light" >
+          <div *ngFor="let p of allPosts$ | async">
+            <app-user-post
+              [post] = "p"
+              [user] = "userProfile"
+              [profileImg]="profileImage"
+            ></app-user-post>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-<!--Backdrop Modal -->
-<div *ngIf="isBackdropModalOpen" class="modal-overlay">
-  <div class="modal-content">
-    <h2>Change Backdrop Profile Image</h2>
-    <input type="file" (change)="backdropFileChangeEvent($event)" />
-
-    <image-cropper
-      [imageChangedEvent]="backdropImageChangedEvent"
-      [maintainAspectRatio]="true"
-      [aspectRatio]="4 / 3"
-      [resizeToWidth]="500"
-
-    format="png"
-      (imageCropped)="backdropImageCropped($event)"
-      (imageLoaded)="backdropImageLoaded($event)"
-      (cropperReady)="backdropCropperReady()"
-      (loadImageFailed)="backdropLoadImageFailed()"
-    ></image-cropper>
-
-    <img [src]="backdropCroppedImage" class="preview-image" />
-    <button class="btn btn-line" (click)="saveBackdropCroppedImage()">Save</button>
-    <button class="btn btn-danger" (click)="closeBackdropModal()">Cancel</button>
   </div>
-</div>
 
-<!-- Profile IMG Modal -->
-<div *ngIf="isProfileModalOpen" class="modal-overlay">
-  <div class="modal-content">
-    <h2>Change Profile Image</h2>
-    <input type="file" (change)="profileFileChangeEvent($event)"/>
-
-    <image-cropper
-      [imageChangedEvent]="profileImageChangedEvent"
-      [maintainAspectRatio]="true"
-      [aspectRatio]="4 / 3"
-      [resizeToWidth]="500"
-
-      format="png"
-      (imageCropped)="profileImageCropped($event)"
-      (imageLoaded)="profileImageLoaded($event)"
-      (cropperReady)="profileCropperReady()"
-      (loadImageFailed)="profileLoadImageFailed()"
-    ></image-cropper>
-
-    <img [src]="profileCroppedImage" class="preview-image"/>
-    <button class="btn btn-line" (click)="saveProfileCroppedImage()">Save</button>
-    <button class="btn btn-danger" (click)="closeProfileModal()">Cancel</button>
-  </div>
-</div>

@@ -15,7 +15,7 @@
 }
 .profile-container {
   position: relative;
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 }
 
 .user_name {
@@ -37,6 +37,35 @@
   transform: translateY(-80%);
 }
 
+.firstpic {
+  width: 50%;   /* Adjust to 50% of the parent container's width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.secondpic {
+  width: 50%;   /* Adjust to 50% of the parent container's width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Rimuovi i bordi della tabella */
+#custom-margin-left {
+  border: none;
+  background-color: transparent;  /* Imposta il background trasparente */
+}
+
+/* Rimuovi i bordi delle celle */
+#custom-margin-left td, #custom-margin-left th {
+  border: none;
+}
+
+/* (Optional) Imposta un po' di padding per migliorare la spaziatura */
+#custom-margin-left td, #custom-margin-left th {
+  padding: 10px;
+}
+
+#table1 td, #table1 th {
+  border: none
+}
 
 /*.container {*/
 /*  height: 40vh;*/
@@ -75,4 +104,9 @@
 button.btn-line {
   margin-top: 10px;
   margin-right: 5px;
+}
+
+
+#custom-margin-left {
+  margin-left: 10rem;
 }

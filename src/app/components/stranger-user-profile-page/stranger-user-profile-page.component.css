@@ -1,0 +1,147 @@
+.cover-image {
+  height: 30vh;
+  object-fit: cover;
+  width: 100%;
+}
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #1AB922;
+  position: absolute;
+  bottom: -75px;
+  left: 10%;
+  transform: translateX(-10%);
+}
+.profile-container {
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.user_name {
+  transform: translate(33%, -200%); /*x, y*/
+  text-align: left;
+  /*font-size: 40px;*/
+}
+
+.steam_name {
+  transform: translate(33%, -280%);
+  text-align: left;
+}
+
+.firstrow {
+  transform: translateY(-100%);
+}
+
+.secondrow {
+  transform: translateY(-80%);
+}
+
+
+/*.container {*/
+/*  height: 40vh;*/
+/*}*/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  color: white;
+  text-align: center;
+}
+
+.preview-image {
+  margin-top: 20px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #fff;
+}
+
+button.btn-line {
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.firstpic {
+  width: 50%;   /* Adjust to 50% of the parent container's width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.secondpic {
+  width: 50%;   /* Adjust to 50% of the parent container's width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Rimuovi i bordi della tabella */
+#custom-margin-left {
+  border: none;
+  background-color: transparent;  /* Imposta il background trasparente */
+}
+
+/* Rimuovi i bordi delle celle */
+#custom-margin-left td, #custom-margin-left th {
+  border: none;
+}
+
+/* (Optional) Imposta un po' di padding per migliorare la spaziatura */
+#custom-margin-left td, #custom-margin-left th {
+  padding: 10px;
+}
+
+#table1 td, #table1 th {
+  border: none
+}
+
+.cover-image {
+  height: 30vh;
+  object-fit: cover;
+  width: 100%;
+}
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #1AB922;
+  position: absolute;
+  bottom: -75px;
+  left: 10%;
+  transform: translateX(-10%);
+}
+.profile-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.user_name {
+  transform: translate(33%, -200%); /*x, y*/
+  text-align: left;
+  /*font-size: 40px;*/
+}
+
+.steam_name {
+  transform: translate(33%, -280%);
+  text-align: left;
+}
+
+.firstrow {
+  transform: translateY(-100%);
+}
+
+.secondrow {
+  transform: translateY(-80%);
+}
