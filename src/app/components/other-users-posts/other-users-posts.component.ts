@@ -22,6 +22,7 @@ export class OtherUsersPostsComponent {
   errorMessage = '';
   profileImage: string = '';
   profileImgUrl = new BehaviorSubject<SafeUrl>(null!);
+
   userProfile: ProfileDTOResp =
     {
       id:0,
@@ -79,7 +80,7 @@ export class OtherUsersPostsComponent {
   ngOnInit() {
     const linkToUserName: HTMLElement = document.getElementById('username')!;
     linkToUserName.onclick = () => {
-      this.router.navigate(['/external-user']).then(r => console.log(this.router.getCurrentNavigation()));
+      this.router.navigate(['/external-user/',this.userProfile.id]).then(r => console.log(this.router.getCurrentNavigation()));
     };
   }
 

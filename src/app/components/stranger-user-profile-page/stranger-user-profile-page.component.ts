@@ -9,10 +9,17 @@ import {RequestClientService} from '../../services/request-client.service';
 import {CredentialService} from '../../services/credential.service';
 import {ErrorResponse} from '../../models/ErrorResponse';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {UserPostComponent} from '../user-post/user-post.component';
+import {FormsModule} from '@angular/forms';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-stranger-user-profile-page',
-  imports: [],
+  imports: [
+    UserPostComponent,
+    FormsModule,
+    AsyncPipe
+  ],
   templateUrl: './stranger-user-profile-page.component.html',
   standalone: true,
   styleUrl: './stranger-user-profile-page.component.css'
@@ -39,19 +46,6 @@ export class StrangerUserProfilePageComponent {
       profileBackdropImgId:'',
       lastPlayedGameImgUrl:''
     };
-
-  //Events for the cropper
-  backdropImageChangedEvent: Event | null = null;
-  backdropCroppedImage: SafeUrl = '';
-  backdropCroppedImageBlob: Blob | null = null;
-
-  profileImageChangedEvent: Event | null = null;
-  profileCroppedImage: SafeUrl = '';
-  profileCroppedImageBlob: Blob | null = null;
-
-
-  isBackdropModalOpen = false;
-  isProfileModalOpen = false;
 
   // Variables for save image urls
   backdropImage: string = '';
@@ -153,132 +147,6 @@ export class StrangerUserProfilePageComponent {
     )
   }
 
-  openBackdropModal(): void {
-    this.isBackdropModalOpen = true;
-  }
-  openProfiledModal(): void {
-    this.isProfileModalOpen = true;
-  }
-
-  closeBackdropModal(): void {
-    this.isBackdropModalOpen = false;
-  }
-
-  closeProfileModal(): void {
-    this.isProfileModalOpen = false;
-  }
-
-  backdropFileChangeEvent(event: Event): void {
-    this.backdropImageChangedEvent = event;
-  }
-
-  profileFileChangeEvent(event: Event): void {
-    this.profileImageChangedEvent = event;
-  }
-
-  backdropImageCropped(event: ImageCroppedEvent) {
-    this.backdropCroppedImage = URL.createObjectURL(event.blob!); // Temporary URL
-    this.backdropCroppedImageBlob = event.blob!;
-    console.log('Cropped Image URL:', this.backdropCroppedImage);
-  }
-
-  profileImageCropped(event: ImageCroppedEvent) {
-    this.profileCroppedImage = URL.createObjectURL(event.blob!); // Temporary URL
-    this.profileCroppedImageBlob = event.blob!;
-    console.log('Cropped Image URL:', this.profileCroppedImage);
-  }
-
-  backdropImageLoaded(event: any): void {
-    console.log('Image loaded');
-  }
-  profileImageLoaded(event: any): void {
-    console.log('Image loaded');
-  }
-
-  backdropCropperReady(): void {
-    console.log('Cropper ready');
-  }
-  profileCropperReady(): void {
-    console.log('Cropper ready');
-  }
-
-  backdropLoadImageFailed(): void {
-    console.error('Load image failed');
-  }
-  profileLoadImageFailed(): void {
-    console.error('Load image failed');
-  }
-
-  /**
-   * Function from the cropped library
-   *
-   * Verifies id the croppedImageBlob exists.
-   * If present, uploadCroppedImage converts the image and upload it in the server.
-   * Creates an url and then pass it to the profileImageUrl
-   */
-  saveBackdropCroppedImage(): void {
-    if (this.backdropCroppedImageBlob) {
-      console.log('Saving cropped image:', this.backdropCroppedImageBlob);
-      this.uploadBackdropCroppedImage(this.backdropCroppedImageBlob);
-      this.backdropImage = URL.createObjectURL(this.backdropCroppedImageBlob);
-      const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
-      this.profileBackdropImageUrl.next(updateToSafeUrl);
-      this.closeBackdropModal();
-    }
-  }
-
-  saveProfileCroppedImage(): void {
-    if (this.profileCroppedImageBlob) {
-      console.log('Saving cropped image:', this.profileCroppedImageBlob);
-      this.uploadProfileCroppedImage(this.profileCroppedImageBlob);
-      this.profileImage = URL.createObjectURL(this.profileCroppedImageBlob);
-      const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileImage);
-      this.profileImageUrl.next(updateToSafeUrl);
-      this.closeProfileModal();
-    }
-  }
-
-  /**
-   * Converts the blob image to a formData.
-   * Make a post request sending the data
-   * @param blob
-   */
-  uploadBackdropCroppedImage(blob: Blob): void {
-    const formData = new FormData();
-    formData.append('imgBackdrop', blob, 'backdrop-image.png');
-
-    this.serv.saveBackdropImage(formData).subscribe({
-      next: response => console.log('Image uploaded successfully:', response),
-      error: error => console.error('Failed to upload image:', error),
-    });
-  }
-
-  uploadProfileCroppedImage(blob: Blob): void {
-    const formData = new FormData();
-    formData.append('imgProfile', blob, 'profile-image.png');
-
-    this.serv.saveProfileImage(formData).subscribe({
-      next: response => console.log('Profile Image uploaded successfully:', response),
-      error: error => console.error('Failed to upload profile image:', error),
-    });
-  }
-
-  deletePost(id:number)
-  {
-    const posts = this.allPosts$.value
-    let postWithoutToDelete = posts.filter(p => id != p.id)
-    const updatedPostArray = [...postWithoutToDelete]
-    this.allPosts$.next(updatedPostArray)
-    this.serv.deleteUserPost(id).subscribe({
-      next: (response:string) => {
-        this.successMessage = response
-        console.log(this.successMessage)
-      },
-      error: err => {
-        this.errorMessage = err;
-      }
-    })
-  }
 
   convertsTime(publicationDate:Date){
     const now = Date.now(); // Current time in milliseconds
@@ -302,24 +170,4 @@ export class StrangerUserProfilePageComponent {
       return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
     }
   }
-
-  /**
-   * Do a post request to create a Post
-   */
-  makeAPost() {
-    this.serv.newPost(this.newPost).subscribe({
-      next: (response: PostDTOResp) => {
-        const date = new Date(response.publicationDate)
-        response.publicationDate = this.convertsTime(date)
-        const updatedPosts = [response, ...this.allPosts$.value];
-        this.allPosts$.next(updatedPosts);
-
-        this.newPost = { content: '', image: '', profileId: 0, nLike: 0 };
-      },
-      error: (err: ErrorResponse) => {
-        this.errorMessage = err.message;
-      }
-    })
-  }
-
 }

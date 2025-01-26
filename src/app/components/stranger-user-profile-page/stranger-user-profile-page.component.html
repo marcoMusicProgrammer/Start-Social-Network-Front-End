@@ -3,9 +3,9 @@
     <div class="container-fluid w-100" style="padding: 0">
       <!-- Copertina -->
       <div class="profile-container">
-        <img (click)="openBackdropModal()" [src]="backdropImage" alt="Copertina" class="cover-image">
+        <img alt="Copertina" class="cover-image">
         <!-- Immagine profilo -->
-        <img (click)="openProfiledModal()" [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
+        <img [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
       </div>
       <div class="container-fluid" style="height: 30vh"> <!-- meta' inferiore header-->
         <div *ngIf="userProfile" class="row justify-content-center">

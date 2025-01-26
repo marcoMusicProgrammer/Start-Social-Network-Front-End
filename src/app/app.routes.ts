@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'signin', component: SigninPageComponent },
   { path: 'uservideogame', component: VideogamePageComponent},
   { path: 'home', component: HomePageComponent },
-  { path: 'external-user', component: StrangerUserProfilePageComponent },
+  { path: 'external-user/:id', component: StrangerUserProfilePageComponent },
   { path: 'user-profile/:id', component: UserProfilePageComponent,canActivate: [authenticationGuard]},
 
 ];
