@@ -1,0 +1,64 @@
+<div class="container-fluid d-flex flex-column align-items-stretch align-self-stretch p-0 " style="min-height: 100vh">
+  <div class="container-fluid w-100 border-bottom border-1 border-line" style="padding: 0; height: 68vh"> <!--header-->
+    <div class="container-fluid w-100" style="padding: 0">
+      <!-- Copertina -->
+      <div class="profile-container">
+        <img (click)="openBackdropModal()" [src]="backdropImage" alt="Copertina" class="cover-image">
+        <!-- Immagine profilo -->
+        <img (click)="openProfiledModal()" [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
+      </div>
+      <div class="container-fluid" style="height: 30vh"> <!-- meta' inferiore header-->
+        <div *ngIf="userProfile" class="row justify-content-center">
+          <p class="h2 user_name">{{ userProfile.profileName }}</p>
+        </div>
+        <div *ngIf="userProfile" class="row justify-content-center">
+          <p class="h5 steam_name">Steam: {{userProfile.steamName}}</p>
+        </div>
+        <div class="firstrow row justify-content-between">
+          <p class="col-4">Followers: n followers</p>
+          <p class="col-4">Gioco preferito</p>
+          <p class="col-4">Ultimo gioco <br/> giocato</p>
+        </div>
+        <div class="secondrow row justify-content-between">
+          <p class="col-4">Following: n following</p>
+          <img
+            [src]="imgVideogamePreferred"
+            class="firstpic col-4 container-fluid"
+            style="width: 13%; aspect-ratio: 5/6; height: auto; position: relative;"
+            fill>
+          <img
+            [src]="userProfile.lastPlayedGameImgUrl"
+            class="secondpic col-4 container-fluid"
+            style="width: 13%; aspect-ratio: 5/6; height: auto; position: relative;"
+            fill>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
+      <div class="col border-1 border-line ">
+        <div class="container d-flex flex-column bg-transparent border-line text-light" >
+          <div class="container text-light card bg-transparent border-2 border-line d-flex flex-column">
+            <div class="card-body">
+              <p>New Post</p>
+              <input
+                class="input-group bg-transparent text-light border-1 border-line"
+                type="text"
+                placeholder="Write Something..."
+                [(ngModel)]="newPost.content">
+            </div>
+            <div class="card-footer ">
+              <button class="btn btn-line" (click)="makeAPost()">Post</button>
+            </div>
+          </div>
+          <div *ngFor="let p of allPosts$ | async">
+            <app-user-post
+              (delete)="deletePost($event)"
+              [post] = "p"
+              [user] = "userProfile"
+            ></app-user-post>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
