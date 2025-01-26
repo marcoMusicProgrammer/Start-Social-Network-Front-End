@@ -3,14 +3,13 @@
     <!-- Card Header -->
     <div class="card-header d-flex justify-content-between align-items-center">
       <div class="d-flex flex-column align-items-start">
-        <p class="h4 mb-1 text-light">{{videogame?.videogameName}}</p>
+        <p class="h4 mt-2 mb-1 text-light">{{videogame?.videogameName}}</p>
         <a type="button" class="btn btn-outline-line py-1 px-2 w-auto mt-3" [routerLink]="['/videogame-detail',videogame?.appId]">Go to detail</a>
       </div>
       <div>
         <img
           src="{{videogame?.iconImgUrl}}"
-          class="img-thumbnail"
-          style="width: 150px; height: 150px;">
+          class="img-thumbnail me-4">
       </div>
     </div>
     <!-- Card Footer -->
