@@ -1,6 +1,6 @@
 
 <div *ngFor="let news of articles">
-  <div class="container-fluid card bg-transparent text-light " style="border: 1px solid #1AB922; border-radius: 10px; padding: 15px">
+  <div class="container-fluid card bg-transparent text-light mt-4 mb-4 shadow-sm" style="border: 1px solid #1AB922; border-radius: 10px; padding: 15px">
     <p class="h4 text-start">{{ news.title }}</p>
     <a href="{{news.url}}" target="_blank" class="small" style="text-decoration: underline; color: white">original news</a>
     <div *ngIf="news.author">
