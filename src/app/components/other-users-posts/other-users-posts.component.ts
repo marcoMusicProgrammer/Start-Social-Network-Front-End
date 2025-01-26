@@ -46,12 +46,7 @@ export class OtherUsersPostsComponent {
       this.serv.getProfileId(this.post.profileId).subscribe({
         next: (response: ProfileDTOResp) => {
           console.log(response)
-          const publicationDate = new Date(this.post.publicationDate);
-          this.post.publicationDate = this.convertsTime(publicationDate)
-          console.log(this.post);
-          this.userProfile = response
-
-
+          this.userProfile = response;
           /**
            * Get the profile image from the .GetProfileId API Request
            */
@@ -76,11 +71,10 @@ export class OtherUsersPostsComponent {
     )
   };
 
-  ngOnInit() {
-    const linkToUserName: HTMLElement = document.getElementById('username')!;
-    linkToUserName.onclick = () => {
-      this.router.navigate(['/external-user/',this.userProfile.id]).then(r => console.log(this.router.getCurrentNavigation()));
-    };
+  navigateToExternalUser() {
+      this.router.navigate(['/external-user/',this.userProfile.id])
+          .then(r => console.log(this.router.getCurrentNavigation()));
+
   }
 
 

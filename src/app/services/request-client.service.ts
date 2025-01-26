@@ -13,6 +13,7 @@ import {VideogameResp} from '../models/VideogameResp';
 import {LoginResponse} from '../models/LoginResponse';
 import {VideogameDetailDTO} from '../models/VideogameDetailDTO';
 import {NewsDTO} from '../models/NewsDTO';
+import {FriendSummuryDTO} from '../models/FriendSummuryDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -21,10 +22,21 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
-  getOtherUsersPost(): Observable<PostDTOResp[]> {
-    return this.http.get<PostDTOResp[]>("/api/posts/activity").pipe(
+  addFriend(toInsert: number): Observable<FriendSummuryDTO> {
+    return this.http.post<FriendSummuryDTO>(`/api/friends/add/${toInsert}`, {responseType: "json"}).pipe(
       catchError(this.handleError)
     )
+  }
+
+  getUserPostByProfileId(toInsert: number): Observable<PostDTOResp[]> {
+    return this.http.get<PostDTOResp[]>(`/api/posts/external/${toInsert}`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getOtherUsersPost(): Observable<PostDTOResp[]> {
+    return this.http.get<PostDTOResp[]>("/api/posts/activity").pipe(
+      catchError(this.handleError))
   }
 
   updateVideogame(toUpdate:VideogameResp): Observable<LoginResponse> {

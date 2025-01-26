@@ -11,14 +11,18 @@ import {ErrorResponse} from '../../models/ErrorResponse';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {FormsModule} from '@angular/forms';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
+import {FriendSummuryDTO} from "../../models/FriendSummuryDTO";
 
 @Component({
   selector: 'app-stranger-user-profile-page',
   imports: [
     UserPostComponent,
     FormsModule,
-    AsyncPipe
+    AsyncPipe,
+    NgForOf,
+    NgIf
   ],
   templateUrl: './stranger-user-profile-page.component.html',
   standalone: true,
@@ -36,7 +40,6 @@ export class StrangerUserProfilePageComponent {
       steamId:0,
       followersCount:0,
       followingCount:0,
-      favoriteVideogameAppId:0,
       lastPlayedVideogameAppId:0,
       profileName:'',
       steamName:'',
@@ -47,6 +50,24 @@ export class StrangerUserProfilePageComponent {
       lastPlayedGameImgUrl:''
     };
 
+  friendProfile: FriendSummuryDTO = {
+    id: 0,
+    steamId: '',
+    followersCount: 0,
+    followingCount: 0,
+    favoriteVideogameAppId: null,
+    lastPlayedVideogameAppId: null,
+    profileName: '',
+    // Uncomment if needed in the future
+    // steamName: '',
+    // playstationName: '',
+    // xboxName: '',
+    profileImgId: null,
+    profileBackdropImgId: null,
+    lastPlayedGameImgUrl: null,
+    lastPlayedGameName: null,
+  };
+
   // Variables for save image urls
   backdropImage: string = '';
   profileImage: string = '';
@@ -56,79 +77,81 @@ export class StrangerUserProfilePageComponent {
   imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
   preferredVideogames: VideogameResp[] = []
 
+  isFollowing: boolean = false
+
   /**
    * When the component is made load both the service and gets all the post and user information
    * @param serv
    * @param servCred
    * @param sanitizer
+   * @param activatedRoute
    */
   constructor(
     private serv: RequestClientService,
     private servCred: CredentialService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute,) {
 
-    this.serv.getAllUsersPost().subscribe({
-      next: (response: PostDTOResp[]) => {
-        let newPost: PostDTOResp[] = [];
-
-        for (let post of response) {
-          const publicationDate = new Date(post.publicationDate);
-          post.publicationDate = this.convertsTime(publicationDate);
-          newPost.push(post);
-        }
-
-        const updatedPost = [...this.allPosts$.value, ...newPost];
-        this.allPosts$.next(updatedPost);
-      },
-      error: (err: ErrorResponse) => {
-        this.errorMessage = err.message;
-      }
-    });
+    let snapshot = activatedRoute.snapshot;
+    let id = snapshot.paramMap.get('id');
+    let idNumber = Number(id)
 
     /**
      * Get all profile information
      */
-    this.serv.getProfile().subscribe({
+    this.serv.getProfileId(idNumber).subscribe({
       next: (response: ProfileDTOResp) => {
         this.userProfile = response
         console.log(this.userProfile)
 
-        /**
-         * Verifies if the user's profile backdrop image ID exists.
-         * If present, makes an API request to fetch the backdrop image as a Blob.
-         *
-         * - Converts the Blob response to an object URL and bypasses security to create a trusted URL.
-         * - Updates the observable `profileImageUrl` with the sanitized URL.
-         *
-         * Preconditions:
-         * - `this.userProfile.profileBackdropImgId` must not be null or undefined.
-         *
-         * API Response:
-         * - Success: Blob representing the profile backdrop image.
-         */
+        this.serv.getUserPostByProfileId(this.userProfile.id).subscribe({
+          next: (response: PostDTOResp[]) => {
+            let newPost: PostDTOResp[] = [];
 
-        if(this.userProfile.profileBackdropImgId) {
-          this.serv.getBackdropProfileImage(this.userProfile.profileBackdropImgId).subscribe({
-            next: (response: Blob)=> {
-              this.backdropImage = URL.createObjectURL(response);
-              const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
-              this.profileBackdropImageUrl.next(updateToSafeUrl);
-            },
-            error: (err: ErrorResponse) => {
-              this.errorMessage = err.message;
+            console.log(response)
+            for (let post of response) {
+              const publicationDate = new Date(post.publicationDate);
+              post.publicationDate = this.convertsTime(publicationDate);
+              newPost.push(post);
             }
-          })
-        }
 
-        if(this.userProfile.profileImgId) {
-          this.serv.getProfileImage(this.userProfile.profileImgId).subscribe({
-            next: (response: Blob)=> {
-              this.profileImage = URL.createObjectURL(response);
-              const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileImage);
-              this.profileImageUrl.next(updateToSafeUrl)
+            const updatedPost = [...this.allPosts$.value, ...newPost];
+            this.allPosts$.next(updatedPost);
+            console.log("ciao")
+
+            if(this.userProfile.profileBackdropImgId) {
+              console.log("passa")
+              this.serv.getBackdropProfileImage(this.userProfile.profileBackdropImgId).subscribe({
+                next: (response: Blob)=> {
+                  this.backdropImage = URL.createObjectURL(response);
+                  console.log(this.backdropImage);
+                  const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.backdropImage);
+                  this.profileBackdropImageUrl.next(updateToSafeUrl);
+                },
+                error: (err: ErrorResponse) => {
+                  this.errorMessage = err.message;
+                }
+              })
             }
-          })
-        }
+
+            if(this.userProfile.profileImgId) {
+              this.serv.getProfileImage(this.userProfile.profileImgId).subscribe({
+                next: (response: Blob)=> {
+                  this.profileImage = URL.createObjectURL(response);
+                  console.log(this.profileImage);
+
+                  const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileImage);
+                  this.profileImageUrl.next(updateToSafeUrl)
+                }
+              })
+            }
+          },
+          error: (err: ErrorResponse) => {
+            this.errorMessage = err.message;
+          }
+        });
+
+
       },
       error: (err: ErrorResponse) => {
         this.errorMessage = err.message;
@@ -145,6 +168,21 @@ export class StrangerUserProfilePageComponent {
         console.log(response)
       }
     )
+  }
+
+  toggleFollow()
+  {
+    this.serv.addFriend(this.userProfile.id).subscribe({
+      next: (response: FriendSummuryDTO) => {
+        this.friendProfile = response;
+        this.isFollowing = true
+
+        console.log(this.friendProfile)
+      },
+      error: err => {
+        this.errorMessage = err
+      }
+    })
   }
 
 
