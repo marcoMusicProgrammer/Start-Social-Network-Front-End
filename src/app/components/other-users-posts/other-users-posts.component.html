@@ -6,11 +6,12 @@
            [src]="profileImage"
            style="width: 35px; height: 35px; border-radius: 50%;">
 
-      <a class="linkUser" (click)="navigateToExternalUser()">
-          <span>
-            {{userProfile.profileName!}}
-          </span>
+      <a class="username text-light" (click)="navigateToExternalUser()">
+        <p class="ms-3 mb-0 border-3 border-darker">
+          {{userProfile.profileName!}}
+        </p>
       </a>
+
     </div>
 
     <!-- Card Body -->

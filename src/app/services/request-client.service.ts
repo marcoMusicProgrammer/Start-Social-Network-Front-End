@@ -23,6 +23,12 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
+  getStrangerUserHisFollower(toInsert: number): Observable<FriendSummuryDTO[]> {
+    return this.http.get<FriendSummuryDTO[]>(`/api/friends/followers/${toInsert}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   addFriend(toInsert: number): Observable<FriendSummuryDTO> {
     return this.http.post<FriendSummuryDTO>(`/api/friends/add/${toInsert}`, {responseType: "json"}).pipe(
       catchError(this.handleError)

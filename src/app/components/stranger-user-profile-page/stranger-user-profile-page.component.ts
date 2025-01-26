@@ -77,7 +77,7 @@ export class StrangerUserProfilePageComponent {
   imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
   preferredVideogames: VideogameResp[] = []
 
-  isFollowing: boolean = false
+  isFollowing = false;
 
   /**
    * When the component is made load both the service and gets all the post and user information
@@ -90,11 +90,14 @@ export class StrangerUserProfilePageComponent {
     private serv: RequestClientService,
     private servCred: CredentialService,
     private sanitizer: DomSanitizer,
-    private activatedRoute: ActivatedRoute,) {
+    private activatedRoute: ActivatedRoute) {
 
     let snapshot = activatedRoute.snapshot;
     let id = snapshot.paramMap.get('id');
     let idNumber = Number(id)
+    let token= localStorage.getItem('authToken')
+    let tokenSpliced: string[]|null = token!.split('-');
+    let myID = tokenSpliced[1];
 
     /**
      * Get all profile information
@@ -104,11 +107,30 @@ export class StrangerUserProfilePageComponent {
         this.userProfile = response
         console.log(this.userProfile)
 
+        this.serv.getStrangerUserHisFollower(idNumber).subscribe({
+          next: (response: FriendSummuryDTO[]) => {
+            let friends = response
+
+            for(let friend of friends){
+              console.log(friend)
+
+              let friendID = friend.id.toString();
+              console.log(friendID)
+              console.log(myID)
+              if(friendID === myID)
+              {
+                this.isFollowing = true;
+              }
+
+              console.log(this.isFollowing)
+            }
+          }
+        })
+
         this.serv.getUserPostByProfileId(this.userProfile.id).subscribe({
           next: (response: PostDTOResp[]) => {
             let newPost: PostDTOResp[] = [];
 
-            console.log(response)
             for (let post of response) {
               const publicationDate = new Date(post.publicationDate);
               post.publicationDate = this.convertsTime(publicationDate);
@@ -117,10 +139,8 @@ export class StrangerUserProfilePageComponent {
 
             const updatedPost = [...this.allPosts$.value, ...newPost];
             this.allPosts$.next(updatedPost);
-            console.log("ciao")
 
             if(this.userProfile.profileBackdropImgId) {
-              console.log("passa")
               this.serv.getBackdropProfileImage(this.userProfile.profileBackdropImgId).subscribe({
                 next: (response: Blob)=> {
                   this.backdropImage = URL.createObjectURL(response);
