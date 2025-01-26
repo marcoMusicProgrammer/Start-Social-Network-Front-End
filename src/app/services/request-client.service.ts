@@ -11,6 +11,8 @@ import {ProfileDTOResp} from '../models/ProfileDTOResp';
 import {ProfileDTOReq} from '../models/ProfileDTOReq';
 import {VideogameResp} from '../models/VideogameResp';
 import {LoginResponse} from '../models/LoginResponse';
+import {VideogameDetailDTO} from '../models/VideogameDetailDTO';
+import {NewsDTO} from '../models/NewsDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +33,14 @@ export class RequestClientService {
 
   getPreferredVideogames():Observable<VideogameResp[]> {
     return this.http.get<VideogameResp[]>("/api/videogames/preferred");
+  }
+
+  getVideogameDetail(appId:number):Observable<VideogameDetailDTO> {
+    return this.http.get<VideogameDetailDTO>(`/api/videogames/${appId}`);
+  }
+
+  getNewsVideogame(appId:number):Observable<NewsDTO[]> {
+    return this.http.get<NewsDTO[]>(`/api/steam/news/${appId}`);
   }
 
   getAllVideogames(): Observable<VideogameResp[]> {

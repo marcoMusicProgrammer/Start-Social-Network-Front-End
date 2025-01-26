@@ -31,7 +31,6 @@ export class LeftNavbarComponent {
       steamId:0,
       followersCount:0,
       followingCount:0,
-      favoriteVideogameAppId:0,
       lastPlayedVideogameAppId:0,
       profileName:'',
       steamName:'',

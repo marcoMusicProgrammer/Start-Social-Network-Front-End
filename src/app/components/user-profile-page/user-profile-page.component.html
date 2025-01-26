@@ -16,8 +16,8 @@
         </div>
         <div class="firstrow row justify-content-between">
           <p class="col-4">Followers: n followers</p>
-          <p class="col-4">Gioco preferito</p>
-          <p class="col-4">Ultimo gioco <br/> giocato</p>
+          <p class="col-4">Favorite game</p>
+          <p class="col-4"> Recently you <br/> played</p>
         </div>
         <div class="secondrow row justify-content-between">
           <p class="col-4">Following: n following</p>
@@ -55,6 +55,7 @@
               (delete)="deletePost($event)"
               [post] = "p"
               [user] = "userProfile"
+              [profileImg]="profileImage"
             ></app-user-post>
           </div>
         </div>

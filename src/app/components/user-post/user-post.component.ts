@@ -16,6 +16,7 @@ export class UserPostComponent {
 
   @Input() post!: PostDTOResp;
   @Input() user!: ProfileDTOResp;
+  @Input() profileImg!: string;
   @Output() delete:EventEmitter<number> = new EventEmitter<number>()
 
   constructor(private router: Router, private serv: RequestClientService) {
