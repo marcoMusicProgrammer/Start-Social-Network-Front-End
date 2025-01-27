@@ -1,4 +1,4 @@
-<div class="container-fluid card bg-transparent border-1 border-line" style="width: 70%; margin-top: 20px">
+<div class="container card bg-transparent border-1 border-line" style="width: 70%; margin-top: 20px">
   <div class="card-body text-light bg-transparent">
     <div class="row text-start">
       <p>You may also like...</p>
@@ -13,7 +13,7 @@
         </div>
         <p class="col ms-3 mb-0">{{recommendation?.videogameName}}</p>
         <p class="col ms-3 mb-0">{{recommendation?.developers}}</p>
-        <a type="button" class="btn btn-outline-line py-1 px-2 w-auto mt-3"
+        <a type="button" class="btn btn-outline-line py-1 px-2 w-auto mt-2 mb-2"
            [routerLink]="['/videogame-detail',recommendation?.appId]"
         >details</a>
       </div>
