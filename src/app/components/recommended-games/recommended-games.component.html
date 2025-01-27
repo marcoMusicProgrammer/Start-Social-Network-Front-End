@@ -11,8 +11,12 @@
             alt="thumbnail"
             style="">
         </div>
-        <p class="col ms-3 mb-0">{{recommendation?.videogameName}}</p>
-        <p class="col ms-3 mb-0 small">{{recommendation?.developers}}</p>
+        <p class="col ms-3 mb-0" [title]="recommendation?.videogameName">
+          {{ truncateText(recommendation?.videogameName, 20) }}
+        </p>
+        <p class="col ms-3 mb-0 small" [title]="recommendation?.developers">
+          {{ truncateText(recommendation?.developers, 20) }}
+        </p>
         <a type="button" class="btn btn-outline-line py-1 px-2 w-auto mt-2 mb-2"
            [routerLink]="['/videogame-detail',recommendation?.appId]"
         >details</a>
