@@ -107,7 +107,7 @@
                     (delete)="deletePost($event)"
                     [post] = "p"
                     [user] = "userProfile"
-                    [profileImg]="profileImage"
+                    [profileImg]="profileImage ? profileImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
                     ></app-user-post>
                 </div>
             </div>
