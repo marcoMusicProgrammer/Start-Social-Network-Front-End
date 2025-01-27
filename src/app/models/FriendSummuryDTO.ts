@@ -12,6 +12,8 @@ export interface FriendSummuryDTO {
   // xboxName?: string;
   profileImgId: number | null;
   profileBackdropImgId: number | null;
+  favoriteVideogameImgUrl: string | null;
   lastPlayedGameImgUrl: string | null; // Nullable if no URL is available
   lastPlayedGameName: string | null;
+  profileID: number;
 }
