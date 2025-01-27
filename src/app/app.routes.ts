@@ -12,6 +12,8 @@ import {
   StrangerUserProfilePageComponent
 } from './components/stranger-user-profile-page/stranger-user-profile-page.component';
 import {FriendPageComponent} from './components/friend-page/friend-page.component';
+import {FollowersPageComponent} from './components/followers-page/followers-page.component';
+import {FollowingsPageComponent} from './components/followings-page/followings-page.component';
 
 export const routes: Routes = [
   { path: '', component: LoginPageComponent,pathMatch: 'full' },
@@ -22,7 +24,8 @@ export const routes: Routes = [
   { path: 'external-user/:id', component: StrangerUserProfilePageComponent },
   { path: 'videogame-detail/:appId', component: VideogameDetailComponent },
   { path: 'user-profile/:id', component: UserProfilePageComponent,canActivate: [authenticationGuard]},
-  { path: 'friendlist', component: FriendPageComponent},
+  { path: 'followers', component: FollowersPageComponent},
+  { path: 'following', component: FollowingsPageComponent},
 ];
 
 

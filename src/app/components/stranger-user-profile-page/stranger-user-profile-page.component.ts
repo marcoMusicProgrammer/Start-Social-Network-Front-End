@@ -64,8 +64,10 @@ export class StrangerUserProfilePageComponent {
     // xboxName: '',
     profileImgId: null,
     profileBackdropImgId: null,
+    favoriteVideogameImgUrl: null,
     lastPlayedGameImgUrl: null,
     lastPlayedGameName: null,
+    profileID: 0,
   };
 
   // Variables for save image urls
