@@ -13,78 +13,41 @@
                  alt="Profilo" class="profile-image bg-dark">
         </div>
 
-        <div class="container-fluid d-flex flex-row-reverse flex-basis mb-4 text-light ml"> <!-- meta' inferiore header-->
-            <table id="table1" class="table mt-5">
-                <thead>
-                <tr>
-                    <th scope="col" class="text-right text-light">Preferred Game</th>
-                    <th scope="col" class="text-right text-light">Recently played</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="text-right">
-                        <img
-                            [src]="imgVideogamePreferred"
-                            class="game-image img-fluid w-75 img-thumbnail me-4"
-                            alt="Preferred Game Image"
-                            style="width: 13%; aspect-ratio: 1/1; height: auto">
-                    </td>
-                    <td class="text-right">
-                        <img
-                            [src]="userProfile.lastPlayedGameImgUrl"
-                            class="game-image img-fluid w-75 img-thumbnail me-4"
-                            alt="Last Played Game Image"
-                            style="width: 13%; aspect-ratio: 1/1; height: auto">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <table id="custom-margin-left" class="table ms-5 ps-5 ">
-                <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col" class="align-middle"></th> <!-- Fourth column header -->
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="h3"></td>
-                    <td class="h3"></td>
-                    <td class="h3"></td>
-                    <td class="h1 text-center align-middle text-right text-line bold"> <!-- Fourth column aligned right -->
-                        {{ userProfile.profileName }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="h3"></td>
-                    <td class="h3"></td>
-                    <td class="h5"></td>
-                    <td class="h6 text-right text-light"> <!-- Fourth column aligned right -->
-                        Steam: <span class="text-topolona">{{ userProfile.steamName }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="h3"></td>
-                    <td class="h3"></td>
-                    <td class="h5"></td>
-                    <td class="h6 text-right text-light"> <!-- Fourth column aligned right -->
-                        Xbox: {{ userProfile.xboxName }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="h3"></td>
-                    <td class="h3"></td>
-                    <td class="h5"></td>
-                    <td class="h6 text-right text-light"> <!-- Fourth column aligned right -->
-                        Playstation: {{ userProfile.playstationName }}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <div class="container-fluid  flex-column"> <!-- meta' inferiore header-->
+          <div class="row w-100 h1 d-flex justify-content-end text-line bold">{{ userProfile.profileName }}</div><!-- Fourth column aligned right -->
+          <div class="row w-100">
+            <div class="col d-flex flex-column justify-content-center">
+              <span class="h6">Followers:</span>
+              <p class="text-topolona">n</p>
+              <span class="h6">Following:</span>
+              <p class="text-topolona">n</p>
+            </div>
+            <div class="col d-flex flex-column">
+              <span class="h6">Steam:</span>
+              <p class="text-topolona">{{ userProfile.steamName }}</p>
+              <span class="h6">Xbox:</span>
+              <p class="text-topolona">xbox{{ userProfile.xboxName }}</p>
+              <span class="h6">PlayStation:</span>
+              <p class="text-topolona">playstation{{ userProfile.playstationName }}</p>
+            </div>
+            <div class="col d-flex flex-column justify-content-evenly align-items-center">
+              <span class="">Favourite game</span>
+              <img
+                [src]="imgVideogamePreferred"
+                class="w-75 img-thumbnail"
+                alt="Preferred Game Image"
+                style="width: 13%; aspect-ratio: 1/1; height: auto">
+            </div>
+            <div class="col d-flex flex-column justify-content-around align-items-center">
+              <span class="">Last played</span>
+              <img
+                [src]="userProfile.lastPlayedGameImgUrl"
+                class="w-75 img-thumbnail"
+                alt="Last Played Game Image"
+                style="width: 13%; aspect-ratio: 1/1; height: auto">
+            </div>
+          </div>
+    </div>
     </div>
     <div class="row my-5 d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center ">
         <div class="col border-1 border-line ">
