@@ -30,12 +30,3 @@ export class VideogameCardComponent {
 
 
 }
-
-const stars = document.querySelectorAll(".stars ");
-stars.forEach((star,idx) => {
-    star.addEventListener('click', () => {
-      console.log(`star of index ${idx} was clicked`);
-    })
-  }
-)
-console.log(stars);
