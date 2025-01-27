@@ -26,6 +26,6 @@
   opacity: 40%;
 }
 
-.stars a:active{
+.stars a.active{
   opacity: 100%;
 }

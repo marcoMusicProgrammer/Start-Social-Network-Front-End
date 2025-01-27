@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {VideogameResp} from '../../models/VideogameResp';
 import {RouterLink} from '@angular/router';
+import {RequestClientService} from '../../services/request-client.service';
 
 @Component({
   selector: 'app-videogame-card',
@@ -28,5 +29,29 @@ export class VideogameCardComponent {
     this.removeFavorite.emit(this.videogame.appId);
   }
 
+  constructor(serv:RequestClientService)
+  {
+    const stars = document.querySelectorAll(".stars a");
+    const allStars = document.querySelector(".stars");
+
+    stars.forEach((star,clickedIdx) => {
+        star.addEventListener('click', () => {
+          allStars!.classList.add('disabled');
+            stars.forEach((otherStar,otherIdx)=> {
+                if (otherIdx <= clickedIdx) {
+                  otherStar.classList.add('active');
+                }
+              }
+            );
+          console.log(`star of index ${clickedIdx} was clicked`);
+          // this.videogame.numberOfStars=(clickedIdx+1)*2;
+          // serv.updateVideogame(this.videogame);
+        })
+      }
+    )
+  }
+
 
 }
+
+
