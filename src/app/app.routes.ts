@@ -11,7 +11,6 @@ import {VideogameDetailComponent} from './components/videogame-detail/videogame-
 import {
   StrangerUserProfilePageComponent
 } from './components/stranger-user-profile-page/stranger-user-profile-page.component';
-import {FriendPageComponent} from './components/friend-page/friend-page.component';
 import {FollowersPageComponent} from './components/followers-page/followers-page.component';
 import {FollowingsPageComponent} from './components/followings-page/followings-page.component';
 
