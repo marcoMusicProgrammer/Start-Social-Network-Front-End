@@ -1,0 +1,31 @@
+/*button.btn {*/
+/*  background: none;*/
+/*  border: none;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*button.btn:focus {*/
+/*  outline: none;*/
+/*}*/
+
+.stars a {
+  opacity: 40%;
+  cursor: pointer;
+  padding:2px;
+}
+
+.stars:hover a {
+  opacity: 100%;
+}
+
+.stars a:hover {
+  opacity: 100%;
+}
+
+.stars a:hover ~ a{
+  opacity: 40%;
+}
+
+.stars a:active{
+  opacity: 100%;
+}

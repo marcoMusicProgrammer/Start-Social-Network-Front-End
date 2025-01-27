@@ -24,7 +24,8 @@ export class VideogameDetailComponent {
   appId!: number;
 
   constructor(private route: ActivatedRoute, private serv: RequestClientService) {
-    this.route.params.subscribe(params => {this.appId = +params['appId'];
+    this.route.params.subscribe(params => {
+      this.appId = +params['appId'];
       this.serv.getVideogameDetail(this.appId).subscribe(videogame => {
         this.videogame = videogame;
         console.log(videogame);
