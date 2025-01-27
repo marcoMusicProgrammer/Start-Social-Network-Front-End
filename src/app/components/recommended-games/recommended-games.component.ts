@@ -33,4 +33,10 @@ export class RecommendedGamesComponent {
     })
   }
 
+  truncateText(text: string | undefined, maxLength: number): string {
+    if (!text) return ''; // Se il testo non è definito, restituisci una stringa vuota
+    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  }
+
+
 }

@@ -1,7 +1,7 @@
-<div class="container card bg-transparent border-1 border-line" style="width: 70%; margin-top: 20px">
+<div class="container card bg-transparent border-1 border-line mt-3 shadow-sm" style="width: 70%;">
   <div class="card-body text-light bg-transparent">
     <div class="row text-start">
-      <p>You could also like...</p>
+      <p>You may also like...</p>
 
 
       <div *ngFor="let recommendation of recommendations">
@@ -11,9 +11,13 @@
             alt="thumbnail"
             style="">
         </div>
-        <p class="col ms-3 mb-0">{{recommendation?.videogameName}}</p>
-        <p class="col ms-3 mb-0">{{recommendation?.developers}}</p>
-        <a type="button" class="btn btn-outline-line py-1 px-2 w-auto mt-3"
+        <p class="col ms-3 mb-0" [title]="recommendation?.videogameName">
+          {{ truncateText(recommendation?.videogameName, 20) }}
+        </p>
+        <p class="col ms-3 mb-0 small" [title]="recommendation?.developers">
+          {{ truncateText(recommendation?.developers, 20) }}
+        </p>
+        <a type="button" class="btn btn-outline-line py-1 px-2 w-auto mt-2 mb-2"
            [routerLink]="['/videogame-detail',recommendation?.appId]"
         >details</a>
       </div>

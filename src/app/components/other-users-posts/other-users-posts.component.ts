@@ -45,15 +45,14 @@ export class OtherUsersPostsComponent {
     setTimeout(() => {
       this.serv.getProfileId(this.post.profileId).subscribe({
         next: (response: ProfileDTOResp) => {
-          console.log(response)
           this.userProfile = response;
+          this.post.publicationDate = this.convertsTime(new Date(this.post.publicationDate));
           /**
            * Get the profile image from the .GetProfileId API Request
            */
           if(this.userProfile.profileImgId) {
             this.serv.getProfileImage(this.userProfile.profileImgId).subscribe({
               next: (response: Blob)=> {
-                console.log(response)
                 this.profileImage = URL.createObjectURL(response);
                 const updateToSafeUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileImage)
                 this.profileImgUrl.next(updateToSafeUrl)

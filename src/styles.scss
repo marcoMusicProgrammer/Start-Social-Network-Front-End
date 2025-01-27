@@ -8,3 +8,37 @@ body {
   padding: 2px;
 
 }
+
+/* Remove the underline */
+.custom-link {
+  text-decoration: none;
+}
+
+/* Set default text color to white */
+.custom-link .h3 {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+/* Set hover color to green */
+.custom-link:hover .h3 {
+  color: rgb(26, 185, 34); /* Custom green color */
+}
+
+/* Optional: If you want to change the icon color on hover as well */
+.custom-link:hover svg {
+  fill: rgb(26, 185, 34); /* Change icon color to green on hover */
+}
+
+
+.username {
+  text-decoration: none;
+}
+
+.username .p {
+  color: white;
+}
+
+.username:hover {
+  color: rgb(26, 185, 34);
+}
