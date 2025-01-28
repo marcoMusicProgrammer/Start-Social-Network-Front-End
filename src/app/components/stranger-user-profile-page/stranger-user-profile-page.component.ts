@@ -112,7 +112,7 @@ export class StrangerUserProfilePageComponent {
         this.serv.getStrangerUserHisFollower(idNumber).subscribe({
           next: (response: FriendSummuryDTO[]) => {
             let friends = response
-
+            console.log(response);
             for(let friend of friends){
               console.log(friend)
 

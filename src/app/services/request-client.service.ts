@@ -23,6 +23,18 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
+  getAllFollowers(): Observable<FriendSummuryDTO[]>{
+    return this.http.get<FriendSummuryDTO[]>(`/api/friends/follower`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getAllFollowing(): Observable<FriendSummuryDTO[]>{
+    return this.http.get<FriendSummuryDTO[]>(`/api/friends/following`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   getStrangerUserHisFollower(toInsert: number): Observable<FriendSummuryDTO[]> {
     return this.http.get<FriendSummuryDTO[]>(`/api/friends/followers/${toInsert}`).pipe(
       catchError(this.handleError)
