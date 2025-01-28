@@ -75,7 +75,7 @@ export class StrangerUserProfilePageComponent {
   profileImageUrl = new BehaviorSubject<SafeUrl>(null!);
 
   imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
-  preferredVideogames: VideogameResp[] = []
+  preferredVideogames: VideogameResp[] = [];
 
   isFollowing = false;
 

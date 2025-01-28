@@ -1,5 +1,6 @@
 <p class="h2 text-start text-line">Followers</p>
 
 <app-friend-card
-*ngFor="let f of followersList"></app-friend-card>
+*ngFor="let f of followersList"
+[friend]="f"></app-friend-card>
 

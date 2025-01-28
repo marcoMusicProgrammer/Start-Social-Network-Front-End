@@ -4,10 +4,10 @@
     <!-- card header -->
     <div class="card-header d-flex align-items-center">
       <img id="post-user-image"
-           src="https://picsum.photos/536/354"
+           [src]="profileImage ? profileImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
            style="width: 35px; height: 35px; border-radius: 50%;">
       <p class="ms-3 mb-0 border-3 border-darker text-light">
-        nome amico
+        {{ userProfile.profileName }}
       </p>
     </div>
 
@@ -16,7 +16,7 @@
       <div class="col d-flex flex-column justify-content-center align-items-center m-3">
         <span class="">Favourite game</span>
         <img
-          src="https://picsum.photos/536/354"
+          [src]="imgVideogamePreferred"
           class="w-50 img-thumbnail"
           alt="Preferred Game Image"
           style="aspect-ratio: 1/1;">
@@ -24,13 +24,14 @@
       <div class="col d-flex flex-column justify-content-center align-items-center m-3">
         <span class="">Last Played</span>
         <img
-          src="https://picsum.photos/536/354"
+          [src]="userProfile.lastPlayedGameImgUrl"
           class="w-50 img-thumbnail"
           alt="Preferred Game Image"
           style="aspect-ratio: 1/1;">
       </div>
       <div class="col d-flex flex-column justify-content-center">
         <a type="button" class="btn btn-outline-line py-1 px-2 w-auto"
+           (click)="navigateToExternalUser()"
         >Go to Profile
         </a>
       </div>
@@ -38,7 +39,8 @@
 
     <!-- card footer -->
     <div class="card-footer d-flex justify-content-start align-items-center">
-      <a type="button" class="btn btn-outline-danger py-1 px-2 w-auto small">Remove</a>
+<!--      <a type="button" class="btn btn-outline-danger py-1 px-2 w-auto small"-->
+<!--      (click)="deleteFollowing()">Remove</a>-->
     </div>
   </div>
 </div>

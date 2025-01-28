@@ -1,3 +1,5 @@
 <p class="h2 text-start text-line">Following</p>
 
-<app-friend-card *ngFor="let f of listFollowing "></app-friend-card>
+<app-friend-card
+  *ngFor="let f of listFollowing"
+  [friend]="f"></app-friend-card>
