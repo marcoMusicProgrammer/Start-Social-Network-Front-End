@@ -30,6 +30,15 @@ body {
   fill: rgb(26, 185, 34); /* Change icon color to green on hover */
 }
 
+/* Per il link attivo, mantieni il colore personalizzato */
+a.custom-link.active .h3 {
+  color: #B91A91; /* Colore desiderato per il link attivo */
+}
+
+/* (Opzionale) Cambia anche il colore dell'icona per il link attivo */
+a.custom-link.active svg {
+  fill: #B91A91; /* Stesso colore per l'icona */
+}
 
 .username {
   text-decoration: none;
@@ -41,4 +50,14 @@ body {
 
 .username:hover {
   color: rgb(26, 185, 34);
+}
+
+.img-logo-login {
+  width: 200px;
+  height: auto;
+}
+
+.img-logo {
+  width: 100px;
+  height: auto;
 }

@@ -1,16 +1,17 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {UserProfilePageComponent} from "../user-profile-page/user-profile-page.component";
 import {ProfileDTOResp} from "../../models/ProfileDTOResp";
 import {RequestClientService} from '../../services/request-client.service';
 
 @Component({
   selector: 'app-left-navbar',
-    imports: [
-        NgIf,
-        RouterLink
-    ],
+  imports: [
+    NgIf,
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './left-navbar.component.html',
   standalone: true,
   styleUrl: './left-navbar.component.css'
