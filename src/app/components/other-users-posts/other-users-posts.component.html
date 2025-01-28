@@ -3,7 +3,7 @@
     <!-- Card Header -->
     <div class="card-header d-flex align-items-center">
       <img id="post-user-image"
-           [src]="profileImage"
+           [src]="profileImage ? profileImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
            style="width: 35px; height: 35px; border-radius: 50%;">
 
       <a class="username text-light" (click)="navigateToExternalUser()">

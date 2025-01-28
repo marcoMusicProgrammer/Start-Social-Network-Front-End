@@ -72,6 +72,10 @@ export class RequestClientService {
     return this.http.get<VideogameResp[]>("/api/videogames/preferred");
   }
 
+  getPreferredVideogamesStranger(strangerId: number): Observable<VideogameResp[]> {
+    return this.http.get<VideogameResp[]>(`/api/videogames/preferred/${strangerId}`);
+  }
+
   getVideogameDetail(appId:number):Observable<VideogameDetailDTO> {
     return this.http.get<VideogameDetailDTO>(`/api/videogames/${appId}`);
   }
@@ -169,4 +173,6 @@ export class RequestClientService {
     console.error('Errore ricevuto:', errorResponse);
     return throwError(() => errorResponse);
   }
+
+
 }
