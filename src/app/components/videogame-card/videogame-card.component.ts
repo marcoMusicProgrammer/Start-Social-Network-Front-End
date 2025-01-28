@@ -31,8 +31,6 @@ export class VideogameCardComponent {
 
   constructor(serv: RequestClientService) {
     const stars = document.querySelectorAll(".stars a");
-    const allStars = document.querySelector(".stars");
-
     stars.forEach((star, clickedIdx) => {
 
       console.log(`star of index ${clickedIdx} was clicked`);
