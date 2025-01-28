@@ -194,19 +194,28 @@ export class StrangerUserProfilePageComponent {
 
   toggleFollow()
   {
-    this.serv.addFriend(this.userProfile.id).subscribe({
-      next: (response: FriendSummuryDTO) => {
-        this.friendProfile = response;
-        this.isFollowing = true
 
-        console.log(this.friendProfile)
-      },
-      error: err => {
-        this.errorMessage = err
-      }
-    })
+    if(!this.isFollowing) {
+      this.serv.addFriend(this.userProfile.id).subscribe({
+        next: (response: FriendSummuryDTO) => {
+          this.friendProfile = response;
+          this.isFollowing = true
+
+          console.log(this.friendProfile)
+        },
+        error: err => {
+          this.errorMessage = err
+        }
+      })
+    } else {
+      this.serv.deleteFriendFromFollowing(this.userProfile.id).subscribe({
+        next: (response: FriendSummuryDTO) => {
+          this.isFollowing = false
+          console.log(this.friendProfile)
+        }
+      })
+    }
   }
-
 
   convertsTime(publicationDate:Date){
     const now = Date.now(); // Current time in milliseconds

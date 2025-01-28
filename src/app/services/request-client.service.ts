@@ -23,12 +23,23 @@ export class RequestClientService {
 
   constructor(private http: HttpClient) {}
 
+  addStars(toInsert: VideogameResp): Observable<LoginResponse>{
+    return this.http.put<LoginResponse>(`/api/videogames`, toInsert).pipe(
+        catchError(this.handleError)
+    )
+  }
+
+  deleteFriendFromFollowing(toInsert: number): Observable<FriendSummuryDTO>{
+    return this.http.delete<FriendSummuryDTO>(`/api/friends/followings/${toInsert}`).pipe(
+        catchError(this.handleError)
+    )
+  }
+
   getAllFollowers(): Observable<FriendSummuryDTO[]>{
     return this.http.get<FriendSummuryDTO[]>(`/api/friends/follower`).pipe(
       catchError(this.handleError)
     )
   }
-
   getAllFollowing(): Observable<FriendSummuryDTO[]>{
     return this.http.get<FriendSummuryDTO[]>(`/api/friends/following`).pipe(
       catchError(this.handleError)

@@ -22,7 +22,7 @@ import {RequestClientService} from './services/request-client.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  title = 'VsnFrontend';
+  title = 'Next';
   routerLinks = ''
 
 

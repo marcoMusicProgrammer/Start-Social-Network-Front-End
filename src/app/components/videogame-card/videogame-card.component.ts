@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {VideogameResp} from '../../models/VideogameResp';
 import {RouterLink} from '@angular/router';
+import {RequestClientService} from '../../services/request-client.service';
+import {LoginResponse} from '../../models/LoginResponse';
 
 @Component({
   selector: 'app-videogame-card',
@@ -19,6 +21,9 @@ export class VideogameCardComponent {
   @Output() newFavorite:EventEmitter<number> = new EventEmitter<number>();
   @Output() removeFavorite:EventEmitter<number> = new EventEmitter<number>();
 
+  constructor(private serv:RequestClientService) {
+
+  }
 
   addToFavorites() {
     this.newFavorite.emit(this.videogame.appId);
@@ -27,6 +32,20 @@ export class VideogameCardComponent {
   removeFromFavorites() {
     this.removeFavorite.emit(this.videogame.appId);
   }
+
+  addStar1(){
+    this.videogame.numberOfStars = 2;
+    this.serv.addStars(this.videogame).subscribe({
+      next: (response: LoginResponse) => {
+        console.log(response)
+      },
+      error: err => {
+        console.log(err)
+      }
+    });
+  }
+
+
 
 
 }
