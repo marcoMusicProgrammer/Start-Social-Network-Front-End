@@ -109,14 +109,14 @@ export class StrangerUserProfilePageComponent {
         this.userProfile = response
         console.log(this.userProfile)
 
-        this.serv.getStrangerUserHisFollower(idNumber).subscribe({
+        this.serv.getStrangerUserHisFollowing(idNumber).subscribe({
           next: (response: FriendSummuryDTO[]) => {
             let friends = response
             console.log(response);
             for(let friend of friends){
               console.log(friend)
 
-              let friendID = friend.id.toString();
+              let friendID = friend.profileID.toString();
               console.log(friendID)
               console.log(myID)
               if(friendID === myID)
