@@ -13,7 +13,6 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import {PostType} from '../../models/PostType';
 import {VideogameResp} from '../../models/VideogameResp';
-import {FriendPageComponent} from '../friend-page/friend-page.component';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -25,7 +24,6 @@ import {FriendPageComponent} from '../friend-page/friend-page.component';
     NgIf,
     AsyncPipe,
     NgOptimizedImage,
-    FriendPageComponent,
   ],
   templateUrl: './user-profile-page.component.html',
   standalone: true,

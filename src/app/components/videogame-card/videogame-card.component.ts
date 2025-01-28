@@ -17,8 +17,8 @@ import {RequestClientService} from '../../services/request-client.service';
 export class VideogameCardComponent {
 
   @Input() videogame!: VideogameResp;
-  @Output() newFavorite:EventEmitter<number> = new EventEmitter<number>();
-  @Output() removeFavorite:EventEmitter<number> = new EventEmitter<number>();
+  @Output() newFavorite: EventEmitter<number> = new EventEmitter<number>();
+  @Output() removeFavorite: EventEmitter<number> = new EventEmitter<number>();
 
 
   addToFavorites() {
@@ -29,26 +29,19 @@ export class VideogameCardComponent {
     this.removeFavorite.emit(this.videogame.appId);
   }
 
-  constructor(serv:RequestClientService)
-  {
+  constructor(serv: RequestClientService) {
     const stars = document.querySelectorAll(".stars a");
     const allStars = document.querySelector(".stars");
 
-    stars.forEach((star,clickedIdx) => {
-        star.addEventListener('click', () => {
-            stars.forEach((otherStar,otherIdx)=> {
-                if (otherIdx <= clickedIdx) {
-                  otherStar.classList.add('active');
-                }
-              }
-            );
-          console.log(`star of index ${clickedIdx} was clicked`);
-          // this.videogame.numberOfStars=(clickedIdx+1)*2;
-          // serv.updateVideogame(this.videogame);
-        })
-      }
-    )
-  }
+    stars.forEach((star, clickedIdx) => {
+
+      console.log(`star of index ${clickedIdx} was clicked`);
+
+      // this.videogame.numberOfStars=(clickedIdx+1)*2;
+      // serv.updateVideogame(this.videogame);
+
+    })
+  };
 
 
 }
