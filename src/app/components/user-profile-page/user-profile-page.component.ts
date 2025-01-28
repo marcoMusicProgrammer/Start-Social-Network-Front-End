@@ -24,7 +24,6 @@ import {VideogameResp} from '../../models/VideogameResp';
     NgIf,
     AsyncPipe,
     NgOptimizedImage,
-    FriendPageComponent,
   ],
   templateUrl: './user-profile-page.component.html',
   standalone: true,
