@@ -51,17 +51,16 @@
           </div>
         </div>
     </div>
-
-    <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
-      <div class="col border-1 border-line ">
-        <div class="container d-flex flex-column bg-transparent border-line text-light" >
-          <div *ngFor="let p of allPosts$ | async">
-            <app-user-post
-              [post] = "p"
-              [user] = "userProfile"
-              [profileImg]="profileImage ? profileImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
-            ></app-user-post>
-          </div>
+  </div>
+  <div class="row d-flex flex-column align-self-stretch align-items-stretch bg-dark text-light text-center">
+    <div class="col border-1 border-line ">
+      <div class="container d-flex flex-column bg-transparent border-line text-light" >
+        <div *ngFor="let p of allPosts$ | async">
+          <app-user-post
+            [post] = "p"
+            [user] = "userProfile"
+            [profileImg]="profileImage ? profileImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
+          ></app-user-post>
         </div>
       </div>
     </div>
