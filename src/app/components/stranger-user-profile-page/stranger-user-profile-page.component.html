@@ -3,9 +3,11 @@
     <div class="container-fluid w-10 border-bottom border-1 border-line" style="padding: 0;">
         <!-- Copertina -->
         <div class="profile-container">
-            <img [src]="backdropImage " alt="Copertina" class="cover-image">
+            <img [src]="backdropImage ? backdropImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
+                 alt="Copertina" class="cover-image">
             <!-- Immagine profilo -->
-            <img [src]="profileImage" alt="Profilo" class="profile-image bg-dark">
+            <img [src]="profileImage ? profileImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
+                 alt="Profilo" class="profile-image bg-dark">
         </div>
       <!-- meta' inferiore header-->
       <div class="container-fluid  flex-column">
@@ -13,9 +15,9 @@
         <div class="row w-100">
           <div class="col d-flex flex-column justify-content-center">
             <span class="h6">Followers:</span>
-            <p class="text-topolona">n</p>
+            <p class="text-topolona">{{userProfile.followingCount}}</p>
             <span class="h6">Following:</span>
-            <p class="text-topolona">n</p>
+            <p class="text-topolona">{{userProfile.followersCount}}</p>
             <button
               class="follow-button btn btn-outline-topolona"
               [class.following]="isFollowing"
@@ -57,7 +59,7 @@
             <app-user-post
               [post] = "p"
               [user] = "userProfile"
-              [profileImg]="profileImage"
+              [profileImg]="profileImage ? profileImage : 'https://img.freepik.com/premium-photo/empty-brown-white-studio-backdropabstract-gradient-grey-background_861973-224.jpg'"
             ></app-user-post>
           </div>
         </div>

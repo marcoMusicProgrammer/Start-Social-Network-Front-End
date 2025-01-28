@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {PostDTOReq} from '../../models/PostDTOReq';
 import {BehaviorSubject} from 'rxjs';
 import {PostDTOResp} from '../../models/PostDTOResp';
@@ -8,11 +8,10 @@ import {VideogameResp} from '../../models/VideogameResp';
 import {RequestClientService} from '../../services/request-client.service';
 import {CredentialService} from '../../services/credential.service';
 import {ErrorResponse} from '../../models/ErrorResponse';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {FormsModule} from '@angular/forms';
-import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
+import {AsyncPipe, NgForOf} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 import {FriendSummuryDTO} from "../../models/FriendSummuryDTO";
 
 @Component({
@@ -21,8 +20,7 @@ import {FriendSummuryDTO} from "../../models/FriendSummuryDTO";
     UserPostComponent,
     FormsModule,
     AsyncPipe,
-    NgForOf,
-    NgIf
+    NgForOf
   ],
   templateUrl: './stranger-user-profile-page.component.html',
   standalone: true,
@@ -106,25 +104,17 @@ export class StrangerUserProfilePageComponent {
      */
     this.serv.getProfileId(idNumber).subscribe({
       next: (response: ProfileDTOResp) => {
-        this.userProfile = response
-        console.log(this.userProfile)
+        this.userProfile = response;
 
         this.serv.getStrangerUserHisFollowing(idNumber).subscribe({
           next: (response: FriendSummuryDTO[]) => {
-            let friends = response
-            console.log(response);
-            for(let friend of friends){
-              console.log(friend)
+            for(let friend of response){
 
               let friendID = friend.profileID.toString();
-              console.log(friendID)
-              console.log(myID)
               if(friendID === myID)
               {
                 this.isFollowing = true;
               }
-
-              console.log(this.isFollowing)
             }
           }
         })
@@ -180,14 +170,14 @@ export class StrangerUserProfilePageComponent {
       }
     });
     /**
-     * Select random preferred game
+     * Select random preferred game of the stranger
      */
-    this.serv.getPreferredVideogames().subscribe(
+    this.serv.getPreferredVideogamesStranger(idNumber).subscribe(
       response => {
         this.preferredVideogames = response;
         const randomIndex = Math.floor(Math.random() * response.length);
         this.imgVideogamePreferred=response[randomIndex].iconImgUrl;
-        console.log(response)
+        console.log(response);
       }
     )
   }

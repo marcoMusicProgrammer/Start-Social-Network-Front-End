@@ -13,6 +13,7 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import {PostType} from '../../models/PostType';
 import {VideogameResp} from '../../models/VideogameResp';
+
 @Component({
   selector: 'app-user-profile-page',
   imports: [
