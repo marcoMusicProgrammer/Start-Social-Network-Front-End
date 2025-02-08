@@ -11,10 +11,7 @@ import {FriendSummuryDTO} from '../../models/FriendSummuryDTO';
 
 @Component({
   selector: 'app-friend-card',
-  imports: [
-    NgIf,
-    RouterLink
-  ],
+  imports: [],
   templateUrl: './friend-card.component.html',
   standalone: true,
   styleUrl: './friend-card.component.css'

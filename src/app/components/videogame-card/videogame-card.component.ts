@@ -3,7 +3,6 @@ import {NgIf} from '@angular/common';
 import {VideogameResp} from '../../models/VideogameResp';
 import {RouterLink} from '@angular/router';
 import {RequestClientService} from '../../services/request-client.service';
-import {LoginResponse} from '../../models/LoginResponse';
 import {VideogameStarsComponent} from '../videogame-stars/videogame-stars.component';
 
 @Component({
@@ -23,9 +22,7 @@ export class VideogameCardComponent {
   @Output() newFavorite:EventEmitter<number> = new EventEmitter<number>();
   @Output() removeFavorite:EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(private serv:RequestClientService) {
-
-  }
+  constructor() {}
 
   addToFavorites() {
     this.newFavorite.emit(this.videogame.appId);

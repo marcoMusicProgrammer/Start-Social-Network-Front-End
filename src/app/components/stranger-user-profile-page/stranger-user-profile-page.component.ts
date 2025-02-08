@@ -199,7 +199,7 @@ export class StrangerUserProfilePageComponent {
       })
     } else {
       this.serv.deleteFriendFromFollowing(this.userProfile.id).subscribe({
-        next: (response: FriendSummuryDTO) => {
+        next: () => {
           this.isFollowing = false
         }
       })
@@ -215,9 +215,6 @@ export class StrangerUserProfilePageComponent {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-
-    let timeElapsed: string;
-
     if (days > 0) {
       return `${days} day${days > 1 ? 's' : ''} ago`;
     } else if (hours > 0) {

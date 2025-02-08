@@ -99,7 +99,7 @@
       (loadImageFailed)="backdropLoadImageFailed()"
     ></image-cropper>
 
-    <img [src]="backdropCroppedImage" class="preview-image" />
+    <img [src]="backdropCroppedImage" class="preview-image" alt="image"/>
     <button class="btn btn-line" (click)="saveBackdropCroppedImage()">Save</button>
     <button class="btn btn-danger" (click)="closeBackdropModal()">Cancel</button>
   </div>
@@ -124,7 +124,7 @@
       (loadImageFailed)="profileLoadImageFailed()"
     ></image-cropper>
 
-    <img [src]="profileCroppedImage" class="preview-image"/>
+    <img [src]="profileCroppedImage" class="preview-image" alt="image"/>
     <button class="btn btn-line" (click)="saveProfileCroppedImage()">Save</button>
     <button class="btn btn-danger" (click)="closeProfileModal()">Cancel</button>
   </div>

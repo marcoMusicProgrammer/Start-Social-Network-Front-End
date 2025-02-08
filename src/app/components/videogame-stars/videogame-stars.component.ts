@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, Input} from '@angular/core';
 import {RequestClientService} from '../../services/request-client.service';
 import {VideogameResp} from '../../models/VideogameResp';
 import {NgForOf} from '@angular/common';
