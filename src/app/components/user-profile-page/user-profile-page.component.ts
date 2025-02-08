@@ -1,8 +1,8 @@
-import {Component, EventEmitter, OnInit, Output, output} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserPostComponent} from '../user-post/user-post.component';
 import {RequestClientService} from '../../services/request-client.service';
 import {PostDTOResp} from '../../models/PostDTOResp';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {ErrorResponse} from '../../models/ErrorResponse';
 import {PostDTOReq} from '../../models/PostDTOReq';
 import {FormsModule} from '@angular/forms';
@@ -10,8 +10,7 @@ import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {CredentialService} from '../../services/credential.service';
 import {ProfileDTOResp} from '../../models/ProfileDTOResp';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import { ImageCropperComponent, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
-import {PostType} from '../../models/PostType';
+import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
 import {VideogameResp} from '../../models/VideogameResp';
 
 @Component({
