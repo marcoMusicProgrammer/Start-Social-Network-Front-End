@@ -10,7 +10,7 @@
       <a href="{{videogame?.website}}" target="_blank" style="text-decoration: underline; color: white">{{videogame?.developers}}</a>
     </div>
     <div *ngIf="videogame?.website=='null'">
-      <p style="color: white">{{videogame?.developers}}</p>
+      <p style="color: white">{{videogame.developers}}</p>
     </div>
     <div *ngIf="videogame?.price" >
       <p> Price: {{videogame?.price}}</p>
@@ -22,7 +22,7 @@
       {{decodeHtml(videogame.shortDescription)}}
     </div>
     <p class="small">{{videogame.platforms | replaceDash}}</p>
-    <p class="card-footer text-end small">Release Date: {{videogame?.releaseDate | date:'dd-MM-yyyy'}}</p>
+    <p class="card-footer text-end small">Release Date: {{videogame.releaseDate | date:'dd-MM-yyyy'}}</p>
   </div>
 </div>
 <div class="container-fluid mt-3">

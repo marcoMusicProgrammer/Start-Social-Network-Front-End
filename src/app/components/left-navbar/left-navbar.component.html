@@ -1,5 +1,5 @@
 <div class="container d-flex flex-column justify-content-start align-items-end pb-4" style="height: 100vh;">
-  <img src="https://i.postimg.cc/J0hVbcJ6/logo-start-3.png" class="img-logo mb-2">
+  <a [routerLink]="['/user-profile',userProfile.id]" ><img src="/logo.png" class="img-logo mb-2" alt="logo"></a>
 
   <a class="icon-link icon-link-hover d-flex align-items-center mb-4 custom-link"
      [routerLink]="['/home']" routerLinkActive="active"
