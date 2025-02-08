@@ -1,0 +1,17 @@
+.stars a {
+  opacity: 100%;
+  cursor: pointer;
+  padding:2px;
+}
+
+.stars:hover a svg{
+  fill: white;
+}
+
+.stars a:hover svg{
+  fill: white;
+}
+
+.stars a:hover ~ a svg{
+  fill: gray;
+}
