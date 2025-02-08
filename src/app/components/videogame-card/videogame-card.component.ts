@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {VideogameResp} from '../../models/VideogameResp';
 import {RouterLink} from '@angular/router';
-import {RequestClientService} from '../../services/request-client.service';
 import {VideogameStarsComponent} from '../videogame-stars/videogame-stars.component';
 
 @Component({

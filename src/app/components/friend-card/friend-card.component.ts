@@ -1,9 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {ProfileDTOResp} from '../../models/ProfileDTOResp';
-import {NgIf} from '@angular/common';
 import {RequestClientService} from '../../services/request-client.service';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {ErrorResponse} from '../../models/ErrorResponse';
 import {BehaviorSubject} from 'rxjs';
 import {VideogameResp} from '../../models/VideogameResp';
