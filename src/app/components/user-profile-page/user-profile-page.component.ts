@@ -109,7 +109,6 @@ export class UserProfilePageComponent {
     this.serv.getProfile().subscribe({
       next: (response: ProfileDTOResp) => {
         this.userProfile = response
-        console.log(this.userProfile)
 
         /**
          * Verifies if the user's profile backdrop image ID exists.
@@ -160,7 +159,6 @@ export class UserProfilePageComponent {
         this.preferredVideogames = response;
         const randomIndex = Math.floor(Math.random() * response.length);
         this.imgVideogamePreferred=response[randomIndex].iconImgUrl;
-        console.log(response)
       }
     )
   }

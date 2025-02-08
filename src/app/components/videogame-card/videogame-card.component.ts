@@ -33,17 +33,4 @@ export class VideogameCardComponent {
     this.removeFavorite.emit(this.videogame.appId);
   }
 
-  addStar1(){
-    this.videogame.numberOfStars = 2;
-    this.serv.addStars(this.videogame).subscribe({
-      next: (response: LoginResponse) => {
-        console.log(response)
-      },
-      error: err => {
-        console.log(err)
-      }
-    });
-  }
-
-
 }
