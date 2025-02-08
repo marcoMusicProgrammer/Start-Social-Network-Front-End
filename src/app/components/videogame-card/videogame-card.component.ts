@@ -4,12 +4,14 @@ import {VideogameResp} from '../../models/VideogameResp';
 import {RouterLink} from '@angular/router';
 import {RequestClientService} from '../../services/request-client.service';
 import {LoginResponse} from '../../models/LoginResponse';
+import {VideogameStarsComponent} from '../videogame-stars/videogame-stars.component';
 
 @Component({
   selector: 'app-videogame-card',
   imports: [
     NgIf,
-    RouterLink
+    RouterLink,
+    VideogameStarsComponent
   ],
   templateUrl: './videogame-card.component.html',
   standalone: true,

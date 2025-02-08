@@ -50,7 +50,7 @@
 /* Rimuovi i bordi della tabella */
 #custom-margin-left {
   border: none;
-  background-color: transparent;  /* Imposta il background trasparente */
+  background-color: transparent;
 }
 
 /* Rimuovi i bordi delle celle */

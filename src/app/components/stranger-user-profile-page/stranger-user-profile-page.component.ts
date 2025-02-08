@@ -45,7 +45,8 @@ export class StrangerUserProfilePageComponent {
       xboxName:'',
       profileImgId:'',
       profileBackdropImgId:'',
-      lastPlayedGameImgUrl:''
+      lastPlayedGameImgUrl:'',
+      lastPlayedGameName:''
     };
 
   friendProfile: FriendSummuryDTO = {
@@ -75,6 +76,7 @@ export class StrangerUserProfilePageComponent {
   profileImageUrl = new BehaviorSubject<SafeUrl>(null!);
 
   imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
+  nameVideogamePreferred:string|undefined='No favorites';
   preferredVideogames: VideogameResp[] = [];
 
   isFollowing = false;
@@ -177,7 +179,7 @@ export class StrangerUserProfilePageComponent {
         this.preferredVideogames = response;
         const randomIndex = Math.floor(Math.random() * response.length);
         this.imgVideogamePreferred=response[randomIndex].iconImgUrl;
-        console.log(response);
+        this.nameVideogamePreferred=response[randomIndex].videogameName;
       }
     )
   }
@@ -190,8 +192,6 @@ export class StrangerUserProfilePageComponent {
         next: (response: FriendSummuryDTO) => {
           this.friendProfile = response;
           this.isFollowing = true
-
-          console.log(this.friendProfile)
         },
         error: err => {
           this.errorMessage = err
@@ -201,7 +201,6 @@ export class StrangerUserProfilePageComponent {
       this.serv.deleteFriendFromFollowing(this.userProfile.id).subscribe({
         next: (response: FriendSummuryDTO) => {
           this.isFollowing = false
-          console.log(this.friendProfile)
         }
       })
     }

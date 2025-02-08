@@ -38,10 +38,12 @@ export class FriendCardComponent {
       xboxName:'',
       profileImgId:'',
       profileBackdropImgId:'',
-      lastPlayedGameImgUrl:''
+      lastPlayedGameImgUrl:'',
+      lastPlayedGameName:''
     };
 
   imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
+  nameVideogamePreferred:string|undefined='No favorites';
   preferredVideogames: VideogameResp[] = [];
 
   constructor( private serv: RequestClientService,
@@ -75,7 +77,7 @@ export class FriendCardComponent {
               this.preferredVideogames = response;
               const randomIndex = Math.floor(Math.random() * response.length);
               this.imgVideogamePreferred=response[randomIndex].iconImgUrl;
-              console.log(response);
+              this.nameVideogamePreferred=response[randomIndex].videogameName;
             }
           )
         }

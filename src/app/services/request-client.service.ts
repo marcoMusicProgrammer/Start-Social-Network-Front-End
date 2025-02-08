@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {UserDTOReq} from '../models/UserDTOReq';
 import {catchError, Observable, throwError} from 'rxjs';
-import {UserDTOLoginReq} from '../models/UserDTOLoginReq';
 import {UserDTOResp} from '../models/UserDTOResp';
 import {PostDTOResp} from '../models/PostDTOResp';
 import {ErrorResponse} from '../models/ErrorResponse';
@@ -22,12 +20,6 @@ import {FriendSummuryDTO} from '../models/FriendSummuryDTO';
 export class RequestClientService {
 
   constructor(private http: HttpClient) {}
-
-  addStars(toInsert: VideogameResp): Observable<LoginResponse>{
-    return this.http.put<LoginResponse>(`/api/videogames`, toInsert).pipe(
-        catchError(this.handleError)
-    )
-  }
 
   deleteFriendFromFollowing(toInsert: number): Observable<FriendSummuryDTO>{
     return this.http.delete<FriendSummuryDTO>(`/api/friends/followings/${toInsert}`).pipe(
@@ -99,8 +91,8 @@ export class RequestClientService {
     return this.http.get<RecommendationDTO[]>(`/api/steam/recommendations`);
   }
 
-  getAllVideogames(): Observable<VideogameResp[]> {
-    return this.http.get<VideogameResp[]>("/api/videogames");
+  getAllVideogames(searchValue:string): Observable<VideogameResp[]> {
+    return this.http.get<VideogameResp[]>(`/api/videogames?name_like=${searchValue}`);
   }
 
   getAllUsers(): Observable<UserDTOResp[]> {
@@ -129,7 +121,6 @@ export class RequestClientService {
     )
   }
 
-  //TODO Dire al backend di preparare API
   saveProfileImage(toInsert: FormData): Observable<string> {
     return this.http.post<string>("/api/profiles/saveProfileImage", toInsert).pipe(
       catchError(this.handleError)

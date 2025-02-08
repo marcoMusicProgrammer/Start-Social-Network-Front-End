@@ -32,7 +32,8 @@ export class FollowersPageComponent {
       xboxName:'',
       profileImgId:'',
       profileBackdropImgId:'',
-      lastPlayedGameImgUrl:''
+      lastPlayedGameImgUrl:'',
+      lastPlayedGameName:''
     };
 
   constructor(private serv:RequestClientService) {

@@ -39,7 +39,8 @@ export class LeftNavbarComponent {
       xboxName:'',
       profileImgId:'',
       profileBackdropImgId:'',
-      lastPlayedGameImgUrl:''
+      lastPlayedGameImgUrl:'',
+      lastPlayedGameName:''
     };
 
 

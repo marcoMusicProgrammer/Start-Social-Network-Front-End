@@ -49,7 +49,8 @@ export class UserProfilePageComponent {
       xboxName:'',
       profileImgId:'',
       profileBackdropImgId:'',
-      lastPlayedGameImgUrl:''
+      lastPlayedGameImgUrl:'',
+      lastPlayedGameName:''
     };
 
   //Events for the cropper
@@ -72,6 +73,7 @@ export class UserProfilePageComponent {
   profileImageUrl = new BehaviorSubject<SafeUrl>(null!);
 
   imgVideogamePreferred:string|undefined="https://cdn2.iconfinder.com/data/icons/prohibitions/105/15-512.png";
+  nameVideogamePreferred:string|undefined="No favorites";
   preferredVideogames: VideogameResp[] = []
 
   /**
@@ -159,6 +161,7 @@ export class UserProfilePageComponent {
         this.preferredVideogames = response;
         const randomIndex = Math.floor(Math.random() * response.length);
         this.imgVideogamePreferred=response[randomIndex].iconImgUrl;
+        this.nameVideogamePreferred=response[randomIndex].videogameName;
       }
     )
   }

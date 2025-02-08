@@ -36,7 +36,8 @@ export class OtherUsersPostsComponent {
       xboxName:'',
       profileImgId:'',
       profileBackdropImgId:'',
-      lastPlayedGameImgUrl:''
+      lastPlayedGameImgUrl:'',
+      lastPlayedGameName:''
     };
 
   constructor( private serv: RequestClientService,

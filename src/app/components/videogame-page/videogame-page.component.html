@@ -1,4 +1,13 @@
-<p class="h2 text-start text-line">Videogames</p>
+<p class="h2 text-start text-line m-3">Videogames</p>
+
+<div>
+  <form [formGroup]="searchForm" class="searchBar"
+  (ngSubmit)="onSearchSubmit()"
+  >
+    <input type="text" placeholder="Search..." formControlName="searchValue" />
+  </form>
+</div>
+
 <div *ngFor="let videogame of videogames" >
   <app-videogame-card id="videogame-{{videogame.appId}}"
   [videogame]="videogame"
