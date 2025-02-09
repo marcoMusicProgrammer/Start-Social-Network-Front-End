@@ -24,7 +24,6 @@ export class NewsCardComponent {
     if (this.appId) {
       this.serv.getNewsVideogame(this.appId).subscribe(news => {
         this.articles = news;
-        console.log(this.articles);
       });
     }
   }

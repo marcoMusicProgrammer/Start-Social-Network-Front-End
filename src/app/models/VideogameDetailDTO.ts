@@ -6,7 +6,7 @@ export interface VideogameDetailDTO {
   preferred:boolean;
   releaseDate:string;
   starReviews:number;
-  genre:number;
+  genre:string;
   appId:number;
 
   requiredAge:number;

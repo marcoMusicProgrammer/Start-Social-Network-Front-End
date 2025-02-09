@@ -4,14 +4,17 @@ import {RequestClientService} from '../../services/request-client.service';
 import {VideogameDetailDTO} from '../../models/VideogameDetailDTO';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ReplaceDashPipe} from '../../pipes/replaceDashPipe';
-import {DatePipe, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {ReplaceCommaPipe} from '../../pipes/replaceCommaPipe';
 
 @Component({
   imports: [
     NewsCardComponent,
     ReplaceDashPipe,
     NgIf,
-    DatePipe
+    DatePipe,
+    NgForOf,
+    ReplaceCommaPipe
   ],
   selector: 'app-videogame-detail',
   standalone: true,
@@ -22,13 +25,13 @@ export class VideogameDetailComponent {
 
   videogame!: VideogameDetailDTO;
   appId!: number;
+  totalStars: number[] = [1, 2, 3, 4, 5];
 
   constructor(private route: ActivatedRoute, private serv: RequestClientService) {
     this.route.params.subscribe(params => {
       this.appId = +params['appId'];
       this.serv.getVideogameDetail(this.appId).subscribe(videogame => {
         this.videogame = videogame;
-        console.log(videogame);
       })
     });
   }
