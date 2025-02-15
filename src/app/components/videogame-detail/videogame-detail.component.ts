@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NewsCardComponent} from '../news-card/news-card.component';
 import {RequestClientService} from '../../services/request-client.service';
 import {VideogameDetailDTO} from '../../models/VideogameDetailDTO';
@@ -21,25 +21,28 @@ import {ReplaceCommaPipe} from '../../pipes/replaceCommaPipe';
   styleUrl: './videogame-detail.component.css',
   templateUrl: './videogame-detail.component.html'
 })
-export class VideogameDetailComponent {
+export class VideogameDetailComponent implements OnInit {
 
   videogame!: VideogameDetailDTO;
   appId!: number;
   totalStars: number[] = [1, 2, 3, 4, 5];
 
   constructor(private route: ActivatedRoute, private serv: RequestClientService) {
-    this.route.params.subscribe(params => {
-      this.appId = +params['appId'];
-      this.serv.getVideogameDetail(this.appId).subscribe(videogame => {
-        this.videogame = videogame;
-      })
-    });
   }
 
   decodeHtml(html: string): string {
     const txt = document.createElement('textarea');
     txt.innerHTML = html;
     return txt.value;
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.appId = +params['appId'];
+      this.serv.getVideogameDetail(this.appId).subscribe(videogame => {
+        this.videogame = videogame;
+      })
+    });
   }
 
 }
