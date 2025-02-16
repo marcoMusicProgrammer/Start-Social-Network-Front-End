@@ -18,7 +18,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
   styleUrl: './videogame-page.component.css'
 })
 export class VideogamePageComponent implements OnInit {
-  videogames: VideogameResp[] = [];
+  protected videogames: VideogameResp[] = [];
   searchValue: string = '';
   searchForm!: FormGroup;
 

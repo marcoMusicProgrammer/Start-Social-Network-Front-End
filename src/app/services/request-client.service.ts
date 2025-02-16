@@ -13,6 +13,7 @@ import {VideogameDetailDTO} from '../models/VideogameDetailDTO';
 import {NewsDTO} from '../models/NewsDTO';
 import {RecommendationDTO} from '../models/RecommendationDTO';
 import {FriendSummuryDTO} from '../models/FriendSummuryDTO';
+import {AchievementDTO} from '../models/AchievementDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -85,6 +86,10 @@ export class RequestClientService {
 
   getNewsVideogame(appId:number):Observable<NewsDTO[]> {
     return this.http.get<NewsDTO[]>(`/api/steam/news/${appId}`);
+  }
+
+  getAchievementsVideogame(appId:number):Observable<AchievementDTO[]>{
+    return this.http.get<AchievementDTO[]>(`/api/steam/achievements/${appId}`);
   }
 
   getRecommendations():Observable<RecommendationDTO[]> {

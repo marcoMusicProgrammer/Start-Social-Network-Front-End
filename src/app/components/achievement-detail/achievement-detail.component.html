@@ -1,0 +1,28 @@
+
+<ng-container *ngIf="!isLoaded; else content">
+  <div class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #content>
+<div *ngIf="hasAchievements">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let achievement of achievements">
+      <div class="card h-100 custom-card text-white mt-5">
+        <img [src]="achievement.iconUrl" class="card-img-top p-3 card-img-top" [alt]="achievement.achievementName" title="{{achievement.achievementName}}">
+        <div class="card-body">
+          <h5 class="card-title text-light">{{ achievement.achievementName }}</h5>
+          <p class="card-text text-light">{{ achievement.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoaded&&!hasAchievements">
+  <p class="text-muted text-center text-gray no-achievements">No achievements available 😞</p>
+</div>
+</ng-template>

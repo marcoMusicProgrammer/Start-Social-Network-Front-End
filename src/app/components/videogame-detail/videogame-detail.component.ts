@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NewsCardComponent} from '../news-card/news-card.component';
 import {RequestClientService} from '../../services/request-client.service';
 import {VideogameDetailDTO} from '../../models/VideogameDetailDTO';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {ReplaceDashPipe} from '../../pipes/replaceDashPipe';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ReplaceCommaPipe} from '../../pipes/replaceCommaPipe';

@@ -1,0 +1,25 @@
+
+<div>
+  <form [formGroup]="searchForm" class="searchBar"
+        (ngSubmit)="onSearchSubmit()"
+  >
+    <input type="text" placeholder="Search..." formControlName="searchValue" />
+  </form>
+</div>
+
+
+<div class="container">
+  <div class="row g-4">
+    <div class="col-4 col-md-3 col-lg-2" *ngFor="let videogame of videogames">
+      <div class="d-flex flex-column align-items-center">
+        <a type="button" class="btn btn-outline-line py-1 px-3 mt-2"
+           [routerLink]="['/achievement-detail', videogame?.appId]"
+           title="{{ videogame.videogameName }}">
+        <img src="{{ videogame?.iconImgUrl }}"
+             class="img-thumbnail"
+             alt="icon">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
